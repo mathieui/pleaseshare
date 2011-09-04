@@ -4,6 +4,7 @@ from django.core.context_processors import csrf
 from django.shortcuts import render_to_response, get_object_or_404
 from django.contrib.sites.models import Site
 from django.conf import settings
+from urllib import quote
 
 # system imports
 from os import mkdir, path, stat
@@ -63,7 +64,7 @@ def handle_uploaded_file(f):
     t = maketorrent.TorrentMetadata()
     t.data_path = file
     t.comment = "Created with pleaseshare" # self-advertisement
-    t.webseeds = ['http://%s%s%s' % (Site.objects.get_current().domain, u.get_file(), u.name)]
+    t.webseeds = ['http://%s%s%s' % (Site.objects.get_current().domain, quote(u.get_file()))]
     t.save(path.join(folder, "%s.torrent" % f.name))
     u.save()
     return u

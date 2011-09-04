@@ -1,0 +1,138 @@
+html {
+    background: #001;
+}
+body {
+    width: 600px;
+    background: #AAA;
+    margin: auto;
+    border-bottom-right-radius: 15px;
+    border-bottom-left-radius: 15px;
+    box-shadow: 1px 1px 10px #ACC;
+}
+h1 {
+    margin: auto;
+    text-align: center;
+    margin-top: 0px;
+}
+a {
+    text-decoration: none;
+    color: black;
+}
+h2 {
+    color: white;
+    text-align: center;
+}
+p {
+    text-align: justify;
+}
+pre {
+    margin: auto;
+    padding: 4px;
+    background: #FFF;
+    color: #000;
+    border: 2px dashed gray;
+    width: 400px;
+}
+
+footer {
+    margin: auto;
+    text-align: center;
+    padding-bottom: 5px;
+}
+footer a {
+    color: #000;
+    text-decoration: none;
+}
+footer a:hover {
+    text-decoration: underline;
+}
+
+#infos {
+    width: 520px;
+    padding-top: 20px;
+    margin: auto;
+    margin-top: 30px;
+    margin-bottom: 15px;
+    text-align: justify;
+    padding: 5px;
+    background: #14a2c9;
+    border-radius: 10px;
+    display: block;
+}
+
+#send {
+    margin-top: 25px;
+    background: #0065c3;
+    color: #FFF;
+    height: 70px;
+    width: 70px;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 5px 5px 5px #888;
+}
+#send:hover {
+    text-decoration: underline;
+}
+.center {
+    margin: auto;
+    display: block;
+    text-align: center;
+}
+
+.info-important {
+    background: red;
+}
+.info-ok {
+    background: green;
+}
+#optionsa {
+    border-radius: 5px;
+    margin: 4px;
+    color: black;
+    padding: 4px;
+    background: #0065c3;
+    text-decoration: none;
+    font-size: 80%;
+}
+#options {
+    display: none;
+    margin: auto;
+    width: 520px;
+    padding-top: 20px;
+    margin-top: 20px;
+    text-align: left;
+    padding: 5px;
+    background: #14a2c9;
+    border-radius: 10px;
+}
+
+#options input,textarea {
+    margin-left: 50px;
+    border-radius: 4px;
+}
+
+#options:target {
+    display: block;
+}
+#download {
+    background: #0065c3;
+    color: #FFF;
+    width: 170px;
+    padding: 5px;
+    border: none;
+    margin-bottom: 50px;
+    border-radius: 10px;
+    text-decoration: none;
+    box-shadow: 5px 5px 5px #888;
+}
+#download:active {
+    padding: 2px;
+    margin-bottom: 53px;
+}
+.key {
+    color: #FFF;
+}
+#sendform {
+    padding-bottom: 100px;
+    padding-top: 100px;
+}

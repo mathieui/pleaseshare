@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block body %}
+<p id="infos">
+<span class="key">Name:</span> {{object.name}}<br/>
+<span class="key">Size:</span> {{object.size}} MiB<br/>
+<span class="key">Uploader:</span> {{object.uploader}}<br/>
+<span class="key">Description:</span> <br/></p><pre id="description">{{object.description}}</pre><br/>
+<a class="center" id="download" href="{{object.get_torrent_file}}">Download .torrent</a>
+<form method="POST" action="/delete/" id="deletion">
+    {% csrf_token %}
+    <input type="hidden" name="id" value="{{object.uuid}}"/>
+    <label for="delete">Delete file: </label><input type="password" id="delete" name="delete"/><input type="submit"/>
+</form>
+{% endblock %}

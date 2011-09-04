@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block body %}
+{% if msg_imp %}
+<p class="info-important">{{msg_imp}}</p>
+{% endif %}
+{% if msg_ok %}
+<p class="info-ok">{{msg_ok}}</p>
+{% endif %}
+
+<form method="post" action="/upload/" enctype="multipart/form-data" id="sendform">
+    {% csrf_token %}
+    <p class="center">
+        <input type="file" name="please" id="fileselect"/>
+        <a href="#options" id="optionsa">Options</a>
+        <br/>
+    </p>
+    <div class="options center" id="options">
+        <label for="delete">Deletion password:</label>
+        <br/><input type="password" id="delete" name="delete"/>
+        <br/>
+        <label for="user">Uploader name:</label>
+        <br/><input type="text" name="user" id="user"/>
+        <br/>
+        <label for="description">Description:</label>
+        <br/><textarea rows="10" cols="20" name="description" id="description"></textarea>
+        <br/>
+    </div>
+    <p class="center">
+    <input type="submit" id="send" value="Send file">
+    </p>
+</form>
+{% endblock %}

@@ -34,3 +34,6 @@ Then install the dependencies:
 
   $ cd pleaseshare
   $ pip install -r requirements.txt
+
+And manage it as you would do with any other django application.
+Also, do not forget to use a REAL web server to handle the uploaded files, else the webseeds won’t work, since the built-in file server do not support resuming.

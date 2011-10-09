@@ -147,3 +147,4 @@ LOGGING = {
 }
 
 APPEND_SLASH = False
+from local_settings import *

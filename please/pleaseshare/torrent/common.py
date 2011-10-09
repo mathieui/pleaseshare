@@ -54,7 +54,7 @@ def create_magnet_uri(infohash, name=None, trackers=[]):
 
     """
     from base64 import b32encode
-    uri = "magnet:?xt=urn:btih:" + b32encode(infohash.decode("hex"))
+    uri = "magnet:?xt=urn:btih:" + b32encode(infohash)
     if name:
         uri = uri + "&dn=" + name
     if trackers:

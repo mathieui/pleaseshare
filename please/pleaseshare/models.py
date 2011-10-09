@@ -8,7 +8,7 @@ class Upload(models.Model):
     password = models.CharField(max_length=32, default="", blank=True)
     description = models.CharField(max_length=400, default="", blank=True)
     size = models.CharField(max_length=8)
-    # magnet link entry later?
+    magnet = models.TextField(default="")
 
     def __unicode__(self):
         return '%s - %s/%s - %s' % (self.uploader, self.uuid, self.name, self.date)

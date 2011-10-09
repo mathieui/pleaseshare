@@ -6,6 +6,7 @@
 <span class="key">Uploader:</span> {{object.uploader}}<br/>
 <span class="key">Description:</span> <br/></p><pre id="description">{{object.description}}</pre><br/>
 <a class="center" id="download" href="{{object.get_torrent_file}}">Download .torrent</a>
+<a class="center" id="download" href="{{object.magnet}}">Magnet link</a>
 <form method="POST" action="/delete/" id="deletion">
     {% csrf_token %}
     <input type="hidden" name="id" value="{{object.uuid}}"/>

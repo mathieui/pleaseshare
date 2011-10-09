@@ -38,7 +38,7 @@ import os
 from hashlib import sha1 as sha
 from chardet import detect
 
-from common import get_path_size
+from common import get_path_size, create_magnet_uri
 from bencode import bencode, bdecode
 
 class InvalidPath(Exception):
@@ -87,6 +87,9 @@ class TorrentMetadata(object):
         :type progress: function(num_completed, num_pieces)
 
         :raises InvalidPath: if the data_path has not been set
+
+        :returns: The magnet link
+        :rtype: string
 
         """
         if not self.data_path:
@@ -226,6 +229,7 @@ class TorrentMetadata(object):
         wr = open(torrent_path, 'wb')
         wr.write(bencode(torrent))
         wr.close()
+        return create_magnet_uri(sha(bencode(torrent["info"])).digest())
 
     def get_data_path(self):
         """

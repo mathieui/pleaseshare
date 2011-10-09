@@ -11,6 +11,7 @@
 # Written by Petru Paler
 
 # Minor modifications made by Andrew Resch to replace the BTFailure errors with Exceptions
+
 from chardet import detect
 
 def decode_int(x, f):

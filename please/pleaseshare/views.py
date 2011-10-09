@@ -64,7 +64,7 @@ def handle_uploaded_file(f):
     t = maketorrent.TorrentMetadata()
     t.data_path = file
     t.comment = "Created with pleaseshare" # self-advertisement
-    t.webseeds = ['http://%s%s%s' % (Site.objects.get_current().domain, quote(u.get_file()))]
-    t.save(path.join(folder, "%s.torrent" % f.name))
+    t.webseeds = ['http://%s%s' % (Site.objects.get_current().domain, quote(u.get_file()))]
+    u.magnet = t.save(path.join(folder, "%s.torrent" % f.name))
     u.save()
     return u

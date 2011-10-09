@@ -1,3 +1,4 @@
+#coding: utf-8
 # django imports
 from django.http import HttpResponseRedirect
 from django.core.context_processors import csrf

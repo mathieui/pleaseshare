@@ -1,30 +1,37 @@
 html {
     background: #001;
 }
+
 body {
     width: 600px;
-    background: #AAA;
+    background: #DDD;
     margin: auto;
+    margin-top: 50px;
     border-bottom-right-radius: 15px;
     border-bottom-left-radius: 15px;
-    box-shadow: 1px 1px 10px #ACC;
+    box-shadow: 1px 1px 1px #ACC;
 }
+
 h1 {
     margin: auto;
     text-align: center;
     margin-top: 0px;
 }
+
 a {
     text-decoration: none;
     color: black;
 }
+
 h2 {
-    color: white;
+    color: black;
     text-align: center;
 }
+
 p {
     text-align: justify;
 }
+
 pre {
     margin: auto;
     padding: 4px;
@@ -34,15 +41,38 @@ pre {
     width: 400px;
 }
 
+input, textarea {
+    border: 1px solid black;
+    color: #222;
+    padding: 2px;
+    background: #efefef;
+    margin-bottom: 5px;
+}
+
+textarea {
+    width: 99%;
+    margin: auto;
+}
+
+header {
+    text-align: center;
+    font-size: 110%;
+    border: 1px dashed;
+    background: #f3efcf;
+}
+
 footer {
     margin: auto;
     text-align: center;
     padding-bottom: 5px;
+    border-top: 1px dotted black;
 }
+
 footer a {
     color: #000;
     text-decoration: none;
 }
+
 footer a:hover {
     text-decoration: underline;
 }
@@ -70,21 +100,11 @@ footer a:hover {
     border-radius: 10px;
     box-shadow: 5px 5px 5px #888;
 }
+
 #send:hover {
     text-decoration: underline;
 }
-.center {
-    margin: auto;
-    display: block;
-    text-align: center;
-}
 
-.info-important {
-    background: red;
-}
-.info-ok {
-    background: green;
-}
 #optionsa {
     border-radius: 5px;
     margin: 4px;
@@ -94,6 +114,7 @@ footer a:hover {
     text-decoration: none;
     font-size: 80%;
 }
+
 #options {
     display: none;
     margin: auto;
@@ -107,7 +128,6 @@ footer a:hover {
 }
 
 #options input,textarea {
-    margin-left: 50px;
     border-radius: 4px;
 }
 
@@ -125,14 +145,52 @@ footer a:hover {
     text-decoration: none;
     box-shadow: 5px 5px 5px #888;
 }
+
 #download:active {
     padding: 2px;
     margin-bottom: 53px;
 }
+
+#sendform {
+    padding-bottom: 10px;
+    padding-top: 10px;
+}
+
+.center {
+    margin: auto;
+    display: block;
+    text-align: center;
+}
+
+.info-important {
+    background: red;
+}
+
+.info-ok {
+    background: green;
+}
+
 .key {
     color: #FFF;
 }
-#sendform {
-    padding-bottom: 100px;
-    padding-top: 100px;
+
+.classiclabel {
+    width: 200px;
+    display: block;
+    float: left;
+    text-align: right !important;
 }
+
+.classicinput {
+    width: 200px;
+    margin-left: 5px;
+    display: block;
+    float: left;
+}
+
+.clear {
+    clear: both;
+    display: block;
+    margin: 0px;
+}
+

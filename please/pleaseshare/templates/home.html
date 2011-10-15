@@ -8,6 +8,8 @@
 <p class="info-ok">{{msg_ok}}</p>
 {% endif %}
 
+<p id="infos" style="text-align: center">Select a file to upload.</p>
+
 <form method="post" action="/upload/" enctype="multipart/form-data" id="sendform">
     {% csrf_token %}
     <p class="center">
@@ -15,17 +17,18 @@
         <a href="#options" id="optionsa">Options</a>
         <br/>
     </p>
-    <div class="options center" id="options">
-        <label for="delete">Deletion password:</label>
-        <br/><input type="password" id="delete" name="delete"/>
+    <fieldset class="options center" id="options">
+        <label for="delete" class="classiclabel">Deletion password:</label>
+        <input type="password" id="delete" name="delete" class="classicinput"/>
         <br/>
-        <label for="user">Uploader name:</label>
-        <br/><input type="text" name="user" id="user"/>
+        <label for="user" class="classiclabel">Uploader name:</label>
+        <input type="text" name="user" id="user" class="classicinput"/>
         <br/>
-        <label for="description">Description:</label>
-        <br/><textarea rows="10" cols="20" name="description" id="description"></textarea>
-        <br/>
-    </div>
+        <label for="description" class="clear">Description:</label>
+        <br/><textarea name="description" id="description"></textarea>
+        <p>If the file is a tar file, you can choose to detar it at upload, in order to have a multi-file torrent</p>
+        Detar? <input type="checkbox" name="detar"/>
+    </fieldset>
     <p class="center">
     <input type="submit" id="send" value="Send file">
     </p>

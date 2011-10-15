@@ -6,7 +6,11 @@
         <link rel="stylesheet" href="/static/style.css" type="text/css"/>
     </head>
     <body>
-        {% block header %}<a href="{% url home %}"><h1>PleaseShare</h1></a>{% endblock %}
+        <header>
+        {% block header %}
+            <a href="{% url home %}"><h1>PleaseShare</h1></a>
+        {% endblock %}
+        </header>
         {% block body %}{% endblock %}
         {% block footer %}<footer><a title="About" href="{% url About %}">About</a> | <a title="Terms of Service" href="{% url ToS %}">ToS</a> | <a title="Contact" href="{% url Contact %}">Contact</a></footer>{% endblock %}
     </body>

@@ -18,6 +18,7 @@ urlpatterns = patterns('',
     url(r'^contact$', direct_to_template, {'template': 'contact.html'}, name='Contact'),
     url(r'^about$', direct_to_template, {'template': 'about.html'}, name='About'),
     url(r'^tos$', direct_to_template, {'template': 'tos.html'}, name='ToS'),
+    url(r'^help$', direct_to_template, {'template': 'help.html'}, name='Help'),
 
     url(r'^admin/', include(admin.site.urls)),
 )

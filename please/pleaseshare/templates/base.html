@@ -12,6 +12,6 @@
         {% endblock %}
         </header>
         {% block body %}{% endblock %}
-        {% block footer %}<footer><a title="About" href="{% url About %}">About</a> | <a title="Terms of Service" href="{% url ToS %}">ToS</a> | <a title="Contact" href="{% url Contact %}">Contact</a></footer>{% endblock %}
+        {% block footer %}<footer><nav><a href="{% url Help %}" title="Need help?">Need help?</a> | <a title="About" href="{% url About %}">About</a> | <a title="Terms of Service" href="{% url ToS %}">ToS</a> | <a title="Contact" href="{% url Contact %}">Contact</a></nav></footer>{% endblock %}
     </body>
 </html>

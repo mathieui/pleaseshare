@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block body %}
+<h2>Help</h2>
+<div id="infos">
+    <h3>It seems that I can only upload one file to this website, it sucks!</h3>
+    <p>Yeah, at the moment, due to the limitations of html, it is impossible to upload
+    folders directly. However, if you upload a tar file and enable the option "Extract
+    tar" the torrent will contain the de-tarred files of this archive, under a subdirectory
+    named after the archive (minus the .tar part).
+    </p>
+    <h3>I just uploaded a file, what do I have to do?</h3>
+    <p>You can share it with your friends, of anyone, if you give them a link
+    to this page, to the torrent, or the magnet link.
+    You should also start the torrent into your favorite torrent client, this way,
+    you will be able to share it. If you don’t do that, the download speed for the
+    people who want download the file will be smaller.
+    </p>
+    <h3>How do I delete a file if I don’t want to keep sharing it?</h3>
+    <p>You have to go to the page for the file and enter the deletion password into
+    the box at the bottom of the page. If you don’t have the password, we have no way
+    of knowing if you are the initial uploader (because this service is entirely anonymous)
+    and therefore we will not be able to comply with your request.
+    <br/>
+    You should also understand that because of the way the torrent network was built, the file
+    cannot be remotely deleted on the computers of the file-sharers. So while the file is gone
+    from the website, it can still be shared and accessible via a saved torrent file or magnet
+    link.
+    </p>
+</div>
+{% endblock %}

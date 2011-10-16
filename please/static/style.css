@@ -90,6 +90,7 @@ footer a:hover {
     display: block;
 }
 
+
 #send {
     margin-top: 25px;
     background: #0065c3;
@@ -193,4 +194,18 @@ footer a:hover {
     display: block;
     margin: 0px;
 }
+
+.infos {
+    width: 520px;
+    padding-top: 20px;
+    margin: auto;
+    margin-top: 30px;
+    margin-bottom: 15px;
+    text-align: justify;
+    padding: 5px;
+    background: #14a2c9;
+    border-radius: 10px;
+    display: block;
+}
+
 

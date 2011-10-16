@@ -1,5 +1,8 @@
 #coding: utf-8
 from django.db import models
+from django.conf import settings
+import subprocess
+from os import path
 
 class Upload(models.Model):
     """
@@ -33,3 +36,19 @@ class Upload(models.Model):
 
     def get_file(self):
         return '/upload/%s/%s' % (self.uuid, self.name)
+
+    def get_files(self):
+        dir = path.join(settings.MEDIA_ROOT, self.uuid, self.name)
+        try:
+            proc = subprocess.Popen(['tree', '-ah', dir], stdout=subprocess.PIPE)
+            res = proc.communicate()[0]
+        except OSError:
+            res = ''
+            print('Call to `tree` failed.')
+        tb = res.split('\n')
+        if self.multifile:
+            suffix = '/'
+        else:
+            suffix = ''
+        tb[0] = str(self.name + suffix)
+        return '\n'.join(tb)

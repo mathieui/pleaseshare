@@ -38,4 +38,4 @@ Then install the dependencies (assuming you are using a virtualenv):
 And manage it as you would do with any other django application.
 Do not forget to add your website in the "Sites" section, because the web seed generated will be using example.com if you don’t.
 Also, do not forget to use a REAL web server to handle the uploaded files, else the webseeds won’t work, since the built-in file server do not support resuming file transfers.
-
+You will also need 'tree' in order to display the torrent structure.

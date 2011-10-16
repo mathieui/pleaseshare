@@ -3,8 +3,20 @@
 <p id="infos">
 <span class="key">Name:</span> {{object.name}}<br/>
 <span class="key">Size:</span> {{object.size}} MiB<br/>
+{% if object.uploader %}
 <span class="key">Uploader:</span> {{object.uploader}}<br/>
-<span class="key">Description:</span> <br/></p><pre id="description">{{object.description}}</pre><br/>
+{% endif %}
+</p>
+{% if object.description %}
+<p class="infos">
+<span class="key">Description:</span> <br/>
+</p>
+<pre id="description">{{object.description}}</pre><br/>
+{% endif %}
+<p class="infos">
+<span class="key">Files:</span><br/>
+</p>
+<pre style="overflow:auto" id="files">{{object.get_files}}</pre>
 <a class="center" id="download" href="{{object.get_torrent_file}}">Download .torrent</a>
 <a class="center" id="download" href="{{object.magnet}}">Magnet link</a>
 <form method="POST" action="/delete/" id="deletion">

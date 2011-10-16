@@ -144,7 +144,7 @@ def extract_tar(f, folder):
             o.extract(member, rep)
             try:
                 # python has no option to use umask while extracting, so…
-                chmod(path.join(rep, member.name), 0655)
+                chmod(path.join(rep, member.name), 0755)
             except:
                 pass
     # remove old tar file

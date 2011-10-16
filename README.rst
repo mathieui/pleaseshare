@@ -28,7 +28,7 @@ Retrieve the project from gitorious_:
 
   $ git clone git://gitorious.org/pleaseshare/pleaseshare.git
 
-Then install the dependencies:
+Then install the dependencies (assuming you are using a virtualenv):
 
 ::
 
@@ -36,4 +36,6 @@ Then install the dependencies:
   $ pip install -r requirements.txt
 
 And manage it as you would do with any other django application.
-Also, do not forget to use a REAL web server to handle the uploaded files, else the webseeds won’t work, since the built-in file server do not support resuming.
+Do not forget to add your website in the "Sites" section, because the web seed generated will be using example.com if you don’t.
+Also, do not forget to use a REAL web server to handle the uploaded files, else the webseeds won’t work, since the built-in file server do not support resuming file transfers.
+

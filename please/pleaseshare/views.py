@@ -7,7 +7,7 @@ from django.contrib.sites.models import Site
 from django.conf import settings
 
 # system imports
-from os import mkdir, path, stat, walk, remove
+from os import mkdir, path, stat, walk, remove, chmod
 from shutil import rmtree
 from uuid import uuid4
 from urllib import quote
@@ -115,14 +115,20 @@ def extract_tar(f, folder):
     except:
         return False
     name = '.'.join(f.name.split('.')[:-1])
-    mkdir(path.join(folder, name))
+    rep = path.join(folder, name)
+    mkdir(rep)
     for member in o:
-        # test against file named by stupid people
+        # test against files named by stupid people
         if not member.name.startswith('/') and not \
                 '..' in member.name:
-            o.extract(member, path.join(folder, name))
+            o.extract(member, rep)
+            try:
+                # python has no option to use umask while extracting, so…
+                chmod(path.join(rep, member.name), 0655)
+            except:
+                pass
     # remove old tar file
     remove(path.join(folder, f.name))
     f.name = name
-    return path.join(folder, name)
+    return rep
 

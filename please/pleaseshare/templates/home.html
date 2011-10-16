@@ -24,8 +24,12 @@
         <label for="user" class="classiclabel">Uploader name:</label>
         <input type="text" name="user" id="user" class="classicinput"/>
         <br/>
-        <label for="description" class="clear">Description:</label>
+        <label for="description" class="clear">Description (up to 400 characters):</label>
         <br/><textarea name="description" id="description"></textarea>
+        <label for="webseeds" class="clear">Web seeds (one per line):</label>
+        <br/><textarea name="webseeds" id="webseeds"></textarea>
+        <label for="trackers" class="clear">Trackers (one per line):</label>
+        <br/><textarea name="trackers" id="trackers"></textarea>
         <p>If the file is a tar file, you can choose to detar it at upload, in order to have a multi-file torrent</p>
         Detar? <input type="checkbox" name="detar"/>
     </fieldset>

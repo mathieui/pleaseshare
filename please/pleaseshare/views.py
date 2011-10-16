@@ -29,6 +29,23 @@ def get_dir_size(start_path = '.'):
             total_size += path.getsize(fp)
     return total_size
 
+def remove_empty_str(tab):
+    for i in range(tab.count('')):
+        tab.remove('')
+
+def format_trackers(tab):
+    for i, j in enumerate(tab[:]):
+        tab[i] = [j]
+
+def create_torrent(data_path, comment='', webseeds=[], trackers=[]):
+    t = maketorrent.TorrentMetadata()
+    t.data_path = data_path
+    t.comment = comment
+    t.webseeds = webseeds
+    if trackers:
+        t.trackers = trackers
+    return t
+
 def upload_file(request):
     """
     Get the file upload form
@@ -36,7 +53,12 @@ def upload_file(request):
     if request.method == 'POST':
         detar = request.POST.get('detar', 'off')
         detar = (detar == 'on')
-        obj = handle_uploaded_file(request.FILES[u'please'], detar)
+        trackers = request.POST.get('trackers', '').split('\n')[:50]
+        remove_empty_str(trackers)
+        format_trackers(trackers)
+        webseeds = request.POST.get('webseeds', '').split('\n')[:50]
+        remove_empty_str(webseeds)
+        obj = handle_uploaded_file(request.FILES[u'please'], detar, trackers, webseeds)
         if obj:
             obj.uploader = request.POST.get('user', 'Anonymous')
             obj.description = request.POST.get('description', '')
@@ -56,14 +78,14 @@ def delete_file(request):
         if password and password == up.password:
             rmtree(path.join(settings.MEDIA_ROOT, id))
             up.delete()
-            msg_ok = "Your file has successfully been deleted"
+            msg_ok = "Your file has been successfully deleted"
         else:
             msg_imp = 'Failed to delete the file, please retry later or contact one of the administrators'
     di = locals()
     di.update(csrf(request))
     return render_to_response('home.html', di)
 
-def handle_uploaded_file(f, detar=False):
+def handle_uploaded_file(f, detar=False, trackers=[], webseeds=[]):
     """
     Write a file to the disk, and in the database
     """
@@ -86,10 +108,8 @@ def handle_uploaded_file(f, detar=False):
             return False
     size = round(size / (1024.0**2), 2)
     u = Upload(uuid=id, name=f.name, size=size)
-    t = maketorrent.TorrentMetadata()
-    t.data_path = _file
-    t.comment = "Created with pleaseshare" # self-advertisement
-    t.webseeds = ['http://%s%s' % (Site.objects.get_current().domain, quote(u.get_file()))]
+    webseeds = webseeds + ['http://%s%s' % (Site.objects.get_current().domain, quote(u.get_file()))]
+    t = create_torrent(_file, "Created with pleaseshare", webseeds, trackers)
     u.magnet = t.save(path.join(folder, "%s.torrent" % f.name))
     u.multifile = multifile
     u.save()

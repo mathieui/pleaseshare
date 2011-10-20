@@ -3,18 +3,23 @@
 {% block body %}
 <h2>About pleaseshare</h2>
 <div id="infos">
-<h3>What is pleaseshare?</h3>
-Pleaseshare is a file-sharing website, with "sharing" as its core value.<br/>
-It means that there won’t be a direct link on your file once you upload it, but pleaseshare will generate a torrent for you, with a webseed.<br/>
-<br/>
-It means that people who download the file will always get the best speed available (since there is a webseed, it will be at worst the same speed than if they downloaded it directly via http).
-<br/>
-It also means that the uploader can use this torrent to seed the file that is already on his computer, thus increasing the download speed for people on the other end.
-<h3>Things to know</h3>
-Please note that pleaseshare solely relies on DHT, which means that no trackers are needed to get peers. You can provide trackers if you want, but they are not mandatory.
-<br/>
-You must also understand that, even if pleaseshare allows you to delete the files that you upload on this server, the torrent can still stay active without a webseed.
-<h3>Licence</h3>
-Pleaseshare is licenced under the AGPL v3, with some GPL bits coming from the deluge client.
+    <h3>What is pleaseshare?</h3>
+    <p>
+    Pleaseshare is a file-sharing website, with "sharing" as its core value.<br/>
+    It means that there won’t be a direct link on your file once you upload it, but pleaseshare will generate a torrent for you, with a webseed.<br/>
+    It means that people who download the file will always get the best speed available (since there is a webseed, it will be at worst the same speed than if they downloaded it directly via http).<br/>
+    It also means that the uploader can use this torrent to seed the file that is already on his computer, thus increasing the download speed for people on the other end.
+    </p>
+    <h3>Things to know</h3>
+    <p>
+    Please note that pleaseshare solely relies on DHT, which means that no trackers are needed to get peers. You can provide trackers if you want, but they are not mandatory.
+    <br/>
+    You must also understand that, even if pleaseshare allows you to delete the files that you upload on this server, the torrent can still stay active without a webseed.
+    </p>
+    <h3>Licence</h3>
+    <p>
+    Pleaseshare is licenced under the AGPL v3, with some GPL bits coming from the deluge client.<br/>
+    And the source is <a href="https://gitorious.org/pleaseshare" title="pleaseshare source">on gitorious</a>.
+    </p>
 </div>
 {% endblock %}

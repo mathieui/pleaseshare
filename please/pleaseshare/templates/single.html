@@ -17,8 +17,11 @@
 <span class="key">Files:</span><br/>
 </p>
 <pre style="overflow:auto" id="files">{{object.get_files}}</pre>
-<a class="center" id="download" href="{{object.get_torrent_file}}">Download .torrent</a>
-<a class="center" id="download" href="{{object.magnet}}">Magnet link</a>
+<a class="center download" href="{{object.get_torrent_file}}">Download .torrent</a>
+{% if ddl and not object.multifile %}
+<a class="center download" href="{{object.get_file}}">Download file</a>
+{% endif %}
+<a class="center download" href="{{object.magnet}}">Magnet link</a>
 <form method="POST" action="/delete/" id="deletion">
     {% csrf_token %}
     <input type="hidden" name="id" value="{{object.uuid}}"/>

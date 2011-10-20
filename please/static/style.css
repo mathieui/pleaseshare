@@ -23,6 +23,10 @@ a {
     color: black;
 }
 
+a:hover {
+    text-decoration: underline;
+}
+
 h2 {
     color: black;
     text-align: center;
@@ -30,6 +34,9 @@ h2 {
 
 p {
     text-align: justify;
+}
+p a {
+    color: #0A0A2E;
 }
 
 pre {
@@ -135,19 +142,26 @@ footer a:hover {
 #options:target {
     display: block;
 }
-#download {
+
+#delete {
+    margin: 20px;
+}
+
+.download {
     background: #0065c3;
     color: #FFF;
     width: 170px;
     padding: 5px;
     border: none;
-    margin-bottom: 50px;
+    margin: auto;
+    margin-top: 20px !important;
+    display: block;
     border-radius: 10px;
     text-decoration: none;
     box-shadow: 5px 5px 5px #888;
 }
 
-#download:active {
+.download:active {
     padding: 2px;
     margin-bottom: 53px;
 }
@@ -207,5 +221,3 @@ footer a:hover {
     border-radius: 10px;
     display: block;
 }
-
-

@@ -51,13 +51,26 @@ def upload_file(request):
     Get the file upload form
     """
     if request.method == 'POST':
-        detar = request.POST.get('detar', 'off')
-        detar = (detar == 'on')
-        trackers = request.POST.get('trackers', '').split('\n')[:50]
-        remove_empty_str(trackers)
-        format_trackers(trackers)
-        webseeds = request.POST.get('webseeds', '').split('\n')[:50]
-        remove_empty_str(webseeds)
+
+        if settings.OPTION_MULTIFILE:
+            detar = request.POST.get('detar', 'off')
+            detar = (detar == 'on')
+        else:
+            detar = False
+
+        if settings.OPTION_TRACKERS:
+            trackers = request.POST.get('trackers', '').split('\n')[:50]
+            remove_empty_str(trackers)
+            format_trackers(trackers)
+        else:
+            trackers = []
+
+        if settings.OPTION_WEBSEEDS:
+            webseeds = request.POST.get('webseeds', '').split('\n')[:50]
+            remove_empty_str(webseeds)
+        else:
+            webseeds = []
+
         obj = handle_uploaded_file(request.FILES[u'please'], detar, trackers, webseeds)
         if obj:
             obj.uploader = request.POST.get('user', 'Anonymous')

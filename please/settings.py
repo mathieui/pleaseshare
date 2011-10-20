@@ -3,6 +3,7 @@
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 from os import getcwd
+from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS
 
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),
@@ -109,6 +110,15 @@ TEMPLATE_DIRS = (
     # Don't forget to use absolute paths, not relative paths.
 )
 
+if 'TEMPLATE_CONTEXT_PROCESSORS' not in locals():
+    TEMPLATE_CONTEXT_PROCESSORS = (
+        'context.processor',
+    )
+else:
+    TEMPLATE_CONTEXT_PROCESSORS += (
+        'context.processor',
+    )
+
 INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -147,4 +157,5 @@ LOGGING = {
 }
 
 APPEND_SLASH = False
+
 from local_settings import *

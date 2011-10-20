@@ -26,12 +26,18 @@
         <br/>
         <label for="description" class="clear">Description (up to 400 characters):</label>
         <br/><textarea name="description" id="description"></textarea>
+        {% if webseeds %}
         <label for="webseeds" class="clear">Web seeds (one per line):</label>
         <br/><textarea name="webseeds" id="webseeds"></textarea>
+        {% endif %}
+        {% if trackers %}
         <label for="trackers" class="clear">Trackers (one per line):</label>
         <br/><textarea name="trackers" id="trackers"></textarea>
+        {% endif %}
+        {% if multifile %}
         <p>If the file is a tar file, you can choose to detar it at upload, in order to have a multi-file torrent</p>
         Detar? <input type="checkbox" name="detar"/>
+        {% endif %}
     </fieldset>
     <p class="center">
     <input type="submit" id="send" value="Send file">

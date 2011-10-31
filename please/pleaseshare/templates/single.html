@@ -1,30 +1,32 @@
 {% extends "base.html" %}
 {% block body %}
-<p id="infos">
-<span class="key">Name:</span> {{object.name}}<br/>
-<span class="key">Size:</span> {{object.size}} MiB<br/>
+<h2>Your torrent</h2>
+<div id="description">
+<dl>
+<dt>Name</dt><dd>{{object.name}}</dd>
+<dt>Size</dt><dd>{{object.size}} MiB</dd>
 {% if object.uploader %}
-<span class="key">Uploader:</span> {{object.uploader}}<br/>
+<dt>Uploader</dt><dd>{{object.uploader}}</dd>
 {% endif %}
-</p>
 {% if object.description %}
-<p class="infos">
-<span class="key">Description:</span> <br/>
-</p>
-<pre id="description">{{object.description}}</pre><br/>
+<dt>Description</dt><dd>{{object.description}}</dd>
 {% endif %}
-<p class="infos">
-<span class="key">Files:</span><br/>
-</p>
-<pre style="overflow:auto" id="files">{{object.get_files}}</pre>
-<a class="center download" href="{{object.get_torrent_file}}">Download .torrent</a>
+</dl>
+</div>
+<h2>Files…</h2>
+<section>
+<pre id="files">{{object.get_files}}</pre>
+</section>
+<section id="buttons">
+<a class="button" href="{{object.get_torrent_file}}">Download .torrent</a>
 {% if ddl and not object.multifile %}
-<a class="center download" href="{{object.get_file}}">Download file</a>
+<a class="button" href="{{object.get_file}}">Download file</a>
 {% endif %}
-<a class="center download" href="{{object.magnet}}">Magnet link</a>
-<form method="POST" action="/delete/" id="deletion">
+<a class="button" href="{{object.magnet}}">Magnet link</a>
+<form method="POST" id="delete" action="/delete/" id="deletion">
     {% csrf_token %}
     <input type="hidden" name="id" value="{{object.uuid}}"/>
     <label for="delete">Delete file: </label><input type="password" id="delete" name="delete"/><input type="submit"/>
 </form>
+</section>
 {% endblock %}

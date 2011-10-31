@@ -6,12 +6,27 @@
         <link rel="stylesheet" href="/static/style.css" type="text/css"/>
     </head>
     <body>
+        <div class="box-shadow"></div>
+        <div class="box-gradient">
         <header>
         {% block header %}
-            <a href="{% url home %}"><h1>PleaseShare</h1></a>
+            <section class="left">
+            <h1><a href="{% url home %}">PleaseShare</a></h1>
+            </section>
+            <section class="right">
+            <nav>
+                <a href="{% url Help %}" title="Need help?">Need help?</a> |
+                <a title="About" href="{% url About %}">About</a> |
+                <a title="Terms of Service" href="{% url ToS %}">ToS</a> |
+                <a title="Contact" href="{% url Contact %}">Contact</a>
+            </nav>
+            </section>
+            <section class="clear"></section>
         {% endblock %}
         </header>
+        <section class="box">
         {% block body %}{% endblock %}
-        {% block footer %}<footer><nav><a href="{% url Help %}" title="Need help?">Need help?</a> | <a title="About" href="{% url About %}">About</a> | <a title="Terms of Service" href="{% url ToS %}">ToS</a> | <a title="Contact" href="{% url Contact %}">Contact</a></nav></footer>{% endblock %}
+        </section>
+        </div>
     </body>
 </html>

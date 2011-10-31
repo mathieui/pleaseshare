@@ -8,39 +8,36 @@
 <p class="info-ok">{{msg_ok}}</p>
 {% endif %}
 
-<p id="infos" style="text-align: center">Select a file to upload.</p>
+<h2>Select a file to upload</h2>
 
 <form method="post" action="/upload/" enctype="multipart/form-data" id="sendform">
     {% csrf_token %}
-    <p class="center">
+    <div class="center">
         <input type="file" name="please" id="fileselect"/>
-        <a href="#options" id="optionsa">Options</a>
-        <br/>
-    </p>
-    <fieldset class="options center" id="options">
-        <label for="delete" class="classiclabel">Deletion password:</label>
+        <a href="#options" class="button" id="optionsa">Options</a>
+    </div>
+    <fieldset id="options">
+        <label for="delete" class="classiclabel">Deletion password</label>
         <input type="password" id="delete" name="delete" class="classicinput"/>
-        <br/>
-        <label for="user" class="classiclabel">Uploader name:</label>
+        <label for="user" class="classiclabel">Uploader name</label>
         <input type="text" name="user" id="user" class="classicinput"/>
-        <br/>
-        <label for="description" class="clear">Description (up to 400 characters):</label>
-        <br/><textarea name="description" id="description"></textarea>
+        <label for="description" class="clear">Description (up to 400 characters)</label>
+        <textarea name="description" id="description"></textarea>
         {% if webseeds %}
-        <label for="webseeds" class="clear">Web seeds (one per line):</label>
-        <br/><textarea name="webseeds" id="webseeds"></textarea>
+        <label for="webseeds" class="clear">Web seeds (one per line)</label>
+        <textarea name="webseeds" id="webseeds"></textarea>
         {% endif %}
         {% if trackers %}
-        <label for="trackers" class="clear">Trackers (one per line):</label>
-        <br/><textarea name="trackers" id="trackers"></textarea>
+        <label for="trackers" class="clear">Trackers (one per line)</label>
+        <textarea name="trackers" id="trackers"></textarea>
         {% endif %}
         {% if multifile %}
-        <p>If the file is a tar file, you can choose to detar it at upload, in order to have a multi-file torrent</p>
+        <p>If the file is a tar file, you can choose to detar it at upload, in order to have a multi-file torrent.</p>
         Detar? <input type="checkbox" name="detar"/>
         {% endif %}
     </fieldset>
-    <p class="center">
-    <input type="submit" id="send" value="Send file">
-    </p>
+    <div class="center">
+        <input type="submit" id="send" value="Send file">
+    </div>
 </form>
 {% endblock %}

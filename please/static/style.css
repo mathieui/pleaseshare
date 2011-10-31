@@ -1,223 +1,358 @@
+/* Reset */
+
+html, body {
+	margin: 0;
+	padding: 0;
+}
+
+
+/* Fonts */
+
+@font-face {
+  font-family: 'DroidSansRegular';
+  src: url('fonts/DroidSans-webfont.eot');
+  src:
+	url('fonts/DroidSans-webfont.eot?#iefix') format('embedded-opentype'),
+	url('fonts/DroidSans-webfont.woff') format('woff'),
+	url('fonts/DroidSans-webfont.ttf') format('truetype'),
+	url('fonts/DroidSans-webfont.svg#DroidSansRegular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'DroidSansBold';
+  src: url('fonts/DroidSans-Bold-webfont.eot');
+  src:
+	url('fonts/DroidSans-Bold-webfont.eot?#iefix') format('embedded-opentype'),
+	url('fonts/DroidSans-Bold-webfont.woff') format('woff'),
+	url('fonts/DroidSans-Bold-webfont.ttf') format('truetype'),
+	url('fonts/DroidSans-Bold-webfont.svg#DroidSansBold') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+
+/* General UI */
+
+
 html {
-    background: #001;
+	font: 16px 'DroidSansRegular', Helvetica, Arial, "Liberation Sans", FreeSans, sans-serif;
 }
 
-body {
-    width: 600px;
-    background: #DDD;
-    margin: auto;
-    margin-top: 50px;
-    border-bottom-right-radius: 15px;
-    border-bottom-left-radius: 15px;
-    box-shadow: 1px 1px 1px #ACC;
+*::selection {
+	background: orange;
+	color: #f5f5f5;
 }
 
-h1 {
-    margin: auto;
-    text-align: center;
-    margin-top: 0px;
+.right {
+	float: right;
 }
 
-a {
-    text-decoration: none;
-    color: black;
-}
-
-a:hover {
-    text-decoration: underline;
-}
-
-h2 {
-    color: black;
-    text-align: center;
-}
-
-p {
-    text-align: justify;
-}
-p a {
-    color: #0A0A2E;
-}
-
-pre {
-    margin: auto;
-    padding: 4px;
-    background: #FFF;
-    color: #000;
-    border: 2px dashed gray;
-    width: 400px;
-}
-
-input, textarea {
-    border: 1px solid black;
-    color: #222;
-    padding: 2px;
-    background: #efefef;
-    margin-bottom: 5px;
-}
-
-textarea {
-    width: 99%;
-    margin: auto;
-}
-
-header {
-    text-align: center;
-    font-size: 110%;
-    border: 1px dashed;
-    background: #f3efcf;
-}
-
-footer {
-    margin: auto;
-    text-align: center;
-    padding-bottom: 5px;
-    border-top: 1px dotted black;
-}
-
-footer a {
-    color: #000;
-    text-decoration: none;
-}
-
-footer a:hover {
-    text-decoration: underline;
-}
-
-#infos {
-    width: 520px;
-    padding-top: 20px;
-    margin: auto;
-    margin-top: 30px;
-    margin-bottom: 15px;
-    text-align: justify;
-    padding: 5px;
-    background: #14a2c9;
-    border-radius: 10px;
-    display: block;
-}
-
-
-#send {
-    margin-top: 25px;
-    background: #0065c3;
-    color: #FFF;
-    height: 70px;
-    width: 70px;
-    border: none;
-    border-radius: 10px;
-    box-shadow: 5px 5px 5px #888;
-}
-
-#send:hover {
-    text-decoration: underline;
-}
-
-#optionsa {
-    border-radius: 5px;
-    margin: 4px;
-    color: black;
-    padding: 4px;
-    background: #0065c3;
-    text-decoration: none;
-    font-size: 80%;
-}
-
-#options {
-    display: none;
-    margin: auto;
-    width: 520px;
-    padding-top: 20px;
-    margin-top: 20px;
-    text-align: left;
-    padding: 5px;
-    background: #14a2c9;
-    border-radius: 10px;
-}
-
-#options input,textarea {
-    border-radius: 4px;
-}
-
-#options:target {
-    display: block;
-}
-
-#delete {
-    margin: 20px;
-}
-
-.download {
-    background: #0065c3;
-    color: #FFF;
-    width: 170px;
-    padding: 5px;
-    border: none;
-    margin: auto;
-    margin-top: 20px !important;
-    display: block;
-    border-radius: 10px;
-    text-decoration: none;
-    box-shadow: 5px 5px 5px #888;
-}
-
-.download:active {
-    padding: 2px;
-    margin-bottom: 53px;
-}
-
-#sendform {
-    padding-bottom: 10px;
-    padding-top: 10px;
+.left {
+	float: left;
 }
 
 .center {
-    margin: auto;
-    display: block;
-    text-align: center;
+	margin: auto;
+	display: block;
+	text-align: center;
+}
+
+.clear, .box div, .box section {
+	clear:both;
+	display: block;
+}
+
+.box section {
+	padding: 0.5em 0;
+}
+
+a {
+	text-decoration: none;
+	color: black;
+}
+
+a:hover {
+	text-decoration: none;
+	border-bottom: 1px dotted orange;
+}
+
+h2 {
+	position: relative;
+	color: #fff;
+	font-size: 1.5em;
+	float: left;
+	clear: both;
+	padding: 10px 10px 10px 20px;
+	margin: 0 20px 20px -26px;
+	-moz-box-shadow: 1px 2px 1px rgba(0,0,0,0.2);
+	-webkit-box-shadow: 1px 2px 1px rgba(0,0,0,0.2);
+	-o-box-shadow: 1px 2px 1px rgba(0,0,0,0.2);
+	box-shadow: 1px 2px 1px rgba(0,0,0,0.2);
+	background-color: orange;
+}
+ 
+ 
+h2:before {
+	content: "";
+	position: absolute;
+	bottom: -10px;
+	left: 0px;
+	border: 5px solid #f68335;
+	border-bottom: 5px solid transparent;
+	border-left: 5px solid transparent;	
+}
+
+p {
+	clear: both;
+	text-align: justify;
+}
+
+p a {
+	color: #0A0A2E;
+}
+
+pre {
+	margin: auto;
+	padding: 0.5em;
+	background: #ddd;
+	color: #555;
+	width: 450px;
+}
+
+
+/* Header */
+
+header {
+	font-family: "Lucida Sans", "Lucida Grande", "Lucida Sans Unicode", Arial, sans-serif;
+	padding: 0.5em;
+	margin: 0;
+	background-color: orange;
+	-webkit-box-shadow: 1px 1px 3px #999;
+	   -moz-box-shadow: 1px 1px 3px #999;
+	        box-shadow: 1px 1px 3px #999;
+}
+
+header .right {
+	padding-top: .3em;
+	color: #d98c00;
+}
+
+header .right a {
+	text-transform: uppercase;
+	font-weight: bold;
+	color: #976100;
+	
+}
+
+header .right a:hover {
+	text-decoration: none;
+	color: #fff;
+}
+
+header h1 {
+	font-size: 3em;
+	margin: 0;
+
+}
+
+header h1 a {
+	color: transparent;
+	background-color: rgba(0, 0, 0, 0.5);
+	text-shadow: rgba(255, 255, 255, 0.3) 0px 3px 3px;
+	-webkit-background-clip: text;
+	-moz-background-clip: text;
+	background-clip: text;
+}
+
+header h1 a:hover {
+	text-decoration: none;
+	background-color: rgba(0, 0, 0, 0.7);
+}
+
+
+/* Box content */
+
+section.box {
+	padding: 1em;
+	background: #f5f5f5;
+	width: 600px;
+	margin: 100px auto;
+	border-radius: 4px;
+	-webkit-box-shadow: 1px 1px 5px #ccc;
+	-moz-box-shadow: 1px 1px 5px #ccc;
+	box-shadow: 1px 1px 5px #ccc;
+}
+
+#options {
+	border: 1px solid #ccc;
+	-webkit-box-shadow: inset 1px 1px 5px #ddd;
+	-moz-box-shadow: inset 1px 1px 5px #ddd;
+	box-shadow: inset 1px 1px 5px #ddd;
+	display: none;
+	margin: auto;
+	width: 520px;
+	padding: 1em;
+	margin-top: 20px;
+	text-align: left;
+	border-radius: 2px;
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
+}
+
+#options:target {
+	display: block;
+}
+
+#send {
+	margin-top: 2em;
+}
+
+.info-ok, .info-important {
+	-webkit-box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
+	-moz-box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
+	box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
+	padding: 0.5em;
 }
 
 .info-important {
-    background: red;
+	background: rgba(255, 7, 0, 0.5);
+	color: #fff;
 }
 
 .info-ok {
-    background: green;
+	background: rgba(103, 228, 111, 0.5);
+	color: #555;
 }
 
-.key {
-    color: #FFF;
+dl {
+  background: #f5f5f5;
+  padding: 0.5em;
+  margin-bottom: 1em;
 }
 
-.classiclabel {
-    width: 200px;
-    display: block;
-    float: left;
-    text-align: right !important;
+dl dt {
+  float: left;
+  clear: left;
+  width: 160px;
+  text-align: right;
+  font-weight: bold;
 }
 
-.classicinput {
-    width: 200px;
-    margin-left: 5px;
-    display: block;
-    float: left;
+dl dt:after {
+  content: ":";
 }
 
-.clear {
-    clear: both;
-    display: block;
-    margin: 0px;
+dl dd {
+  margin: 0 0 0 170px;
+  padding: 0 0 0.5em 0;
 }
 
-.infos {
-    width: 520px;
-    padding-top: 20px;
-    margin: auto;
-    margin-top: 30px;
-    margin-bottom: 15px;
-    text-align: justify;
-    padding: 5px;
-    background: #14a2c9;
-    border-radius: 10px;
-    display: block;
+
+label, #options input, #options textarea {
+	display: block;
+	clear: both;
+}
+
+#options input {
+	width: 200px;
+}
+
+#options input, #options textarea {
+	margin-bottom: 2em;
+}
+
+
+/* View page */
+
+#buttons {
+	margin-top: 2em;
+}
+
+#buttons a {
+	margin-right: 1.5em;
+}
+
+#delete, #delete * {
+	display: inline;
+}
+
+
+/* Gradient */
+
+.box-gradient {
+	position: absolute;
+	width: 100%;
+	min-height: 100%;
+	background: -moz-linear-gradient(left, #CCCCCC 0%, #EEEEEE 50%, #EEEEEE 50%, #CCCCCC 100%);
+	background: -webkit-gradient(linear, left top, right top, color-stop(0%,#CCCCCC),color-stop(50%,#EEEEEE), color-stop(50%,#EEEEEE), color-stop(100%,#CCCCCC));
+}
+
+.box-shadow {
+	position: absolute;
+	left: 50%;
+	margin: 400px 0 0 -290px;
+	bottom: 10px;
+	width: 580px;
+	height: 16px;
+	background: #fff;
+	border-radius: 290px / 8px;
+	-moz-border-radius: 290px / 8px;
+	-webkit-border-radius: 290px / 8px;
+	box-shadow: 0 10px 20px #000;
+	-moz-box-shadow: 0 10px 20px #000;
+	-webkit-box-shadow: 0 10px 20px #000;
+}
+
+
+/* Inputs */
+
+textarea {
+	width: 99%;
+	margin: auto;
+}
+
+input, .button, textarea, select {
+	font-size: 11px;
+	background: #fff;
+	border: 1px solid #ccc;
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
+	-o-border-radius: 2px;
+	border-radius: 2px;
+}
+
+input[type=text], input[type=password], input[type=file], textarea {
+	box-shadow: 0 1px 2px rgba(0, 0, 0, .15) inset;
+	padding: 0.5em;
+}
+
+input:focus, select:focus, textarea:focus {
+	border: 1px solid #aaa;
+	outline: none;
+}
+
+input[type=submit], .button {
+	background: #eaeaea;
+	background: -webkit-gradient(linear, left top, left bottom, from(#efefef), to(#d8d8d8)) #d8d8d8;
+	background: -moz-linear-gradient(top, #efefef, #d8d8d8) #d8d8d8;
+	border: 1px solid #ababab;
+	box-shadow: 0 1px 2px rgba(0, 0, 0, .1), 0 1px 1px rgba(255, 255, 255, .8) inset;
+	margin: 0;
+	padding: 5px 10px;
+	text-shadow: 0 1px 1px rgba(255, 255, 255, .5);
+	cursor: pointer;
+}
+
+input[type=submit]:hover, input[type=button]:hover, .button:hover {
+	color: #666;
+}
+
+a.button:hover {
+	border-bottom: 1px solid #ababab;
+}
+
+.button:active, .button:focus, input[type=submit]:active, input[type=submit]:focus, input[type=button]:active, input[type=button]:focus {
+	background: #eee;
+	border-color: #999;
 }

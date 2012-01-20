@@ -34,12 +34,58 @@ Then install the dependencies (assuming you are using a virtualenv):
 
   $ cd pleaseshare
   $ pip install -r requirements.txt
+  $ mkdir -p please/uploads
 
-And manage it as you would do with any other django application.
-Do not forget to add your website in the "Sites" section, because the web seed generated will be using example.com if you don’t.
-Also, do not forget to use a REAL web server to handle the uploaded files, else the webseeds won’t work, since the built-in file server do not support resuming file transfers.
+Now you can start coding, testing, etc.
+
+If you do not have virtualenv, you can install django and chardet manually.
 You will also need 'tree' in order to display the torrent structure.
 
+
+Install
+-------
+
+(do the Get started thing before that)
+For people who never used django before, here are a few instructions that you should complete by browsing the django documentation.
+
+Create a database and an administrator:
+
+::
+
+    $ ./manage.py syncdb
+
+Then edit the variables in local_settings.py and in settings.py to fit your needs.
+local_settings.py contains a few variables related to pleaseshare only (web seeds, trackers, etc), and should be explicit enough.
+settings.py contains things more related to django, with a lot of things you should not touch.
+
+Things you might want to touch:
+    - In settings.py
+        - ADMINS
+        - DEBUG (edit it)
+        - MEDIA_ROOT: used to store the uploaded files and torrents
+        - MEDIA_URL: used to locate the uploaded medias in the url
+        - SECRET_KEY: this is the one I generated, it is public, choose another
+    - In local_settings.py
+        - DATABASES (sqlite is not recommended for anything else than testing)
+        - Everything.
+
+
+Now, to deploy it, you can choose between various methods, my favourite is fastCGI_ with a local port (like 3042).
+
+So you just run
+
+::
+
+    $ ./manage.py runfcgi method=threaded host=127.0.0.1 port=3042
+
+`And configure your webserver`_ (there are examples for apache and lighttpd, seeking nginx in your favourite search engine should work too).
+
+Now that your website is up and running, log in into the admin interface at http://yourdomain.com/admin/ (with the account defined earlier), and go in the "Sites" section, to replace example.com with your website name. This will be used to generate the webseed, and example.com doesn’t contains your uploaded files.
+
+Finally, in order to get the webseeds to work, do not forget to have the directory where you upload the files (the MEDIA_ROOT var) directly handled by the web server, because django was not created to serve static files, and does not support range http requests, mandatory for webseeds, comment out the bottom lines in urls.py to be sure.
+
+.. _fastCGI : https://docs.djangoproject.com/en/1.3/howto/deployment/fastcgi/
+.. _And configure your webserver : https://docs.djangoproject.com/en/1.3/howto/deployment/
 
 Misc
 ----

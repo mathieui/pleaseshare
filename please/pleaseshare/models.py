@@ -28,14 +28,16 @@ class Upload(models.Model):
 
     def __unicode__(self):
         return '%s - %s/%s - %s' % (self.uploader, self.uuid, self.name, self.date)
+
     def get_absolute_url(self):
         return '/view/%s/' % self.uuid
 
     def get_torrent_file(self):
-        return '/upload/%s/%s.torrent' % (self.uuid, self.name)
+        return '%s%s/%s.torrent' % (settings.MEDIA_URL, self.uuid, self.name)
 
     def get_file(self):
-        return '/upload/%s/%s' % (self.uuid, self.name if self.multifile else "")
+        return '%s%s/%s' % (settings.MEDIA_URL, self.uuid,
+                self.name if self.multifile else "")
 
     def get_files(self):
         dir = path.join(settings.MEDIA_ROOT, self.uuid, self.name)

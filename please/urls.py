@@ -1,4 +1,5 @@
 from django.conf.urls.defaults import patterns, include, url
+from django.conf import settings
 from django.views.generic.simple import direct_to_template
 from django.views.generic import list_detail
 from django.views.static import serve
@@ -24,7 +25,8 @@ urlpatterns = patterns('',
 )
 
 # In order to follow the good practices, comment this and use a real file server for the static files
+# (and it is mandatory to do that because the built-in server does feature HTTP ranges.)
 urlpatterns += patterns('',
-        (r'^upload/(.*)$', serve, {'document_root': 'uploads'}),
+        (r'^%s(.*)$' % settings.MEDIA_URL[1:], serve, {'document_root': '%s' % settings.MEDIA_URL[1:-1]}),
         (r'^static/(.*)$', serve, {'document_root': 'static'}),
 )

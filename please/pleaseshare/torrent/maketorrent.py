@@ -230,7 +230,9 @@ class TorrentMetadata(object):
         wr = open(torrent_path, 'wb')
         wr.write(bencode(torrent))
         wr.close()
-        return create_magnet_uri(sha(bencode(torrent["info"])).digest())
+        return create_magnet_uri(sha(bencode(torrent["info"])).hexdigest(),
+                torrent['info']['name'],
+                [i[0] for i in self.trackers])
 
     def get_data_path(self):
         """

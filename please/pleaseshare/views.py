@@ -147,7 +147,7 @@ def extract_tar(f, folder):
         o = tarfile.open(save_file(f, folder))
     except:
         return False
-    name = '.'.join(f.name.split('.')[:-1])
+    name = f.name.split('.')[0]
     rep = path.join(folder, name)
     mkdir(rep)
     for member in o:

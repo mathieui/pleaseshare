@@ -13,10 +13,12 @@
 {% endif %}
 </dl>
 </div>
+{% if object.multifile %}
 <h2>Files…</h2>
 <section>
 <pre id="files">{{object.get_files}}</pre>
 </section>
+{% endif %}
 <h2>Notice</h2>
 <section id="help">First timers, please read the <a href="{% url Help %}">Help</a> section of the website, if it isn’t already done.</section>
 <section id="buttons">

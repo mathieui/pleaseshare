@@ -1,16 +1,13 @@
 {% extends "base.html" %}
 
 {% block body %}
-{% if msg_imp %}
-<p class="info-important">{{msg_imp}}</p>
-{% endif %}
-{% if msg_ok %}
-<p class="info-ok">{{msg_ok}}</p>
+{% if msg %}
+{{msg|safe}}
 {% endif %}
 
 <h2>Select a file to upload</h2>
 
-<form method="post" action="/upload/" enctype="multipart/form-data" id="sendform">
+<form method="post" action="{% url upload %}" enctype="multipart/form-data" id="sendform">
     {% csrf_token %}
     <div class="center">
         <input type="file" name="please" id="fileselect"/>

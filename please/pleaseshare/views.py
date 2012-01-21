@@ -17,6 +17,24 @@ import tarfile
 from models import Upload
 from torrent import maketorrent
 
+options = {
+        'multifile': settings.OPTION_MULTIFILE,
+        'trackers': settings.OPTION_TRACKERS,
+        'webseeds': settings.OPTION_WEBSEEDS,
+        'ddl': settings.OPTION_DDL,
+}
+messages = {
+        '0': '<p class="info-important">Error</p>',
+        '1': '<p class="info-important">Failed to delete the file, please retry later or contact the admin.</p>',
+        '2': '<p class="info-ok">Your file has been successfully deleted</p>',
+    }
+
+def err_msg(request, msg):
+    di = locals()
+    di.update(csrf(request))
+    di['msg'] = messages.get(msg, 'Error.')
+    di.update(options)
+    return render_to_response('home.html', di)
 
 def get_dir_size(start_path = '.'):
     """
@@ -78,7 +96,7 @@ def upload_file(request):
             obj.password = request.POST.get('delete', '')
             obj.save()
             return HttpResponseRedirect(obj.get_absolute_url())
-    return HttpResponseRedirect('/error/')
+    return HttpResponseRedirect('/0')
 
 def delete_file(request):
     """
@@ -91,12 +109,12 @@ def delete_file(request):
         if password and password == up.password:
             rmtree(path.join(settings.MEDIA_ROOT, id))
             up.delete()
-            msg_ok = "Your file has been successfully deleted"
+            err = 2
         else:
-            msg_imp = 'Failed to delete the file, please retry later or contact one of the administrators'
-    di = locals()
-    di.update(csrf(request))
-    return render_to_response('home.html', di)
+            err = 1
+    else:
+        err = 0
+    return HttpResponseRedirect('/%s' % err)
 
 def handle_uploaded_file(f, detar=False, trackers=[], webseeds=[]):
     """

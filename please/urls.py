@@ -11,6 +11,7 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     url(r'^$', direct_to_template, {'template': 'home.html'}, name='home'),
+    url(r'^(?P<msg>[0-9]+)$', 'pleaseshare.views.err_msg', name='err'),
     url(r'^upload/$', 'pleaseshare.views.upload_file', name='upload'),
     url(r'^delete/$', 'pleaseshare.views.delete_file', name='delete'),
     url(r'^view/(?P<object_id>[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})/$', list_detail.object_detail, {'queryset': Upload.objects.all(), 'template_name': 'single.html'},  name='single'),

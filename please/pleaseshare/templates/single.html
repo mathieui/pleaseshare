@@ -17,6 +17,8 @@
 <section>
 <pre id="files">{{object.get_files}}</pre>
 </section>
+<h2>Notice</h2>
+<section id="help">First timers, please read the <a href="{% url Help %}">Help</a> section of the website, if it isn’t already done.</section>
 <section id="buttons">
 <a class="button" href="{{object.get_torrent_file}}">Download .torrent</a>
 {% if ddl and not object.multifile %}

@@ -119,22 +119,32 @@ def delete_file(request):
 def handle_uploaded_file(f, detar=False, trackers=[], webseeds=[]):
     """
     Write a file to the disk, and in the database
+
+    returns: the Upload object, or False
     """
     id = str(uuid4())
     folder = path.join(settings.MEDIA_ROOT, id)
     mkdir(folder)
     if detar:
-        _file = extract_tar(f, folder)
-        if _file:
+        _file, ok = extract_tar(f, folder)
+        # Everything went fine
+        if ok:
             size = get_dir_size(folder)
             multifile = True
+        # Could not extract the file (too big?)
+        elif _file:
+            size = get_dir_size(folder)
+            multifile = False
+        # Could not save the file
         else:
             return False
     else:
         _file = save_file(f, folder)
+        # Everything went fine
         if _file:
             size = get_dir_size(folder)
             multifile = False
+        # Could not save the file
         else:
             return False
     size = round(size / (1024.0**2), 2)
@@ -149,7 +159,11 @@ def handle_uploaded_file(f, detar=False, trackers=[], webseeds=[]):
 def save_file(f, folder):
     """
     Saves a file into a folder
+
+    returns: the path of the uploaded file, or False on failure
     """
+    if f.size > (settings.MAX_SIZE * 1024 * 1024):
+        return False
     file = path.join(folder, f.name)
     destination = open(file, 'wb+')
     for chunk in f.chunks():
@@ -160,11 +174,26 @@ def save_file(f, folder):
 def extract_tar(f, folder):
     """
     Extracts a tar file
+
+    returns: (file, state), where file is the filepath or None, and
+                state is a boolean whether or not the extraction succeeded
     """
     try:
-        o = tarfile.open(save_file(f, folder))
+        _file = save_file(f, folder)
+        if settings.OPTION_DECOMPRESS:
+            o = tarfile.open(_file)
+        else:
+            o = tarfile.open(_file, mode='r:')
     except:
-        return False
+        return (_file, False)
+    else:
+        if not _file:
+            return (False, False)
+    sum = 0
+    for member in o:
+        sum += member.size
+        if sum > (settings.MAX_SIZE * 1024 * 1024):
+            return (_file, False)
     name = f.name.split('.')[0]
     rep = path.join(folder, name)
     mkdir(rep)
@@ -181,5 +210,5 @@ def extract_tar(f, folder):
     # remove old tar file
     remove(path.join(folder, f.name))
     f.name = name
-    return rep
+    return (rep, True)
 

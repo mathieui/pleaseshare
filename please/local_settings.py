@@ -10,9 +10,13 @@ DATABASES = {
     }
 }
 
-# Max file size (in Mio)
-MAX_SIZE = 1
-# Allow compressed archives to be decompressed or not 
+# Generate logs of errors/success
+LOG = True
+# Log file
+LOG_FILE = 'data.log'
+# Max file size (in MiB)
+MAX_SIZE = 10
+# Allow compressed archives to be decompressed or not
 # (more CPU/RAM usage on upload), used only with OPTION_MULTIFILE
 OPTION_DECOMPRESS = True
 # Show a link to download the file directly or not

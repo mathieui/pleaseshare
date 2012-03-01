@@ -12,6 +12,12 @@ from shutil import rmtree
 from uuid import uuid4
 from urllib import quote
 import tarfile
+import logging
+
+if settings.LOG:
+    logging.basicConfig(filename=settings.LOG_FILE, level=logging.INFO)
+
+log = logging.getLogger(__name__)
 
 # local imports
 from models import Upload
@@ -95,7 +101,9 @@ def upload_file(request):
             obj.description = request.POST.get('description', '')
             obj.password = request.POST.get('delete', '')
             obj.save()
+            log.info('Torrent %s successfully created' % obj.name)
             return HttpResponseRedirect(obj.get_absolute_url())
+        log.info(u'Torrent creation failed, redirecting.')
     return HttpResponseRedirect('/0')
 
 def delete_file(request):
@@ -110,8 +118,10 @@ def delete_file(request):
             rmtree(path.join(settings.MEDIA_ROOT, id))
             up.delete()
             err = 2
+            log.info('File successfully deleted')
         else:
             err = 1
+            log.info('File intact: wrong password')
     else:
         err = 0
     return HttpResponseRedirect('/%s' % err)
@@ -163,12 +173,14 @@ def save_file(f, folder):
     returns: the path of the uploaded file, or False on failure
     """
     if f.size > (settings.MAX_SIZE * 1024 * 1024):
+        log.info('Could not save file (file too big): %s' % f.name)
         return False
     file = path.join(folder, f.name)
     destination = open(file, 'wb+')
     for chunk in f.chunks():
         destination.write(chunk)
     destination.close()
+    log.info('File saved: %s, %s MiB' % (file, f.size / (1024*1024)))
     return file
 
 def extract_tar(f, folder):
@@ -185,6 +197,7 @@ def extract_tar(f, folder):
         else:
             o = tarfile.open(_file, mode='r:')
     except:
+        log.info('Error opening tarfile: %s' % f.name)
         return (_file, False)
     else:
         if not _file:
@@ -206,9 +219,11 @@ def extract_tar(f, folder):
                 # python has no option to use umask while extracting, so…
                 chmod(path.join(rep, member.name), 0755)
             except:
+                log.info('Error chmoding %s' % member.name)
                 pass
     # remove old tar file
     remove(path.join(folder, f.name))
     f.name = name
+    log.info('Successfully extracted tarfile %s into %s (%s MiB)' % (f.name, rep, (sum / (1024*1024))))
     return (rep, True)
 

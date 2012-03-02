@@ -38,7 +38,7 @@ Then install the dependencies (assuming you are using a virtualenv):
 
 Now you can start coding, testing, etc.
 
-If you do not have virtualenv, you can install django and chardet manually.
+If you do not have virtualenv, you can install django, chardet and south manually.
 You will also need 'tree' in order to display the torrent structure.
 
 

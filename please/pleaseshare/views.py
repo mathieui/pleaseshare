@@ -15,7 +15,7 @@ import tarfile
 import zipfile
 import logging
 
-if settings.LOG:
+if settings.LOG_FILE:
     logging.basicConfig(filename=settings.LOG_FILE, level=logging.INFO)
 
 log = logging.getLogger(__name__)

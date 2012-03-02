@@ -10,9 +10,7 @@ DATABASES = {
     }
 }
 
-# Generate logs of errors/success
-LOG = True
-# Log file
+# Log file, set to '' to disable logging
 LOG_FILE = 'data.log'
 # Max file size (in MiB)
 MAX_SIZE = 10

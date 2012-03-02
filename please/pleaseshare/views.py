@@ -250,7 +250,7 @@ def extract_zip(f, folder):
     try:
         _file = save_file(f, folder)
         if settings.OPTION_DECOMPRESS:
-            o = zipfile.ZipFile(_file, mode='r', compression=zipfile.ZIP_DEFLATED)
+            o = zipfile.ZipFile(_file, mode='r')
         else:
             o = zipfile.ZipFile(_file, mode='r', compression=zipfile.ZIP_STORED)
     except:

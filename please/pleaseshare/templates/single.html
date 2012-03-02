@@ -26,7 +26,9 @@
 {% if ddl and not object.multifile %}
 <a class="button" href="{{object.get_file}}">Download file</a>
 {% endif %}
+{% if not private %}
 <a class="button" href="{{object.magnet}}">Magnet link</a>
+{% endif %}
 <form method="POST" id="delete" action="/delete/" id="deletion">
     {% csrf_token %}
     <input type="hidden" name="id" value="{{object.uuid}}"/>

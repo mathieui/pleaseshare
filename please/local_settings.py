@@ -25,3 +25,5 @@ OPTION_TRACKERS = True
 OPTION_WEBSEEDS = True
 # Show the "Extract" field when uploading
 OPTION_MULTIFILE = True
+# Allow the creation of private torrents (w/o DHT & PEX)
+OPTION_PRIVATE = False

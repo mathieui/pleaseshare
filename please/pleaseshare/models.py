@@ -2,7 +2,10 @@
 from django.db import models
 from django.conf import settings
 import subprocess
+import logging
 from os import path
+
+log = logging.getLogger(__name__)
 
 class Upload(models.Model):
     """
@@ -25,6 +28,7 @@ class Upload(models.Model):
     size = models.CharField(max_length=8)
     multifile = models.BooleanField(default=False, blank=True)
     magnet = models.TextField(default="")
+    private = models.BooleanField(default=False, blank=True)
 
     def __unicode__(self):
         return '%s - %s/%s - %s' % (self.uploader, self.uuid, self.name, self.date)
@@ -46,7 +50,7 @@ class Upload(models.Model):
             res = proc.communicate()[0]
         except OSError:
             res = ''
-            print('Call to `tree` failed.')
+            log.info('Call to `tree` failed.')
         tb = res.split('\n')
         if self.multifile:
             suffix = '/'

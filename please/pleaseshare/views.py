@@ -63,13 +63,16 @@ def format_trackers(tab):
     for i, j in enumerate(tab[:]):
         tab[i] = [j]
 
-def create_torrent(data_path, comment='', webseeds=[], trackers=[]):
+def create_torrent(data_path, comment='', webseeds=None, trackers=None, private=False):
     t = maketorrent.TorrentMetadata()
     t.data_path = data_path
     t.comment = comment
     t.webseeds = webseeds
     if trackers:
         t.trackers = trackers
+        if private:
+            t.private = private
+            log.info('Creating a new private torrent')
     return t
 
 def upload_file(request):
@@ -97,7 +100,16 @@ def upload_file(request):
         else:
             webseeds = []
 
-        obj = handle_uploaded_file(request.FILES[u'please'], extract, trackers, webseeds)
+        if settings.OPTION_PRIVATE:
+            private = request.POST.get('private', 'off') == 'on'
+            if private and trackers:
+                private = True
+            else:
+                private = False
+        else:
+            private = False
+
+        obj = handle_uploaded_file(request.FILES[u'please'], extract, trackers, webseeds, private)
         if obj:
             obj.uploader = request.POST.get('user', 'Anonymous')
             obj.description = request.POST.get('description', '')
@@ -128,7 +140,7 @@ def delete_file(request):
         err = 0
     return HttpResponseRedirect('/%s' % err)
 
-def handle_uploaded_file(f, extract=False, trackers=[], webseeds=[]):
+def handle_uploaded_file(f, extract=False, trackers=None, webseeds=None, private=False):
     """
     Write a file to the disk, and in the database
 
@@ -161,9 +173,9 @@ def handle_uploaded_file(f, extract=False, trackers=[], webseeds=[]):
         else:
             return False
     size = round(size / (1024.0**2), 2)
-    u = Upload(uuid=id, name=f.name, size=size)
+    u = Upload(uuid=id, name=f.name, size=size, private=private)
     webseeds = webseeds + ['http://%s%s' % (Site.objects.get_current().domain, quote(u.get_file()))]
-    t = create_torrent(_file, "Created with pleaseshare", webseeds, trackers)
+    t = create_torrent(_file, "Created with pleaseshare", webseeds, trackers, private)
     u.magnet = t.save(path.join(folder, "%s.torrent" % f.name))
     u.multifile = multifile
     u.save()

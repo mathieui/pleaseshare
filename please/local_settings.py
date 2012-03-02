@@ -25,5 +25,5 @@ OPTION_DDL = False
 OPTION_TRACKERS = True
 # Show the "webseeds" field when uploading
 OPTION_WEBSEEDS = True
-# Show the "untar" field when uploading
+# Show the "Extract" field when uploading
 OPTION_MULTIFILE = True

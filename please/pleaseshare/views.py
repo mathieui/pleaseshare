@@ -12,6 +12,7 @@ from shutil import rmtree
 from uuid import uuid4
 from urllib import quote
 import tarfile
+import zipfile
 import logging
 
 if settings.LOG:
@@ -40,6 +41,7 @@ def err_msg(request, msg):
     di.update(csrf(request))
     di['msg'] = messages.get(msg, 'Error.')
     di.update(options)
+    log.info('Showing error message: %s' % di['msg'])
     return render_to_response('home.html', di)
 
 def get_dir_size(start_path = '.'):
@@ -77,10 +79,10 @@ def upload_file(request):
     if request.method == 'POST':
 
         if settings.OPTION_MULTIFILE:
-            detar = request.POST.get('detar', 'off')
-            detar = (detar == 'on')
+            extract = request.POST.get('extract', 'off')
+            extract = (extract == 'on')
         else:
-            detar = False
+            extract = False
 
         if settings.OPTION_TRACKERS:
             trackers = request.POST.get('trackers', '').split('\n')[:50]
@@ -95,7 +97,7 @@ def upload_file(request):
         else:
             webseeds = []
 
-        obj = handle_uploaded_file(request.FILES[u'please'], detar, trackers, webseeds)
+        obj = handle_uploaded_file(request.FILES[u'please'], extract, trackers, webseeds)
         if obj:
             obj.uploader = request.POST.get('user', 'Anonymous')
             obj.description = request.POST.get('description', '')
@@ -126,7 +128,7 @@ def delete_file(request):
         err = 0
     return HttpResponseRedirect('/%s' % err)
 
-def handle_uploaded_file(f, detar=False, trackers=[], webseeds=[]):
+def handle_uploaded_file(f, extract=False, trackers=[], webseeds=[]):
     """
     Write a file to the disk, and in the database
 
@@ -135,8 +137,9 @@ def handle_uploaded_file(f, detar=False, trackers=[], webseeds=[]):
     id = str(uuid4())
     folder = path.join(settings.MEDIA_ROOT, id)
     mkdir(folder)
-    if detar:
-        _file, ok = extract_tar(f, folder)
+    if extract:
+        fun = select_extract_func(f.name)
+        _file, ok = fun(f, folder)
         # Everything went fine
         if ok:
             size = get_dir_size(folder)
@@ -180,7 +183,7 @@ def save_file(f, folder):
     for chunk in f.chunks():
         destination.write(chunk)
     destination.close()
-    log.info('File saved: %s, %s MiB' % (file, f.size / (1024*1024)))
+    log.info('File saved: %s, %s MiB' % (file, round(f.size/(1024*1024.0), 2)))
     return file
 
 def extract_tar(f, folder):
@@ -210,20 +213,92 @@ def extract_tar(f, folder):
     name = f.name.split('.')[0]
     rep = path.join(folder, name)
     mkdir(rep)
-    for member in o:
-        # test against files named by stupid people
-        if not member.name.startswith('/') and not \
-                '..' in member.name:
-            o.extract(member, rep)
-            try:
-                # python has no option to use umask while extracting, so…
-                chmod(path.join(rep, member.name), 0755)
-            except:
-                log.info('Error chmoding %s' % member.name)
-                pass
+    try:
+        proceed_tar_extraction(o, rep)
+    except: # extraction failed, remove leftover files
+        log.info('Extraction of %s failed, falling back to single-file upload' % f.name)
+        rmtree(rep)
+        return (_file, False)
     # remove old tar file
     remove(path.join(folder, f.name))
     f.name = name
-    log.info('Successfully extracted tarfile %s into %s (%s MiB)' % (f.name, rep, (sum / (1024*1024))))
+    log.info('Successfully extracted tarfile %s into %s (%s MiB)' % (
+        f.name, rep, round(sum / (1024*1024.0), 2)))
     return (rep, True)
 
+def proceed_tar_extraction(tar, dir):
+    """Extract the tar"""
+    for member in tar:
+        # test against files named by stupid people
+        if not member.name.startswith('/') and not \
+                '..' in member.name:
+            tar.extract(member, dir)
+            try:
+                # python has no option to use umask while extracting, so…
+                chmod(path.join(dir, member.name), 0755)
+            except:
+                log.info('Error chmoding %s' % member.name)
+                pass
+
+def extract_zip(f, folder):
+    """
+    Extracts a zip file
+
+    returns: (file, state), where file is the filepath or None, and
+                state is a boolean whether or not the extraction succeeded
+    """
+    try:
+        _file = save_file(f, folder)
+        if settings.OPTION_DECOMPRESS:
+            o = zipfile.ZipFile(_file, mode='r', compression=zipfile.ZIP_DEFLATED)
+        else:
+            o = zipfile.ZipFile(_file, mode='r', compression=zipfile.ZIP_STORED)
+    except:
+        log.info('Error opening zipfile: %s' % f.name)
+        return (_file, False)
+    else:
+        if not _file:
+            return (False, False)
+    sum = 0
+    for member in o.infolist():
+        sum += member.file_size
+        if sum > (settings.MAX_SIZE * 1024 * 1024):
+            return (_file, False)
+    name = f.name.split('.')[0]
+    rep = path.join(folder, name)
+    mkdir(rep)
+    try:
+        proceed_zip_extraction(o, rep)
+    except: # extraction failed, remove leftover files
+        log.info('Extraction of %s failed, falling back to single-file upload' % f.name)
+        rmtree(rep)
+        return (_file, False)
+    # remove old zip file
+    remove(path.join(folder, f.name))
+    f.name = name
+    log.info('Successfully extracted zipfile %s into %s (%s MiB)' % (
+        f.name, rep, round(sum / (1024*1024.0), 2)))
+    return (rep, True)
+
+def proceed_zip_extraction(zip, dir):
+    """Extract the zip"""
+    for member in zip.infolist():
+        # test against files named by stupid people
+        if not member.filename.startswith('/') and not \
+                '..' in member.filename:
+            zip.extract(member, dir)
+            try:
+                # python has no option to use umask while extracting, so…
+                chmod(path.join(dir, member.filename), 0755)
+            except:
+                log.info('Error chmoding %s' % member.filename)
+                pass
+
+def select_extract_func(name):
+    """Return the appropriate extract function based on the extension"""
+    for i in ('tar.gz', 'tar.bz2', 'tar.bz', 'tar', 'tbz', 'tbz2', 'tgz'):
+        if name.lower().endswith(i):
+            log.info('Detecting tar file format')
+            return extract_tar
+    log.info('Did not detect tar, defaulting to zip file format')
+    return extract_zip

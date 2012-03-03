@@ -99,10 +99,14 @@ def encode_string(x, r):
 
 def encode_utf8(x, r):
     # kinda crappy to need chardet for this, but well, it’s python2 afterall
-    with catch_warnings():
-        simplefilter("ignore")
-        enc = detect(x)
-    x = x.encode(enc['encoding'])
+    try:
+        with catch_warnings():
+            simplefilter("ignore")
+            enc = detect(x)
+    except:
+        x = x.encode(errors='ignore')
+    else:
+        x = x.encode(enc['encoding'])
     r.extend((str(len(x)), ':', x))
 
 def encode_list(x, r):

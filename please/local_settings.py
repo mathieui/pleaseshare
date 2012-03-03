@@ -2,7 +2,7 @@
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'test.sqlite',                      # Or path to database file if using sqlite3.
+        'NAME': 'test.sqlite',           # Or path to database file if using sqlite3. Absolute path needed.
         'USER': '',                      # Not used with sqlite3.
         'PASSWORD': '',                  # Not used with sqlite3.
         'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
@@ -10,8 +10,8 @@ DATABASES = {
     }
 }
 
-# Log file, set to '' to disable logging
-LOG_FILE = 'data.log'
+# Log file, set to '' to disable logging. Absolute path needed
+LOG_FILE = '/tmp/example.log'
 # Max file size (in MiB)
 MAX_SIZE = 10
 # Allow compressed archives to be decompressed or not

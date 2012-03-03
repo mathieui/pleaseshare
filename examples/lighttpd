@@ -1,5 +1,5 @@
 # Here is an example setup for lighttpd.
-# 
+#
 # The pleaseshare folder with the whole application is located in /home/django.
 #
 # This is run with
@@ -31,9 +31,7 @@ $HTTP["host"] == "share.example.com" {
 
     url.rewrite-once = (
         # The static files are served by lighty
-        "^(/media/.*)$" => "$1"
         "^(/static/.*)$" => "$1",
-        "^/favicon\.ico$" => "/media/favicon.ico",
         "^(/uploads/.+)$" => "$1",
 
         # Django urls

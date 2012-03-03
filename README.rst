@@ -54,6 +54,11 @@ Create a database and an administrator:
 
     $ ./manage.py syncdb
 
+Update the schema with the latest South migration:
+
+::
+    $ ./manage.py migrate pleaseshare
+
 Then edit the variables in local_settings.py and in settings.py to fit your needs.
 local_settings.py contains a few variables related to pleaseshare only (web seeds, trackers, etc), and should be explicit enough.
 settings.py contains things more related to django, with a lot of things you should not touch.
@@ -86,6 +91,8 @@ Finally, in order to get the webseeds to work, do not forget to have the directo
 
 .. _fastCGI : https://docs.djangoproject.com/en/1.3/howto/deployment/fastcgi/
 .. _And configure your webserver : https://docs.djangoproject.com/en/1.3/howto/deployment/
+
+*Do not forget to read the wiki: https://gitorious.org/pleaseshare/pages/Home*
 
 Misc
 ----

@@ -27,3 +27,7 @@ OPTION_WEBSEEDS = True
 OPTION_MULTIFILE = True
 # Allow the creation of private torrents (w/o DHT & PEX)
 OPTION_PRIVATE = False
+# Default trackers to put in the "trackers" field
+#DEFAULT_TRACKERS = []
+DEFAULT_TRACKERS = ["udp://tracker.openbittorrent.com:80",
+                        "udp://tracker.ccc.de:80"]

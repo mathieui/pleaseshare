@@ -26,7 +26,8 @@
         {% endif %}
         {% if trackers %}
         <label for="trackers" class="clear">Trackers (one per line)</label>
-        <textarea name="trackers" id="trackers"></textarea>
+<textarea name="trackers" id="trackers">{% for tracker in default_trackers %}{{tracker}}
+{% endfor %}</textarea>
             {% if private %}
             <p>You can choose to make the torrent private. This is usually for
             when you upload private documents that you do not want to share with anyone.</p>

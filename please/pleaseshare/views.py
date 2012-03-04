@@ -90,9 +90,13 @@ def upload_file(request):
         if settings.OPTION_TRACKERS:
             trackers = request.POST.get('trackers', '').split('\n')[:50]
             remove_empty_str(trackers)
+            trackers.extend(settings.MANDATORY_TRACKERS)
             format_trackers(trackers)
         else:
-            trackers = []
+            if not settings.MANDATORY_TRACKERS:
+                trackers = []
+            else:
+                trackers = format_trackers(settings.MANDATORY_TRACKERS)
 
         if settings.OPTION_WEBSEEDS:
             webseeds = request.POST.get('webseeds', '').split('\n')[:50]

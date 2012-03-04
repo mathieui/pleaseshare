@@ -31,3 +31,5 @@ OPTION_PRIVATE = False
 #DEFAULT_TRACKERS = []
 DEFAULT_TRACKERS = ["udp://tracker.openbittorrent.com:80",
                         "udp://tracker.ccc.de:80"]
+# Trackers the torrent will be forced to use (even if OPTION_TRACKERS is False)
+MANDATORY_TRACKERS = []

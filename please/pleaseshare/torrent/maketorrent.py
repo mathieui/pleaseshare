@@ -178,7 +178,7 @@ class TorrentMetadata(object):
             # Create the piece hashes
             buf = ""
             for size, path in files:
-                path = [s.decode(sys.getfilesystemencoding()).encode("UTF-8") for s in path]
+                path = [s.encode("UTF-8") for s in path]
                 fs.append({"length": size, "path": path})
                 if path[-1].startswith("_____padding_file_"):
                     buf += "\0" * size
@@ -186,7 +186,7 @@ class TorrentMetadata(object):
                     buf = ""
                     fs[-1]["attr"] = "p"
                 else:
-                    fd = open(os.path.join(self.data_path, *path), "rb")
+                    fd = open(os.path.join(self.data_path, *[pa.decode('utf-8') for pa in path]), "rb")
                     r = fd.read(piece_size - len(buf))
                     while r:
                         buf += r

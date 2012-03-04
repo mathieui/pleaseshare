@@ -13,8 +13,8 @@
 
 # Minor modifications made by Andrew Resch to replace the BTFailure errors with Exceptions
 
-from chardet import detect
-from warnings import catch_warnings, simplefilter
+import logging
+log = logging.getLogger(__name__)
 
 def decode_int(x, f):
     f += 1
@@ -98,15 +98,7 @@ def encode_string(x, r):
     r.extend((str(len(x)), ':', x))
 
 def encode_utf8(x, r):
-    # kinda crappy to need chardet for this, but well, it’s python2 afterall
-    try:
-        with catch_warnings():
-            simplefilter("ignore")
-            enc = detect(x)
-    except:
-        x = x.encode(errors='ignore')
-    else:
-        x = x.encode(enc['encoding'])
+    x = x.encode('utf-8')
     r.extend((str(len(x)), ':', x))
 
 def encode_list(x, r):

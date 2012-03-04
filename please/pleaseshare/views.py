@@ -174,7 +174,7 @@ def handle_uploaded_file(f, extract=False, trackers=None, webseeds=None, private
             return False
     size = round(size / (1024.0**2), 2)
     u = Upload(uuid=id, name=f.name, size=size, private=private)
-    webseeds = webseeds + ['http://%s%s' % (Site.objects.get_current().domain, quote(u.get_file()))]
+    webseeds = webseeds + [u'http://%s%s' % (Site.objects.get_current().domain, quote(u.get_file().encode('utf-8')))]
     t = create_torrent(_file, "Created with pleaseshare", webseeds, trackers, private)
     u.magnet = t.save(path.join(folder, "%s.torrent" % f.name))
     u.multifile = multifile
@@ -244,6 +244,7 @@ def proceed_tar_extraction(tar, dir):
         # test against files named by stupid people
         if not member.name.startswith('/') and not \
                 '..' in member.name:
+            member.name = member.name.decode('utf-8')
             tar.extract(member, dir)
             try:
                 # python has no option to use umask while extracting, so…

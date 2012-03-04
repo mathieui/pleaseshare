@@ -31,7 +31,7 @@ class Upload(models.Model):
     private = models.BooleanField(default=False, blank=True)
 
     def __unicode__(self):
-        return '%s - %s/%s - %s' % (self.uploader, self.uuid, self.name, self.date)
+        return u'%s - %s/%s - %s' % (self.uploader, self.uuid, self.name, self.date)
 
     def get_absolute_url(self):
         return '/view/%s/' % self.uuid
@@ -56,5 +56,5 @@ class Upload(models.Model):
             suffix = '/'
         else:
             suffix = ''
-        tb[0] = str(self.name + suffix)
-        return '\n'.join(tb)
+        tb[0] = str(self.name.encode('utf-8') + suffix)
+        return '\n'.join([f.decode('utf-8') for f in tb])

@@ -83,7 +83,7 @@ So you just run
 
     $ ./manage.py runfcgi method=threaded host=127.0.0.1 port=3042
 
-`And configure your webserver`_ (look in the "examples" directory to have an example of lighttpd and nginx deployment, more examples on the django website).
+`And configure your webserver`_ (look in the "examples" directory to have an example of lighttpd, apache, and nginx deployment, more examples on the django website).
 
 Now that your website is up and running, log in into the admin interface at http://yourdomain.com/admin/ (with the account defined earlier), and go in the "Sites" section, to replace example.com with your website name. This will be used to generate the webseed, and example.com doesn’t contains your uploaded files.
 

@@ -37,7 +37,6 @@
 import sys
 import os
 from hashlib import sha1 as sha
-from chardet import detect
 
 from common import get_path_size, create_magnet_uri
 from bencode import bencode, bdecode

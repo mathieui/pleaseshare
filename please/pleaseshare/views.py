@@ -15,14 +15,15 @@ import tarfile
 import zipfile
 import logging
 
-if settings.LOG_FILE:
-    logging.basicConfig(filename=settings.LOG_FILE, level=logging.INFO)
-
-log = logging.getLogger(__name__)
-
 # local imports
 from models import Upload
 from torrent import maketorrent
+
+if settings.LOG_FILE:
+    logging.basicConfig(filename=settings.LOG_FILE, level=logging.INFO, format='%(asctime)s %(message)s')
+
+log = logging.getLogger(__name__)
+
 
 options = {
         'multifile': settings.OPTION_MULTIFILE,

@@ -9,5 +9,9 @@ def processor(request):
             'private': settings.OPTION_PRIVATE,
             'webseeds': settings.OPTION_WEBSEEDS,
             'ddl': settings.OPTION_DDL,
+            'decompress': settings.OPTION_DECOMPRESS,
+            'size': settings.MAX_SIZE,
+            'mandatory_trackers': settings.MANDATORY_TRACKERS,
+            'pool': bool(settings.TORRENT_POOL),
     }
     return options

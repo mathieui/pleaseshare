@@ -210,7 +210,7 @@ section.box {
 	margin-top: 2em;
 }
 
-.info-ok, .info-important {
+.info-ok, .info-important, .info {
 	-webkit-box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
 	-moz-box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
 	box-shadow: inset 0 0 10px rgba(0,0,0,0.5);

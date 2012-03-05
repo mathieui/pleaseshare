@@ -7,7 +7,7 @@ from django.contrib.sites.models import Site
 from django.conf import settings
 
 # system imports
-from os import mkdir, path, stat, walk, remove, chmod
+from os import mkdir, path, walk, remove, chmod, symlink
 from shutil import rmtree
 from uuid import uuid4
 from urllib import quote
@@ -181,6 +181,14 @@ def handle_uploaded_file(f, extract=False, trackers=None, webseeds=None, private
     webseeds = webseeds + [u'http://%s%s' % (Site.objects.get_current().domain, quote(u.get_file().encode('utf-8')))]
     t = create_torrent(_file, "Created with pleaseshare", webseeds, trackers, private)
     u.magnet = t.save(path.join(folder, "%s.torrent" % f.name))
+    if settings.TORRENT_POOL:
+        try:
+            symlink(path.join(folder, "%s.torrent" % f.name),
+                    path.join(settings.TORRENT_POOL, "%s.torrent" % u.uuid))
+        except:
+            import traceback
+            log.info('Could not create a symlink for torrent %s. The reason was:\n%s' %
+                    (u.uuid, traceback.format_exc()))
     u.multifile = multifile
     u.save()
     return u

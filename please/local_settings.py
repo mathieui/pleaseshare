@@ -33,3 +33,6 @@ DEFAULT_TRACKERS = ["udp://tracker.openbittorrent.com:80",
                         "udp://tracker.ccc.de:80"]
 # Trackers the torrent will be forced to use (even if OPTION_TRACKERS is False)
 MANDATORY_TRACKERS = []
+# Directory where all the torrents will get linked to, in order to auto-add them
+# in a client (which creates an entry in the DHT, and creates an initial peer)
+TORRENT_POOL = '/tmp/pool'

@@ -181,7 +181,7 @@ def handle_uploaded_file(f, extract=False, trackers=None, webseeds=None, private
     webseeds = webseeds + [u'http://%s%s' % (Site.objects.get_current().domain, quote(u.get_file().encode('utf-8')))]
     t = create_torrent(_file, "Created with pleaseshare", webseeds, trackers, private)
     u.magnet = t.save(path.join(folder, "%s.torrent" % f.name))
-    if settings.TORRENT_POOL:
+    if settings.TORRENT_POOL and path.exists(settings.TORRENT_POOL):
         try:
             symlink(path.join(folder, "%s.torrent" % f.name),
                     path.join(settings.TORRENT_POOL, "%s.torrent" % u.uuid))

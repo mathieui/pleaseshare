@@ -63,6 +63,7 @@ def remove_empty_str(tab):
 def format_trackers(tab):
     for i, j in enumerate(tab[:]):
         tab[i] = [j]
+    return tab
 
 def create_torrent(data_path, comment='', webseeds=None, trackers=None, private=False):
     t = maketorrent.TorrentMetadata()

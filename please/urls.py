@@ -22,7 +22,7 @@ urlpatterns = patterns('',
     url(r'^tos/?$', direct_to_template, {'template': 'tos.html'}, name='ToS'),
     url(r'^help/?$', direct_to_template, {'template': 'help.html'}, name='Help'),
 
-    url(r'^admin/?', include(admin.site.urls)),
+    url(r'^admin/', include(admin.site.urls)),
 )
 
 # In order to follow the good practices, comment this and use a real file server for the static files

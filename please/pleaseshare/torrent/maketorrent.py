@@ -128,7 +128,7 @@ class TorrentMetadata(object):
         datasize = get_path_size(self.data_path)
 
         if self.piece_size:
-            piece_size = piece_size * 1024
+            piece_size = self.piece_size * 1024
         else:
             # We need to calculate a piece size
             piece_size = 16384

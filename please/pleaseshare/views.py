@@ -61,12 +61,14 @@ def remove_empty_str(tab):
         tab.remove('')
 
 def format_trackers(tab):
-    for i, j in enumerate(tab[:]):
-        tab[i] = [j]
-    return tab
+    trackers = []
+    for i in tab:
+        trackers.append([i])
+    return trackers
 
 def create_torrent(data_path, comment='', webseeds=None, trackers=None, private=False):
     t = maketorrent.TorrentMetadata()
+    t.piece_size = 256
     t.data_path = data_path
     t.comment = comment
     t.webseeds = webseeds
@@ -93,7 +95,7 @@ def upload_file(request):
             trackers = request.POST.get('trackers', '').split('\n')[:50]
             remove_empty_str(trackers)
             trackers.extend(settings.MANDATORY_TRACKERS)
-            format_trackers(trackers)
+            trackers = format_trackers(trackers)
         else:
             if not settings.MANDATORY_TRACKERS:
                 trackers = []

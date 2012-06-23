@@ -5,6 +5,18 @@
 {{msg|safe}}
 {% endif %}
 
+<h2>About PleaseShare</h2>
+
+<p>Using PleaseShare is easy:</p>
+<ul>
+    <li>you upload a file (or a tarball, see the options below);</li>
+    <li>you get a <strong>.torrent</strong> and a <strong>magnet link</strong> to share with your friends;</li>
+    <li>subsequent downloads are at least <strong>as fast as</strong> a direct HTTP download: this server acts as a <strong>webseed</strong> for the created torrent.</li>
+</ul>
+
+<p>PleaseShare is <a href="http://www.gnu.org/philosophy/free-sw.en.html">free software</a>, <a href="https://gitorious.org/pleaseshare">get the code</a>. More about PleaseShare <a href="{% url About %}">here</a>. Need <a href="{% url Help %}">help</a>?</p>
+
+
 <h2>Select a file to upload</h2>
 
 <form method="post" action="{% url upload %}" enctype="multipart/form-data" id="sendform">
@@ -13,6 +25,7 @@
         <input type="file" name="please" id="fileselect"/>
         <a href="#options" class="button" id="optionsa">Options</a>
     </div>
+    <p>Note: the filesize limit is currently set at {{size}} MiB.</p>
     <fieldset id="options">
         <label for="delete" class="classiclabel">Deletion password</label>
         <input type="password" id="delete" name="delete" class="classicinput"/>
@@ -29,8 +42,8 @@
 <textarea name="trackers" id="trackers">{% for tracker in default_trackers %}{{tracker}}
 {% endfor %}</textarea>
             {% if private %}
-            <p>You can choose to make the torrent private. This is usually for
-            when you upload private documents that you do not want to share with anyone.</p>
+            <p>You can choose to make the torrent private. This is usually
+            when you upload private documents that you do not want to share with everyone.</p>
             Private torrent? (You have to enter at least one valid tracker)
             <input type="checkbox" name="private" id="private"
             onclick="document.getElementById('private').checked &= document.getElementById('trackers').value.length != 0;" />

@@ -5,6 +5,19 @@ from django.test.client import Client
 from pleaseshare.views import format_trackers, remove_empty_str,\
         select_extract_func, extract_tar, extract_zip
 from os.path import dirname, realpath, join
+from django.conf import settings
+
+# Change the settings to be sure they won’t affect the tests
+settings.LOG_FILE = ''
+settings.MAX_SIZE = 42
+settings.OPTION_DECOPRESS = True
+settings.OPTION_DDL = False
+settings.OPTION_TRACKERS = True
+settings.OPTION_WEBSEEDS = True
+settings.OPTION_PRIVATE = False
+settings.DEFAULT_TRACKES = ['udp://tracker.openbittorent.com:80']
+settings.MANDATORY_TRACKERS = []
+settings.TORRENT_POOL = ''
 
 class TorrentCreationTest(unittest.TestCase):
     def setUp(self):
@@ -28,7 +41,8 @@ class TorrentCreationTest(unittest.TestCase):
                 }, follow=True)
 
         self.assertEqual(response.status_code, 200)
-        self.assertNotEqual(response.redirect_chain, [('http://testserver/0', 302)])
+        self.assertNotEqual(response.redirect_chain, [('http://testserver/0', 302)],
+                msg="The file was not uploaded successfully.")
 
         # Get the file ID
         url = response.redirect_chain[0][0]
@@ -40,11 +54,14 @@ class TorrentCreationTest(unittest.TestCase):
         with open(filepath, 'rb') as fp:
             f = fp.read()
         response = c.get(join('/uploads', _id, filename))
-        self.assertEqual(f, response.content)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(f, response.content,
+                msg="The uploaded file differs from the original.")
 
         # Check that a torrent has been generated
         response = c.get(join('/uploads', _id, filename + '.torrent'))
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 200,
+                msg="Cannot access the torrent file.")
 
         # Try to delete the file with the wrong password
         response = c.post('/delete/', {
@@ -53,7 +70,8 @@ class TorrentCreationTest(unittest.TestCase):
         }, follow=True)
 
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.redirect_chain, [('http://testserver/1', 302)])
+        self.assertEqual(response.redirect_chain, [('http://testserver/1', 302)],
+                msg="The wrong error message was shown.")
 
         # Try to delete the file with the right password
         response = c.post('/delete/', {
@@ -62,7 +80,8 @@ class TorrentCreationTest(unittest.TestCase):
         }, follow=True)
 
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.redirect_chain, [('http://testserver/2', 302)])
+        self.assertEqual(response.redirect_chain, [('http://testserver/2', 302)],
+                "The file was not deleted, or the redirection was wrong.")
 
 
 class FunctionsTestCase(unittest.TestCase):
@@ -102,11 +121,12 @@ class FunctionsTestCase(unittest.TestCase):
         """
         Check that the select_extract_func function workrs properly
         """
+        name = "example_file."
         for i in ('tar.gz', 'tar.bz2', 'tar.bz', 'tar', 'tbz', 'tbz2', 'tgz'):
-            func = select_extract_func(i)
+            func = select_extract_func(name + i)
             self.assertEqual(func, extract_tar)
 
         for i in ('toto', 'zip', 'odt', 'banana'):
-            func = select_extract_func(i)
+            func = select_extract_func(name + i)
             self.assertEqual(func, extract_zip)
 

@@ -79,53 +79,75 @@ def create_torrent(data_path, comment='', webseeds=None, trackers=None, private=
             log.info('Creating a new private torrent')
     return t
 
-def upload_file(request):
+def parse_args(request):
     """
-    Get the file upload form
+    Parse the POST parameters to get seven values:
+        - extract: bool
+        - trackers: list of list
+        - webseeds: list of str
+        - private: bool
+        - uploader: str
+        - password: str
+        - description: str
     """
-    if request.method == 'POST':
+    if settings.OPTION_MULTIFILE:
+        extract = request.POST.get('extract', 'off')
+        extract = (extract == 'on')
+    else:
+        extract = False
 
-        if settings.OPTION_MULTIFILE:
-            extract = request.POST.get('extract', 'off')
-            extract = (extract == 'on')
+    if settings.OPTION_TRACKERS:
+        trackers = request.POST.get('trackers', '').split('\n')[:50]
+        remove_empty_str(trackers)
+        trackers.extend(settings.MANDATORY_TRACKERS)
+        trackers = format_trackers(trackers)
+    else:
+        if not settings.MANDATORY_TRACKERS:
+            trackers = []
         else:
-            extract = False
+            trackers = format_trackers(settings.MANDATORY_TRACKERS)
 
-        if settings.OPTION_TRACKERS:
-            trackers = request.POST.get('trackers', '').split('\n')[:50]
-            remove_empty_str(trackers)
-            trackers.extend(settings.MANDATORY_TRACKERS)
-            trackers = format_trackers(trackers)
-        else:
-            if not settings.MANDATORY_TRACKERS:
-                trackers = []
-            else:
-                trackers = format_trackers(settings.MANDATORY_TRACKERS)
+    if settings.OPTION_WEBSEEDS:
+        webseeds = request.POST.get('webseeds', '').split('\n')[:50]
+        remove_empty_str(webseeds)
+    else:
+        webseeds = []
 
-        if settings.OPTION_WEBSEEDS:
-            webseeds = request.POST.get('webseeds', '').split('\n')[:50]
-            remove_empty_str(webseeds)
-        else:
-            webseeds = []
-
-        if settings.OPTION_PRIVATE:
-            private = request.POST.get('private', 'off') == 'on'
-            if private and trackers:
-                private = True
-            else:
-                private = False
+    if settings.OPTION_PRIVATE:
+        private = request.POST.get('private', 'off') == 'on'
+        if private and trackers:
+            private = True
         else:
             private = False
+    else:
+        private = False
 
-        obj = handle_uploaded_file(request.FILES[u'please'], extract, trackers, webseeds, private)
-        if obj:
-            obj.uploader = request.POST.get('user', 'Anonymous')
-            obj.description = request.POST.get('description', '')
-            obj.password = request.POST.get('delete', '')
-            obj.save()
-            log.info('Torrent %s successfully created' % obj.name)
-            return HttpResponseRedirect(obj.get_absolute_url())
-        log.info(u'Torrent creation failed, redirecting.')
+    uploader = request.POST.get('user', 'Anonymous')
+    password = request.POST.get('delete', '')
+    description = request.POST.get('description', '')
+
+    return (extract, trackers, webseeds, private, uploader, password, description)
+
+
+def upload_file(request):
+    """
+    Send a file to the server and generate the torrent.
+    """
+    if request.method == 'POST':
+        extract, trackers, webseeds, private, uploader, password, description = parse_args(request)
+        file = request.FILES.get('please', None)
+        if file:
+            obj = handle_uploaded_file(file, extract, trackers, webseeds, private)
+        if not file or not obj:
+            log.info(u'Torrent creation failed, redirecting.')
+            return HttpResponseRedirect('/0')
+        obj.uploader = uploader
+        obj.description = description
+        obj.password = password
+        obj.save()
+        log.info(u'Torrent %s successfully created' % obj.name)
+        return HttpResponseRedirect(obj.get_absolute_url())
+    log.info('Bad request')
     return HttpResponseRedirect('/0')
 
 def delete_file(request):
@@ -181,21 +203,23 @@ def handle_uploaded_file(f, extract=False, trackers=None, webseeds=None, private
         else:
             return False
     size = round(size / (1024.0**2), 2)
-    u = Upload(uuid=id, name=f.name, size=size, private=private)
-    webseeds = webseeds + [u'http://%s%s' % (Site.objects.get_current().domain, quote(u.get_file().encode('utf-8')))]
+    uploaded = Upload(uuid=id, name=f.name, size=size, private=private)
+    webseeds = webseeds + [u'http://%s%s' % (
+        Site.objects.get_current().domain, quote(
+            uploaded.get_file().encode('utf-8')))]
     t = create_torrent(_file, "Created with pleaseshare", webseeds, trackers, private)
-    u.magnet = t.save(path.join(folder, "%s.torrent" % f.name))
+    uploaded.magnet = t.save(path.join(folder, "%s.torrent" % f.name))
     if settings.TORRENT_POOL and path.exists(settings.TORRENT_POOL):
         try:
             symlink(path.join(folder, "%s.torrent" % f.name),
-                    path.join(settings.TORRENT_POOL, "%s.torrent" % u.uuid))
+                    path.join(settings.TORRENT_POOL, "%s.torrent" % uploaded.uuid))
         except:
             import traceback
             log.info('Could not create a symlink for torrent %s. The reason was:\n%s' %
-                    (u.uuid, traceback.format_exc()))
-    u.multifile = multifile
-    u.save()
-    return u
+                    (uploaded.uuid, traceback.format_exc()))
+    uploaded.multifile = multifile
+    uploaded.save()
+    return uploaded
 
 def save_file(f, folder):
     """
@@ -204,14 +228,14 @@ def save_file(f, folder):
     returns: the path of the uploaded file, or False on failure
     """
     if f.size > (settings.MAX_SIZE * 1024 * 1024):
-        log.info('Could not save file (file too big): %s' % f.name)
+        log.info(u'Could not save file (file too big): %s' % f.name)
         return False
     file = path.join(folder, f.name)
     destination = open(file, 'wb+')
     for chunk in f.chunks():
         destination.write(chunk)
     destination.close()
-    log.info('File saved: %s, %s MiB' % (file, round(f.size/(1024*1024.0), 2)))
+    log.info(u'File saved: %s, %s MiB' % (file, round(f.size/(1024*1024.0), 2)))
     return file
 
 def extract_tar(f, folder):

@@ -3,21 +3,26 @@
 from django.utils import unittest
 from django.test.client import Client
 from pleaseshare.views import format_trackers, remove_empty_str,\
-        select_extract_func, extract_tar, extract_zip
+        select_extract_func, extract_tar, extract_zip, parse_args
 from os.path import dirname, realpath, join
 from django.conf import settings
 
 # Change the settings to be sure they won’t affect the tests
 settings.LOG_FILE = ''
 settings.MAX_SIZE = 42
-settings.OPTION_DECOPRESS = True
+settings.OPTION_DECOMPRESS = True
 settings.OPTION_DDL = False
 settings.OPTION_TRACKERS = True
 settings.OPTION_WEBSEEDS = True
+settings.OPTION_MULTIFILE = True
 settings.OPTION_PRIVATE = False
-settings.DEFAULT_TRACKES = ['udp://tracker.openbittorent.com:80']
+settings.DEFAULT_TRACKERS = ['udp://tracker.openbittorent.com:80']
 settings.MANDATORY_TRACKERS = []
 settings.TORRENT_POOL = ''
+
+class request(object):
+    def __init__(self, d):
+        self.POST = d
 
 class TorrentCreationTest(unittest.TestCase):
     def setUp(self):
@@ -119,7 +124,7 @@ class FunctionsTestCase(unittest.TestCase):
 
     def test_select_extract_func(self):
         """
-        Check that the select_extract_func function workrs properly
+        Check that the select_extract_func function works properly
         """
         name = "example_file."
         for i in ('tar.gz', 'tar.bz2', 'tar.bz', 'tar', 'tbz', 'tbz2', 'tgz'):
@@ -129,4 +134,65 @@ class FunctionsTestCase(unittest.TestCase):
         for i in ('toto', 'zip', 'odt', 'banana'):
             func = select_extract_func(name + i)
             self.assertEqual(func, extract_zip)
+
+    def test_parse_args(self):
+        """
+        Test the parse_args function with various input values
+        """
+        values1 = {
+                'extract': 'on',
+                'trackers': 'udp://toto\ntcp://koin',
+                'webseeds': '',
+                'private': 'off',
+                'delete': '',
+                'description': 'coucou',
+        }
+        values2 = {
+                'extract': 'on',
+                'trackers': 'udp://toto',
+                'webseeds': 'http://example.com/file.tar',
+                'private': 'on',
+                'delete': 'test',
+                'description': 'coucou coucou',
+        }
+
+        # First test
+        extract, trackers, webseeds, private, uploader, password, description =\
+                parse_args(request(values1))
+        self.assertEqual(extract, True)
+        self.assertEqual(trackers, [['udp://toto'], ['tcp://koin']])
+        self.assertEqual(webseeds, [])
+        self.assertEqual(private, False)
+        self.assertEqual(uploader, 'Anonymous')
+        self.assertEqual(password, '')
+        self.assertEqual(description, 'coucou')
+
+        # Second test
+        extract, trackers, webseeds, private, uploader, password, description =\
+                parse_args(request(values2))
+        self.assertEqual(extract, True)
+        self.assertEqual(trackers, [['udp://toto']])
+        self.assertEqual(webseeds, ['http://example.com/file.tar'])
+        self.assertEqual(private, False,
+            'Private torrents are disable in the settings, it should not work')
+        self.assertEqual(uploader, 'Anonymous')
+        self.assertEqual(password, 'test')
+        self.assertEqual(description, 'coucou coucou')
+
+        # disable additional webseeds, and enable private torrents
+
+        settings.OPTION_WEBSEEDS = False
+        settings.OPTION_PRIVATE = True
+
+        # Third test
+        extract, trackers, webseeds, private, uploader, password, description =\
+                parse_args(request(values2))
+        self.assertEqual(extract, True)
+        self.assertEqual(trackers, [['udp://toto']])
+        self.assertEqual(webseeds, [])
+        self.assertEqual(private, True)
+        self.assertEqual(uploader, 'Anonymous')
+        self.assertEqual(password, 'test')
+        self.assertEqual(description, 'coucou coucou')
+
 

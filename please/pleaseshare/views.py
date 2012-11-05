@@ -139,13 +139,13 @@ def upload_file(request):
         if file:
             obj = handle_uploaded_file(file, extract, trackers, webseeds, private)
         if not file or not obj:
-            log.info(u'Torrent creation failed, redirecting.')
+            log.info('Torrent creation failed, redirecting.')
             return HttpResponseRedirect('/0')
         obj.uploader = uploader
         obj.description = description
         obj.password = password
         obj.save()
-        log.info(u'Torrent %s successfully created' % obj.name)
+        log.info('Torrent %s successfully created' % obj.name)
         return HttpResponseRedirect(obj.get_absolute_url())
     log.info('Bad request')
     return HttpResponseRedirect('/0')
@@ -178,6 +178,7 @@ def handle_uploaded_file(f, extract=False, trackers=None, webseeds=None, private
     """
     id = str(uuid4())
     folder = path.join(settings.MEDIA_ROOT, id)
+    f.name = f.name.encode('utf8')
     mkdir(folder)
     if extract:
         fun = select_extract_func(f.name)
@@ -228,14 +229,14 @@ def save_file(f, folder):
     returns: the path of the uploaded file, or False on failure
     """
     if f.size > (settings.MAX_SIZE * 1024 * 1024):
-        log.info(u'Could not save file (file too big): %s' % f.name)
+        log.info('Could not save file (file too big): %s' % f.name)
         return False
     file = path.join(folder, f.name)
     destination = open(file, 'wb+')
     for chunk in f.chunks():
         destination.write(chunk)
     destination.close()
-    log.info(u'File saved: %s, %s MiB' % (file, round(f.size/(1024*1024.0), 2)))
+    log.info('File saved: %s, %s MiB' % (file, round(f.size/(1024*1024.0), 2)))
     return file
 
 def extract_tar(f, folder):
@@ -248,9 +249,9 @@ def extract_tar(f, folder):
     try:
         _file = save_file(f, folder)
         if settings.OPTION_DECOMPRESS:
-            o = tarfile.open(_file)
+            tar = tarfile.open(_file)
         else:
-            o = tarfile.open(_file, mode='r:')
+            tar = tarfile.open(_file, mode='r:')
     except:
         log.info('Error opening tarfile: %s' % f.name)
         return (_file, False)
@@ -258,7 +259,7 @@ def extract_tar(f, folder):
         if not _file:
             return (False, False)
     sum = 0
-    for member in o:
+    for member in tar:
         sum += member.size
         if sum > (settings.MAX_SIZE * 1024 * 1024):
             return (_file, False)
@@ -266,7 +267,7 @@ def extract_tar(f, folder):
     rep = path.join(folder, name)
     mkdir(rep)
     try:
-        proceed_tar_extraction(o, rep)
+        proceed_tar_extraction(tar, rep)
     except: # extraction failed, remove leftover files
         log.info('Extraction of %s failed, falling back to single-file upload' % f.name)
         rmtree(rep)
@@ -303,9 +304,9 @@ def extract_zip(f, folder):
     try:
         _file = save_file(f, folder)
         if settings.OPTION_DECOMPRESS:
-            o = zipfile.ZipFile(_file, mode='r')
+            zip = zipfile.ZipFile(_file, mode='r')
         else:
-            o = zipfile.ZipFile(_file, mode='r', compression=zipfile.ZIP_STORED)
+            zip = zipfile.ZipFile(_file, mode='r', compression=zipfile.ZIP_STORED)
     except:
         log.info('Error opening zipfile: %s' % f.name)
         return (_file, False)
@@ -313,7 +314,7 @@ def extract_zip(f, folder):
         if not _file:
             return (False, False)
     sum = 0
-    for member in o.infolist():
+    for member in zip.infolist():
         sum += member.file_size
         if sum > (settings.MAX_SIZE * 1024 * 1024):
             return (_file, False)
@@ -321,7 +322,7 @@ def extract_zip(f, folder):
     rep = path.join(folder, name)
     mkdir(rep)
     try:
-        proceed_zip_extraction(o, rep)
+        proceed_zip_extraction(zip, rep)
     except: # extraction failed, remove leftover files
         log.info('Extraction of %s failed, falling back to single-file upload' % f.name)
         rmtree(rep)

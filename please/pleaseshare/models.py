@@ -40,8 +40,7 @@ class Upload(models.Model):
         return '%s%s/%s.torrent' % (settings.MEDIA_URL, self.uuid, self.name)
 
     def get_file(self):
-        return '%s%s/%s' % (settings.MEDIA_URL, self.uuid,
-                self.name if self.multifile else "")
+        return '%s%s/%s' % (settings.MEDIA_URL, self.uuid, self.name)
 
     def get_files(self):
         dir = path.join(settings.MEDIA_ROOT, self.uuid, self.name)

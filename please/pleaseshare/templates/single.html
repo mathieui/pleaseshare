@@ -22,15 +22,21 @@
 <h2>Notice</h2>
 <section id="help">First timers, please read the <a href="{% url Help %}">Help</a> section of the website, if it isn’t already done.</section>
 <section id="buttons">
-<a class="button" href="{{object.get_torrent_file}}">Download .torrent</a>
+<dl>
+    <dt class="link"><a class="button" href="{{object.get_torrent_file}}">Download .torrent</a></dt>
+    <dd><input type="text" class="link" readonly value="{{object.get_direct_torrent_file}}"/></dd>
 {% if ddl and not object.multifile %}
-<a class="button" href="{{object.get_file}}">Download file</a>
+    <dt class="link"><a class="button down" href="{{object.get_file}}">Download file</a></dt>
+    <dd><input type="text" class="link" readonly value="{{object.get_direct_file}}"/></dd>
 {% endif %}
-<a class="button" href="{{object.magnet}}">Magnet link</a>
+    <dt class="link"><a class="button down" href="{{object.magnet}}">Magnet link</a></dt>
+    <dd><input class="link" type="text" readonly value="{{object.magnet}}"/></dd>
+</dl>
+<br/>
 <form method="POST" id="delete" action="/delete/" id="deletion">
     {% csrf_token %}
     <input type="hidden" name="id" value="{{object.uuid}}"/>
-    <label for="delete">Delete file: </label><input type="password" id="delete" name="delete"/><input type="submit"/>
+    <label for="delete">Delete the file: </label><input type="password" id="delete" name="delete" placeholder="Password for deletion"/><input type="submit"/>
 </form>
 </section>
 {% endblock %}

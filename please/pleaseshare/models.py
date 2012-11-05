@@ -1,5 +1,6 @@
 #coding: utf-8
 from django.db import models
+from django.contrib.sites.models import Site
 from django.conf import settings
 import subprocess
 import logging
@@ -39,8 +40,16 @@ class Upload(models.Model):
     def get_torrent_file(self):
         return '%s%s/%s.torrent' % (settings.MEDIA_URL, self.uuid, self.name)
 
+    def get_direct_torrent_file(self):
+        return "http://%s%s" % (
+                Site.objects.get_current().domain, self.get_torrent_file())
+
     def get_file(self):
         return '%s%s/%s' % (settings.MEDIA_URL, self.uuid, self.name)
+
+    def get_direct_file(self):
+        return "http://%s%s" % (
+                Site.objects.get_current().domain, self.get_file())
 
     def get_files(self):
         dir = path.join(settings.MEDIA_ROOT, self.uuid, self.name)

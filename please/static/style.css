@@ -244,6 +244,13 @@ dl dt {
 dl dt:after {
   content: ":";
 }
+dl dt.link:after {
+    content: "";
+}
+
+dl > dd > input {
+    width: 300px !important;
+}
 
 dl dd {
   margin: 0 0 0 170px;

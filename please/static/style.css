@@ -274,13 +274,6 @@ label, #options input, #options textarea {
 
 /* View page */
 
-#buttons {
-	margin-top: 2em;
-}
-
-#buttons a {
-	margin-right: 1.5em;
-}
 
 #delete, #delete * {
 	display: inline;
@@ -356,7 +349,6 @@ input[type=submit], .button {
 input[type=submit]:hover, input[type=button]:hover, .button:hover {
 	color: #666;
 }
-
 a.button:hover {
 	border-bottom: 1px solid #ababab;
 }

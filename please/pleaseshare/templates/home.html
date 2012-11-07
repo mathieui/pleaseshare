@@ -28,18 +28,18 @@
     <p>Note: the filesize limit is currently set at {{size}} MiB.</p>
     <fieldset id="options">
         <label for="delete" class="classiclabel">Deletion password</label>
-        <input type="password" id="delete" name="delete" class="classicinput"/>
+        <input type="password" id="delete" name="delete" class="classicinput" placeholder="Deletion password"/>
         <label for="user" class="classiclabel">Uploader name</label>
-        <input type="text" name="user" id="user" class="classicinput"/>
+        <input type="text" name="user" id="user" class="classicinput" placeholder="User name"/>
         <label for="description" class="clear">Description (up to 400 characters)</label>
-        <textarea name="description" id="description"></textarea>
+        <textarea name="description" id="description" placeholder="Short description"></textarea>
         {% if webseeds %}
         <label for="webseeds" class="clear">Web seeds (one per line)</label>
-        <textarea name="webseeds" id="webseeds"></textarea>
+        <textarea name="webseeds" id="webseeds" placeholder="Web seeds"></textarea>
         {% endif %}
         {% if trackers %}
         <label for="trackers" class="clear">Trackers (one per line)</label>
-<textarea name="trackers" id="trackers">{% for tracker in default_trackers %}{{tracker}}
+<textarea name="trackers" id="trackers" placeholder="Trackers">{% for tracker in default_trackers %}{{tracker}}
 {% endfor %}</textarea>
             {% if private %}
             <p>You can choose to make the torrent private. This is usually

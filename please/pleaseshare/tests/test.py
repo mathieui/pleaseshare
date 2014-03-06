@@ -34,11 +34,15 @@ class TorrentCreationTest(unittest.TestCase):
         """
         c = Client()
 
-        filename = u'répondeur_linkmauve.wav'
+        filename = 'répondeur_linkmauve.wav'
         filepath = join(realpath(dirname(__file__)), 'data', filename)
+        print(filepath)
+
+        import sys
+        sys.stderr.write(repr(filename) + '\n')
 
         # Upload a file
-        with open(filepath, 'r') as fp:
+        with open(filepath, 'rb') as fp:
             response = c.post('/upload', {
                 'please': fp,
                 'trackers': 'udp://share.example.com:80',
@@ -99,15 +103,15 @@ class FunctionsTestCase(unittest.TestCase):
         """
         tab = ['', 'qsd', '', 'sdf', 'koin', '']
         remove_empty_str(tab)
-        self.assertEquals(tab, ['qsd', 'sdf', 'koin'])
+        self.assertEqual(tab, ['qsd', 'sdf', 'koin'])
 
         tab = ['', '', '', '']
         remove_empty_str(tab)
-        self.assertEquals(tab, [])
+        self.assertEqual(tab, [])
 
         tab = ['', 'a', 'b', '']
         remove_empty_str(tab)
-        self.assertEquals(tab, ['a', 'b'])
+        self.assertEqual(tab, ['a', 'b'])
 
     def test_format_trackers(self):
         """
@@ -116,11 +120,11 @@ class FunctionsTestCase(unittest.TestCase):
         tab = ['udp://toto', 'koin://test', 'test://ex']
         new_tab = format_trackers(tab)
         needed = [['udp://toto'], ['koin://test'], ['test://ex']]
-        self.assertEquals(new_tab, needed)
+        self.assertEqual(new_tab, needed)
 
         tab = []
         new_tab = format_trackers(tab)
-        self.assertEquals(new_tab, tab)
+        self.assertEqual(new_tab, tab)
 
     def test_select_extract_func(self):
         """

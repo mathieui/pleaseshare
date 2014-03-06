@@ -38,8 +38,8 @@ import sys
 import os
 from hashlib import sha1 as sha
 
-from common import get_path_size, create_magnet_uri
-from bencode import bencode, bdecode
+from . common import get_path_size, create_magnet_uri
+from . bencode import bencode, bdecode
 
 class InvalidPath(Exception):
     """
@@ -175,12 +175,12 @@ class TorrentMetadata(object):
             fs = []
             pieces = []
             # Create the piece hashes
-            buf = ""
+            buf = b""
             for size, path in files:
                 path = [s.encode("UTF-8") for s in path]
                 fs.append({"length": size, "path": path})
-                if path[-1].startswith("_____padding_file_"):
-                    buf += "\0" * size
+                if path[-1].startswith(b"_____padding_file_"):
+                    buf += b"\0" * size
                     pieces.append(sha(buf).digest())
                     buf = ""
                     fs[-1]["attr"] = "p"
@@ -194,7 +194,7 @@ class TorrentMetadata(object):
                             # Run the progress function if necessary
                             if progress:
                                 progress(len(pieces), num_pieces)
-                            buf = ""
+                            buf = b""
                         else:
                             break
                         r = fd.read(piece_size - len(buf))
@@ -206,7 +206,7 @@ class TorrentMetadata(object):
                     progress(len(pieces), num_pieces)
                 buf = ""
 
-            torrent["info"]["pieces"] = ''.join(pieces)
+            torrent["info"]["pieces"] = b''.join(pieces)
             torrent["info"]["files"] = fs
 
         elif os.path.isfile(self.data_path):
@@ -223,7 +223,7 @@ class TorrentMetadata(object):
 
                 r = fd.read(piece_size)
 
-            torrent["info"]["pieces"] = ''.join(pieces)
+            torrent["info"]["pieces"] = b''.join(pieces)
 
         # Write out the torrent file
         wr = open(torrent_path, 'wb')

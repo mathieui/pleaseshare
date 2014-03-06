@@ -72,9 +72,6 @@ def bdecode(x):
 
     return r
 
-from types import StringType, IntType, LongType, DictType, ListType, TupleType, UnicodeType
-
-
 class Bencached(object):
 
     __slots__ = ['bencoded']
@@ -83,10 +80,10 @@ class Bencached(object):
         self.bencoded = s
 
 def encode_bencached(x,r):
-    r.append(x.bencoded)
+    r.append(x.bencoded.encode())
 
 def encode_int(x, r):
-    r.extend(('i', str(x), 'e'))
+    r.extend((b'i', str(x).encode(), b'e'))
 
 def encode_bool(x, r):
     if x:
@@ -95,44 +92,39 @@ def encode_bool(x, r):
         encode_int(0, r)
 
 def encode_string(x, r):
-    r.extend((str(len(x)), ':', x))
+    r.extend((str(len(x)).encode(), b':', x))
 
 def encode_utf8(x, r):
     x = x.encode('utf-8')
-    r.extend((str(len(x)), ':', x))
+    r.extend((str(len(x)).encode(), b':', x))
 
 def encode_list(x, r):
-    r.append('l')
+    r.append(b'l')
     for i in x:
         encode_func[type(i)](i, r)
-    r.append('e')
+    r.append(b'e')
 
 def encode_dict(x,r):
-    r.append('d')
+    r.append(b'd')
     ilist = x.items()
-    ilist.sort()
+    ilist = sorted(ilist)
     for k, v in ilist:
-        r.extend((str(len(k)), ':', k))
+        r.extend((str(len(k)).encode(), b':', k.encode()))
         encode_func[type(v)](v, r)
-    r.append('e')
+    r.append(b'e')
 
 encode_func = {}
 encode_func[Bencached] = encode_bencached
-encode_func[IntType] = encode_int
-encode_func[LongType] = encode_int
-encode_func[StringType] = encode_string
-encode_func[UnicodeType] = encode_utf8
-encode_func[ListType] = encode_list
-encode_func[TupleType] = encode_list
-encode_func[DictType] = encode_dict
+encode_func[int] = encode_int
+encode_func[int] = encode_int
+encode_func[bytes] = encode_string
+encode_func[str] = encode_utf8
+encode_func[list] = encode_list
+encode_func[tuple] = encode_list
+encode_func[dict] = encode_dict
 
-try:
-    from types import BooleanType
-    encode_func[BooleanType] = encode_bool
-except ImportError:
-    pass
 
 def bencode(x):
     r = []
     encode_func[type(x)](x, r)
-    return ''.join(r)
+    return b''.join(r)

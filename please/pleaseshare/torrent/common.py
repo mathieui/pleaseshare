@@ -38,7 +38,7 @@
 """Common functions for various parts of Deluge to use."""
 
 import os
-from urllib import quote_plus
+from urllib.parse import quote_plus
 
 def create_magnet_uri(infohash, name=None, trackers=[]):
     """

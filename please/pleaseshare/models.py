@@ -59,10 +59,5 @@ class Upload(models.Model):
         except OSError:
             res = ''
             log.info('Call to `tree` failed.')
-        tb = res.split('\n')
-        if self.multifile:
-            suffix = '/'
-        else:
-            suffix = ''
-        tb[0] = str(self.name.encode('utf-8') + suffix)
-        return '\n'.join([f.decode('utf-8') for f in tb])
+        tb = res.decode('utf-8').split('\n')
+        return '\n'.join(tb)

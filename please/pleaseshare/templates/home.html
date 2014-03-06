@@ -14,12 +14,12 @@
     <li>Subsequent downloads are at least <strong>as fast as</strong> a direct HTTP download: this server acts as a <strong>webseed</strong> for the created torrent.</li>
 </ul>
 
-<p>PleaseShare is <a href="http://www.gnu.org/philosophy/free-sw.en.html">free software</a>, <a href="https://gitorious.org/pleaseshare">get the code</a>. More about PleaseShare <a href="{% url About %}">here</a>. Need <a href="{% url Help %}">help</a>?</p>
+<p>PleaseShare is <a href="http://www.gnu.org/philosophy/free-sw.en.html">free software</a>, <a href="https://gitorious.org/pleaseshare">get the code</a>. More about PleaseShare <a href="{% url "About" %}">here</a>. Need <a href="{% url "Help" %}">help</a>?</p>
 
 
 <h2>Select a file to upload</h2>
 
-<form method="post" action="{% url upload %}" enctype="multipart/form-data" id="sendform">
+<form method="post" action="{% url "upload" %}" enctype="multipart/form-data" id="sendform">
     {% csrf_token %}
     <div class="center">
         <input type="file" name="please" id="fileselect"/>

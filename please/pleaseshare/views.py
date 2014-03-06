@@ -6,18 +6,28 @@ from django.shortcuts import render_to_response, get_object_or_404
 from django.contrib.sites.models import Site
 from django.conf import settings
 
+
+# why do I even need this, fuck you django
+from django.views.generic import TemplateView
+
+def direct_to_template(template):
+    class cls(TemplateView):
+        template_name = template
+    return cls.as_view()
+
+
 # system imports
 from os import mkdir, path, walk, remove, chmod, symlink
 from shutil import rmtree
 from uuid import uuid4
-from urllib import quote
+from urllib.parse import quote
 import tarfile
 import zipfile
 import logging
 
 # local imports
-from models import Upload
-from torrent import maketorrent
+from . models import Upload
+from . torrent import maketorrent
 
 if settings.LOG_FILE:
     logging.basicConfig(filename=settings.LOG_FILE, level=logging.INFO, format='%(asctime)s %(message)s')
@@ -178,7 +188,7 @@ def handle_uploaded_file(f, extract=False, trackers=None, webseeds=None, private
     """
     id = str(uuid4())
     folder = path.join(settings.MEDIA_ROOT, id)
-    f.name = f.name.encode('utf8')
+    #f.name = f.name.encode('utf8')
     mkdir(folder)
     if extract:
         fun = select_extract_func(f.name)
@@ -254,7 +264,7 @@ def extract_tar(f, folder):
         else:
             tar = tarfile.open(_file, mode='r:')
     except:
-        log.info('Error opening tarfile: %s' % f.name)
+        log.info('Error opening tarfile: %s' % f.name, exc_info=True)
         return (_file, False)
     else:
         if not _file:
@@ -267,10 +277,11 @@ def extract_tar(f, folder):
     name = f.name.split('.')[0]
     rep = path.join(folder, name)
     mkdir(rep)
+    print(rep)
     try:
         proceed_tar_extraction(tar, rep)
     except: # extraction failed, remove leftover files
-        log.info('Extraction of %s failed, falling back to single-file upload' % f.name)
+        log.info('Extraction of %s failed, falling back to single-file upload' % f.name, exc_info=True)
         rmtree(rep)
         return (_file, False)
     # remove old tar file
@@ -286,14 +297,12 @@ def proceed_tar_extraction(tar, dir):
         # test against files named by stupid people
         if not member.name.startswith('/') and not \
                 '..' in member.name:
-            member.name = member.name.decode('utf-8')
-            tar.extract(member, dir)
+            tar.extract(member, dir, set_attrs=False)
             try:
                 # python has no option to use umask while extracting, so…
-                chmod(path.join(dir, member.name), 0755)
+                chmod(path.join(dir, member.name), 0o755)
             except:
-                log.info('Error chmoding %s' % member.name)
-                pass
+                log.info('Error chmoding %s' % member.name, exc_info=True)
 
 def extract_zip(f, folder):
     """
@@ -309,7 +318,7 @@ def extract_zip(f, folder):
         else:
             zip = zipfile.ZipFile(_file, mode='r', compression=zipfile.ZIP_STORED)
     except:
-        log.info('Error opening zipfile: %s' % f.name)
+        log.info('Error opening zipfile: %s' % f.name, exc_info=True)
         return (_file, False)
     else:
         if not _file:
@@ -322,10 +331,11 @@ def extract_zip(f, folder):
     name = f.name.split('.')[0]
     rep = path.join(folder, name)
     mkdir(rep)
+    chmod(rep, 0o711)
     try:
         proceed_zip_extraction(zip, rep)
     except: # extraction failed, remove leftover files
-        log.info('Extraction of %s failed, falling back to single-file upload' % f.name)
+        log.info('Extraction of %s failed, falling back to single-file upload' % f.name, exc_info=True)
         rmtree(rep)
         return (_file, False)
     # remove old zip file
@@ -344,9 +354,9 @@ def proceed_zip_extraction(zip, dir):
             zip.extract(member, dir)
             try:
                 # python has no option to use umask while extracting, so…
-                chmod(path.join(dir, member.filename), 0755)
+                chmod(path.join(dir, member.filename), 0o755)
             except:
-                log.info('Error chmoding %s' % member.filename)
+                log.info('Error chmoding %s' % member.filename, exc_info=True)
                 pass
 
 def select_extract_func(name):

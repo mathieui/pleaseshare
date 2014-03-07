@@ -57,7 +57,7 @@ class Upload(models.Model):
             proc = subprocess.Popen(['tree', '-ah', dir], stdout=subprocess.PIPE)
             res = proc.communicate()[0]
         except OSError:
-            res = ''
+            res = b''
             log.info('Call to `tree` failed.')
         tb = res.decode('utf-8').split('\n')
         return '\n'.join(tb)

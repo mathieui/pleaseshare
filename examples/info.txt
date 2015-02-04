@@ -1,2 +1,0 @@
-The configurations present in this directory are EXAMPLE configurations, you
-should adapt it to your own needs and previous configurations.

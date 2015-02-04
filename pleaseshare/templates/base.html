@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>{% block title %}PleaseShare{% endblock %}</title>
+        <meta charset="utf-8"/>
+        <link rel="stylesheet" href="/static/style.css" type="text/css"/>
+    </head>
+    <body>
+        <div class="box-shadow"></div>
+        <div class="box-gradient">
+        <header>
+        {% block header %}
+            <section class="left">
+            <h1><a href="{{ url_for("dynamic.home") }}">PleaseShare</a></h1>
+            </section>
+            <section class="right">
+            <nav>
+                <a href="{{ url_for("static.help") }}" title="{{ _('Need help?') }}">{{ _('Need help?') }}</a> |
+                <a title="{{ _('About') }}" href="{{ url_for("static.about") }}">{{ _('About') }}</a> |
+                <a title="{{ _('Terms of Service') }}" href="{{ url_for("static.tos") }}">{{ _('ToS') }}</a> |
+                <a title="{{ _('Contact') }}" href="{{ url_for("static.contact") }}">{{ _('Contact') }}</a>
+            </nav>
+            </section>
+            <section class="clear"></section>
+        {% endblock %}
+        </header>
+        {% with errors = get_flashed_messages(category_filter=["error"]) %}
+            {% if errors %}
+                {%- for msg in errors %}
+                <p class="info-important">{{ msg }}</p>
+                {% endfor -%}
+            {% endif %}
+        {% endwith %}
+        {% with success = get_flashed_messages(category_filter=["success"]) %}
+            {% if success %}
+                {%- for msg in success %}
+                <p class="info-ok">{{ msg }}</p>
+                {% endfor -%}
+            {% endif %}
+        {% endwith %}
+
+        <section class="box">
+        {% block body %}{% endblock %}
+        </section>
+        </div>
+    </body>
+</html>

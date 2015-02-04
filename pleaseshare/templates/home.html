@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+
+{% block title %}
+PleaseShare - {{ _('Upload') }}
+{% endblock %}
+
+{% block body %}
+
+<h2>{{ _('Select a file to upload') }}</h2>
+
+<form method="post" action="{{ url_for("dynamic.upload") }}" enctype="multipart/form-data" id="sendform" name="sendform">
+    {{ form.csrf_token() }}
+    <div class="center">
+        {{ form.file }}
+        <a href="#options" class="button" id="optionsa">Options</a>
+    </div>
+    {% with maxsize = (config.MAX_CONTENT_LENGTH / (1024**2)) %}
+    <p>{{ _('Note: the filesize limit is currently set at %(maxsize)s MiB.', maxsize=maxsize) }}</p>
+    {% endwith %}
+    <div id="options" class="center">
+        <p>{{ form.uploader_name.label }} {{ form.uploader_name }}</p>
+        <p>{{ form.deletion_password.label }} {{ form.deletion_password }}</p>
+        <p>{{ form.description.label }} {{ form.description }}</p>
+        {% if config.ALLOW_WEBSEEDS %}
+            <p>{{ form.webseeds.label }} {{ form.webseeds }}</p>
+        {% endif %}
+        {% if config.ALLOW_TRACKERS%}
+            <p>{{ form.trackers.label }} {{ form.trackers }}</p>
+            {% if config.ALLOW_PRIVATE%}
+            <p>{{ form.private.label }} {{ form.private }}</p>
+            {% endif %}
+        {% endif %}
+        {% if config.ALLOW_MULTIFILE %}
+            <p>{{ form.extract.label }}{{ form.extract }}</p>
+        {% endif %}
+        {% if config.ALLOW_PRIVATE%}
+        <!--<p style="display:block;">{{ _('You can choose to make the torrent private. This is usually
+        when you upload private documents that you do not want to share with everyone.') }}</p>-->
+        {% endif %}
+    </div>
+    <div class="center">
+        <input type="submit" id="send" value="Send file">
+    </div>
+</form>
+
+<h2>{{ _('About PleaseShare') }}</h2>
+
+<p>{{ _('Using PleaseShare is easy:') }}</p>
+<ul>
+    <li>{{ _('You upload a file (or an archive, see the options below);') }}</li>
+    <li>{{ _('You get a <strong>.torrent</strong> and a <strong>magnet link</strong> to share with your friends;') }}</li>
+    <li>{{ _('Subsequent downloads are at least <strong>as fast as</strong> a direct HTTP download: this server acts as a <strong>webseed</strong> for the created torrent.') }}</li>
+</ul>
+
+<p>{{ _('PleaseShare is <a href="http://www.gnu.org/philosophy/free-sw.en.html">free software</a>, <a href="https://gitorious.org/pleaseshare">get the code</a>. More about PleaseShare <a href="%(url_about)s">here</a>. Need <a href="%(url_help)s">help</a>?', url_about=url_for("static.about"), url_help=url_for("static.help")) }}</p>
+
+
+<script>
+var button = document.getElementById("optionsa");
+var form = document.getElementById("sendform");
+button.removeAttribute("href");
+
+function toggle_visibility(id)
+{
+   var e = document.getElementById(id);
+   if(e.style.display == 'table')
+      e.style.display = 'none';
+   else
+      e.style.display = 'table';
+}
+
+button.setAttribute('onclick', 'toggle_visibility("options");');
+{% if not config.MANDATORY_TRACKERS %}
+function check_form()
+{
+    var trackers = document.getElementById('trackers');
+    var priv = document.getElementById('private');
+
+    if (priv.checked && trackers.value.trim() == "")
+    {
+        alert("{{ _('You must specify trackers if you wand to create a private torrent!') }}");
+        return false;
+    }
+    return true;
+}
+
+form.setAttribute("onsubmit", "return check_form();");
+{% endif %}
+</script>
+
+{% endblock %}

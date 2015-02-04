@@ -1,0 +1,477 @@
+# French translations for PleaseShare
+# This file is distributed under the same license as the PleaseShare project.
+# Mathieu Pasquet <mathieui@mathieui.net>, 2015.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: VERSION\n"
+"Report-Msgid-Bugs-To: mathieui@mathieui.net\n"
+"POT-Creation-Date: 2015-02-04 23:58+0100\n"
+"PO-Revision-Date: 2015-02-04 10:18+0100\n"
+"Last-Translator: Mathieu Pasquet <mathieui@mathieui.net>\n"
+"Language-Team: fr <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n > 1)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 1.3\n"
+
+#: app.py:48
+msgid "Upload not found"
+msgstr "Fichier non trouvé"
+
+#: app.py:60
+msgid "Missing field in deletion form."
+msgstr "Champ non rempli dans le formulaire de suppression."
+
+#: app.py:65
+#, python-format
+msgid "Uploaded file %s not found."
+msgstr "Fichier %s non trouvé."
+
+#: app.py:68
+#, python-format
+msgid "Uploaded file %s cannot be deleted (no deletion password exists)."
+msgstr ""
+"Le fichier %s ne peut pas être supprimé (pas de mot de passe de "
+"suppression)."
+
+#: app.py:77
+msgid "Upload deleted successfully."
+msgstr "Fichier supprimé."
+
+#: app.py:79
+msgid "Wrong password"
+msgstr "Mauvais mot de passe"
+
+#: app.py:95
+msgid "File required."
+msgstr "Fichier requis."
+
+#: app.py:104
+msgid "Server error"
+msgstr "Erreur interne"
+
+#: app.py:135
+msgid "Extracted archive too big, fallback to single-file upload."
+msgstr "Archive trop volumineuse pour être extraite, retour au mode fichier unique."
+
+#: app.py:137
+msgid "Invalid archive, fallback to single-file upload."
+msgstr "Archive invalide, retour au mode fichier unique."
+
+#: forms.py:17
+msgid "Uploader name"
+msgstr "Créateur"
+
+#: forms.py:17
+msgid "Anonymous"
+msgstr "Anonyme"
+
+#: forms.py:18
+msgid "Password (used for deletion)"
+msgstr "Mot de passe"
+
+#: forms.py:19
+msgid "File to upload"
+msgstr "Choisissez un fichier à envoyer"
+
+#: forms.py:20
+msgid "Private torrent?"
+msgstr "Torrent privé ?"
+
+#: forms.py:21
+msgid "Extract file"
+msgstr "Extraire"
+
+#: forms.py:22
+msgid "Trackers"
+msgstr "Trackers"
+
+#: forms.py:23
+msgid "Webseeds"
+msgstr "Sources web"
+
+#: forms.py:24
+msgid "Short description"
+msgstr "Description"
+
+#: forms.py:30
+msgid "Password for deletion:"
+msgstr "Mot de passe de suppression :"
+
+#: templates/about.html:4 templates/base.html:19
+msgid "About"
+msgstr "À propos"
+
+#: templates/about.html:9
+msgid "What is pleaseshare?"
+msgstr "Qu’est-ce que pleaseshare ?"
+
+#: templates/about.html:11
+msgid "Pleaseshare is a file-sharing website, with \"sharing\" as its core value."
+msgstr ""
+"PleaseShare est un site de partage de fichiers, qui dépend également du "
+"partage de fichiers entre ses utilisateurs."
+
+#: templates/about.html:14
+msgid ""
+"It means that there won’t be a direct link on your file once you upload "
+"it, but pleaseshare\n"
+"    will generate a torrent for you, with a webseed. Therefore, people "
+"who download the file will\n"
+"    always get the best speed available (since there is a webseed, it "
+"will be at worst the same\n"
+"    speed as if they downloaded it directly via http). It also means that"
+" the uploader can use this\n"
+"    torrent to seed the file that is already on his computer, thus "
+"increasing the download speed for\n"
+"    people on the other end."
+msgstr ""
+"Cela veut dire que PleaseShare ne va pas fournir de lien direct versvotre"
+" fichier une fois que vous l’aurez envoyé. À la place, PleaseShare va "
+"générer un torrent, qui contient une source web. En utilisant ce torrent,"
+" les gens qui téléchargent le fichier auront une vitesse de "
+"téléchargement optimale (ce sera <strong>au pire</strong> la même vitesse"
+" qu’en téléchargement http direct). Cela veut dire également que la "
+"personne qui envoie le fichier peut directement partager le fichier qui "
+"est présent sur son ordinateur, augmentant d’emblée la vitesse pour les "
+"autres téléchargeurs."
+
+#: templates/about.html:21
+msgid "Things to know"
+msgstr "À savoir"
+
+#: templates/about.html:23
+msgid ""
+"Please note that pleaseshare relies on the Bittorent DHT, which means "
+"that no trackers\n"
+"    are needed to get peers."
+msgstr ""
+"PleaseShare s’appuie sur la DHT Bittorent, ce qui veut dire que des "
+"trackers ne sont pas obligatoires pour trouver des pairs."
+
+#: templates/about.html:25
+msgid "You can provide trackers if you want, but you don’t have to."
+msgstr ""
+"Vous pouvez fournir des trackers si vous voulez, mais ce n’est pas "
+"nécéssaire"
+
+#: templates/about.html:26
+msgid "Trackers will be added by the server even if you don’t add them."
+msgstr "Des trackers seront ajoutés par ce serveur automatiquement."
+
+#: templates/about.html:28
+msgid ""
+"You must also understand that, even if pleaseshare allows you to delete "
+"the files that you upload on this server, the torrent can still stay "
+"active without a webseed."
+msgstr ""
+"Il faut également comprendre que, même si pleaseshare vous permet de "
+"supprimer les fichiers que vous envoyez sur ce serveur, le torent peut "
+"rester actif même sans la source web."
+
+#: templates/about.html:30
+msgid "Licence"
+msgstr "Licence"
+
+#: templates/about.html:32
+msgid ""
+"Pleaseshare is licenced under the AGPL v3, with some GPL bits coming from"
+" the deluge client.\n"
+"    And the source is <a href=\"https://gitorious.org/pleaseshare\" "
+"title=\"pleaseshare source\">on gitorious</a>."
+msgstr ""
+"PleaseShare est sous licence AGPLv3, avec des bouts sous GPL venant du "
+"client deluge. Les sources sont disponibles <a "
+"href=\"https://gitorious.org/pleaseshare\" title=\"pleaseshare "
+"source\">sur gitorious</a>."
+
+#: templates/base.html:18
+msgid "Need help?"
+msgstr "Aide"
+
+#: templates/base.html:20 templates/tos.html:4 templates/tos.html:8
+msgid "Terms of Service"
+msgstr "Conditions d’utilisation"
+
+#: templates/base.html:20
+msgid "ToS"
+msgstr "Conditions"
+
+#: templates/base.html:21 templates/contact.html:4 templates/contact.html:8
+msgid "Contact"
+msgstr "Contact"
+
+#: templates/help.html:3
+msgid "Help"
+msgstr "Aide"
+
+#: templates/help.html:8
+msgid "I can only upload one file?"
+msgstr "Je dois envoyer un seul fichier ?"
+
+#: templates/help.html:9
+msgid ""
+"Yes, at the moment, due to the limitations of html, it is impossible to "
+"upload\n"
+"    folders directly."
+msgstr ""
+"Oui, actuellement les limitations de HTML ne permettent pas de "
+"sélectionner des dossiers directement."
+
+#: templates/help.html:12
+msgid "However, if you upload an archive"
+msgstr "Cependant, si vous envoyez une archive"
+
+#: templates/help.html:14
+msgid " (.zip/.tar, possibly compressed) "
+msgstr " (.zip/.tar, avec ou sans compression) "
+
+#: templates/help.html:16
+msgid " (.tar, uncompressed) "
+msgstr " (.tar, sans compression) "
+
+#: templates/help.html:18
+msgid ""
+"and toggle the option \"Extract archive\" the torrent will contain the "
+"files of\n"
+"    this archive, under a subdirectory named after the archive (minus the"
+" .extension part)."
+msgstr ""
+"et activez l’option \"Extraire\", le torrent contiendra les fichiers de "
+"cette archive, dans un sous-dossier nommé comme l’archive (sans le "
+".extension)."
+
+#: templates/help.html:22
+msgid "I uploaded a file, what now?"
+msgstr "Qu’est-ce que je fais ensuite ?"
+
+#: templates/help.html:23
+msgid ""
+"You can share it with your friends, of anyone, if you give them a link\n"
+"    to this page, to the torrent, or the magnet link.\n"
+"    You should also start the torrent into your favorite torrent client, "
+"this way,\n"
+"    you will be able to share it. If you don’t do that, the download "
+"speed for the\n"
+"    people who want download the file will be smaller."
+msgstr ""
+"Vous pouvez partager le fichier avec vos amis ou qui vous voulez, en leur"
+" fournissant un lien vers la page du fichier, le torrent, ou le lien "
+"magnet. Vous devriez aussi lancer le torrent dans votre client bittorent "
+"favori, cela vous permettra de le partager, et donc d’améliorer la "
+"vitesse de téléchargement du fichier pour les gens à qui vous fournirer "
+"le lien."
+
+#: templates/help.html:29
+msgid "How do I delete a file if I don’t want to keep sharing it?"
+msgstr "Comment supprimer un fichier ?"
+
+#: templates/help.html:30
+msgid ""
+"You have to go to the page for the file and enter the deletion password "
+"into\n"
+"    the box at the bottom of the page. If you don’t have the password, we"
+" have no way\n"
+"    of knowing if you are the initial uploader (because this service is "
+"entirely anonymous)\n"
+"    and therefore we will not be able to comply with your request.\n"
+"    <br/>\n"
+"    You should also understand that because of the way the torrent "
+"network was built, the file\n"
+"    cannot be remotely deleted on the computers of the file-sharers. So "
+"while the file is gone\n"
+"    from the website, it can still be shared and accessible via a saved "
+"torrent file or magnet\n"
+"    link."
+msgstr ""
+"Vous devez aller sur la page correspondant à votre fichier et entrer le "
+"mot de passe de suppression. Si vous n’avez pas entré de mot de passe au "
+"moment de l’envoi, nous n’avons aucun moyen de savoir que c’est vous qui "
+"avez envoyé le fichier (puisque ce service est anonyme). Il faut "
+"également prendre en compte qu’à cause de la façon de fonctionner de "
+"bittorent, supprimer le fichier sur le site ne permet pas  d’empêcher les"
+" gens de partager les torrents/magnet déjà publics."
+
+#: templates/help.html:40
+msgid "I see \"magnet link\", what’s this?"
+msgstr "Qu’est-ce qu’un « lien magnet » ?"
+
+#: templates/help.html:41
+msgid ""
+"Magnet links are created from the torrent file, in order to have \n"
+"    something easy to share between people, via text messaging or "
+"whatever.\n"
+"    Technically, your torrent client will search people who have the "
+"torrent \n"
+"    file, and download it from them, then download the files in the "
+"torrent, \n"
+"    so it always need at least one client which has the torrent.\n"
+"    Note that using magnet links does not give you the webseeds, so you "
+"are\n"
+"    missing one of the advantages of this website (a minimal guaranteed "
+"bandwith)."
+msgstr ""
+"Les liens magnets sont créés à partir du fichier torrent, afin d’avoir "
+"quelque chose de facile à partager avec d’autres gens (via SMS or other)."
+" En pratique, votre client torrent va recherche les gens qui ont le même "
+"torrent, et télécharger les fichiers depuis eux. C’est pourquoi utiliser "
+"les liens magnet nécessite au moins un utilisateur qui a les fichiers. "
+"Utiliser les liens magnet ne permet pas de profiter des avantages offerts"
+" par pleaseshare (vitesse minimale garantie)."
+
+#: templates/help.html:49
+msgid "What can I do here?"
+msgstr "Options disponibles"
+
+#: templates/help.html:51
+msgid "Multifile torrents are enabled"
+msgstr "Les torrents à fichiers multiples sont activés"
+
+#: templates/help.html:53
+msgid "Multifile torrents are disabled"
+msgstr "Les torrents à fichiers multiples sont désactivés"
+
+#: templates/help.html:56
+msgid "Adding webseeds to the torrent is enabled"
+msgstr "Ajouter des sources web dans le torrent est possible"
+
+#: templates/help.html:58
+msgid "Adding webseeds to the torrent is forbidden"
+msgstr "Ajouter des sources web dans le torrent est interdit"
+
+#: templates/help.html:61
+msgid "Adding trackers to the torrent is enabled"
+msgstr "Ajouter des trackers dans le torrent est possible"
+
+#: templates/help.html:63
+msgid "Adding trackers to the torrent is disabled"
+msgstr "Ajouter des trackers dans le torrent est interdit"
+
+#: templates/help.html:66
+msgid "Creation of private torrents is allowed"
+msgstr "Il est possible de créer des torrents privés"
+
+#: templates/help.html:68
+msgid "Creation of private torrents is forbidden"
+msgstr "Il est impossible de créer des torrents privés"
+
+#: templates/help.html:71
+#, python-format
+msgid "The max file size is %(maxsize)s MiB"
+msgstr "La taille maximum des fichiers est de %(maxsize)s Mio"
+
+#: templates/help.html:74
+msgid "The default trackers are:"
+msgstr "Les trackers par défaut sont :"
+
+#: templates/help.html:83
+msgid "The forced trackers are:"
+msgstr "Les trackers ajoutés automatiquement sont :"
+
+#: templates/home.html:4
+msgid "Upload"
+msgstr "Upload"
+
+#: templates/home.html:9
+msgid "Select a file to upload"
+msgstr "Choisissez un fichier à envoyer"
+
+#: templates/home.html:18
+#, python-format
+msgid "Note: the filesize limit is currently set at %(maxsize)s MiB."
+msgstr "Note: Taille max: %(maxsize)s Mio."
+
+#: templates/home.html:37
+msgid ""
+"You can choose to make the torrent private. This is usually\n"
+"        when you upload private documents that you do not want to share "
+"with everyone."
+msgstr ""
+
+#: templates/home.html:46
+msgid "About PleaseShare"
+msgstr "Qu’est-ce que pleaseshare ?"
+
+#: templates/home.html:48
+msgid "Using PleaseShare is easy:"
+msgstr "Utiliser PleaseShare est facile :"
+
+#: templates/home.html:50
+msgid "You upload a file (or an archive, see the options below);"
+msgstr "Vous envoyez un fichier (ou une archive, selon les options activées) ;"
+
+#: templates/home.html:51
+msgid ""
+"You get a <strong>.torrent</strong> and a <strong>magnet link</strong> to"
+" share with your friends;"
+msgstr ""
+"Vous obtenez un fichier <strong>.torrent</strong> et un <strong>lien "
+"magnet</strong> à partager avec vos amis;"
+
+#: templates/home.html:52
+msgid ""
+"Subsequent downloads are at least <strong>as fast as</strong> a direct "
+"HTTP download: this server acts as a <strong>webseed</strong> for the "
+"created torrent."
+msgstr ""
+"Les téléchargements sont ensuite <strong>au moins aussi "
+"rapides</strong>qu’un téléchargement HTP direct, puisque ce serveur sert "
+"de <strong>source web</strong> pour le torrent."
+
+#: templates/home.html:55
+#, python-format
+msgid ""
+"PleaseShare is <a href=\"http://www.gnu.org/philosophy/free-"
+"sw.en.html\">free software</a>, <a "
+"href=\"https://gitorious.org/pleaseshare\">get the code</a>. More about "
+"PleaseShare <a href=\"%(url_about)s\">here</a>. Need <a "
+"href=\"%(url_help)s\">help</a>?"
+msgstr ""
+"PleaseShare est un <a href=\"http://www.gnu.org/philosophy/free-"
+"sw.en.html\">logiciel libre</a>, <a "
+"href=\"https://gitorious.org/pleaseshare\">obtenir le code</a>. Plus "
+"d’informations sur PleaseShare <a href=\"%(url_about)s\">ici</a>. Besoin "
+"d’<a href=\"%(url_help)s\">aide</a> ?"
+
+#: templates/home.html:81
+msgid "You must specify trackers if you wand to create a private torrent!"
+msgstr "Vous devez fournir des trackers si vous voulez un torrent privé !"
+
+#: templates/view.html:3
+msgid "Your torrent"
+msgstr "Votre torrent"
+
+#: templates/view.html:6
+msgid "Name"
+msgstr "Nom"
+
+#: templates/view.html:7
+msgid "Size"
+msgstr "Taille"
+
+#: templates/view.html:9
+msgid "Uploader"
+msgstr "Créateur"
+
+#: templates/view.html:12
+msgid "Description"
+msgstr "Description"
+
+#: templates/view.html:17
+msgid "Files…"
+msgstr "Fichiers…"
+
+#: templates/view.html:24
+msgid "Download .torrent"
+msgstr "Télécharger le .torrent"
+
+#: templates/view.html:27
+msgid "Download file"
+msgstr "Télécharger le fichier"
+
+#: templates/view.html:31
+msgid "Magnet link"
+msgstr "Lien magnet"
+

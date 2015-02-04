@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block body %}
+<h2>{{ _('Your torrent') }}</h2>
+<div id="description">
+<dl>
+    <dt>{{ _('Name') }}</dt><dd>{{object.name}}</dd>
+    <dt>{{ _('Size') }}</dt><dd>{{object.size}} MiB</dd>
+{% if object.uploader %}
+<dt>{{ _('Uploader') }}</dt><dd>{{object.uploader}}</dd>
+{% endif %}
+{% if object.description %}
+<dt>{{ _('Description') }}</dt><dd>{{object.description}}</dd>
+{% endif %}
+</dl>
+</div>
+{% if object.multifile %}
+<h2>{{ _('Files…') }}</h2>
+<section>
+<pre id="files">{{object.get_files(config)}}</pre>
+</section>
+{% endif %}
+<section id="buttons">
+<dl>
+    <dt class="link"><a class="button" href="{{object.get_direct_torrent_file(config)}}">{{ _('Download .torrent') }}</a></dt>
+    <dd><input type="text" class="link" readonly value="{{object.get_direct_torrent_file(config)}}"/></dd>
+{% if config.SHOW_DDL_LINK and not object.multifile %}
+<dt class="link"><a class="button down" href="{{object.get_direct_file(config)}}">{{ _('Download file') }}</a></dt>
+    <dd><input type="text" class="link" readonly value="{{object.get_direct_file(config)}}"/></dd>
+{% endif %}
+{% if not object.private %}
+    <dt class="link"><a class="button down" href="{{object.magnet}}">{{ _('Magnet link') }}</a></dt>
+    <dd><input class="link" type="text" readonly value="{{object.magnet}}"/></dd>
+{% endif %}
+</dl>
+<br/>
+{% if object.password %}
+<form method="POST" id="delete" action="/delete" id="deletion">
+    {{ form.csrf_token }}
+    <input type="hidden" name="object_id" value="{{object.uuid}}"/>
+    {{ form.deletion_password.label }}{{ form.deletion_password }}<input type="submit"/>
+</form>
+{% endif %}
+</section>
+{% endblock %}

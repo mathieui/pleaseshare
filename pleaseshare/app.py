@@ -30,6 +30,8 @@ from pleaseshare.static_routes import static_pages
 
 app = flask.Flask(__name__)
 app.config.from_pyfile('settings.cfg')
+if exists('local_settings.cfg'):
+    app.config.from_pyfile('local_settings.cfg')
 app.jinja_env.add_extension('jinja2.ext.i18n')
 
 csrf = CsrfProtect(app)

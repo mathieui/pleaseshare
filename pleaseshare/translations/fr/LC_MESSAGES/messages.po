@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  VERSION\n"
 "Report-Msgid-Bugs-To: mathieui@mathieui.net\n"
-"POT-Creation-Date: 2015-02-05 20:01+0100\n"
+"POT-Creation-Date: 2015-02-05 23:27+0100\n"
 "PO-Revision-Date: 2015-02-04 10:18+0100\n"
 "Last-Translator: Mathieu Pasquet <mathieui@mathieui.net>\n"
 "Language-Team: fr <LL@li.org>\n"
@@ -17,49 +17,47 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 1.3\n"
 
-#: app.py:52
+#: app.py:51
 msgid "Upload not found"
 msgstr "Fichier non trouvé"
 
-#: app.py:65
+#: app.py:64
 msgid "Missing field in deletion form."
 msgstr "Champ non rempli dans le formulaire de suppression."
 
-#: app.py:73
-#, python-format
+#: app.py:72
 msgid "Uploaded file {} not found."
 msgstr "Fichier {} non trouvé."
 
-#: app.py:81
-#, python-format
+#: app.py:80
 msgid "Uploaded file {} cannot be deleted (no deletion password exists)."
 msgstr ""
 "Le fichier {} ne peut pas être supprimé (pas de mot de passe de "
 "suppression)."
 
-#: app.py:97
+#: app.py:96
 msgid "Upload {} deleted successfully."
 msgstr "Fichier {} supprimé."
 
-#: app.py:99
+#: app.py:98
 msgid "Wrong password"
 msgstr "Mauvais mot de passe"
 
-#: app.py:115
+#: app.py:114
 msgid "File required."
 msgstr "Fichier requis."
 
-#: app.py:124
+#: app.py:123
 msgid "Server error"
 msgstr "Erreur interne"
 
-#: app.py:159
+#: app.py:158
 msgid "Extracted archive too big, fallback to single-file upload."
 msgstr ""
 "Archive trop volumineuse pour être extraite, retour au mode fichier "
 "unique."
 
-#: app.py:161
+#: app.py:160
 msgid "Invalid archive, fallback to single-file upload."
 msgstr "Archive invalide, retour au mode fichier unique."
 
@@ -103,7 +101,7 @@ msgstr "Description"
 msgid "Password for deletion:"
 msgstr "Mot de passe de suppression :"
 
-#: templates/about.html:4 templates/base.html:20
+#: templates/about.html:4 templates/base.html:21
 msgid "About"
 msgstr "À propos"
 
@@ -164,7 +162,7 @@ msgstr ""
 msgid "Trackers will be added by the server even if you don’t add them."
 msgstr "Des trackers seront ajoutés par ce serveur automatiquement."
 
-#: templates/about.html:28
+#: templates/about.html:29
 msgid ""
 "You must also understand that, even if pleaseshare allows you to delete "
 "the files that you upload on this server, the torrent can still stay "
@@ -174,11 +172,11 @@ msgstr ""
 "supprimer les fichiers que vous envoyez sur ce serveur, le torent peut "
 "rester actif même sans la source web."
 
-#: templates/about.html:30
+#: templates/about.html:31
 msgid "Licence"
 msgstr "Licence"
 
-#: templates/about.html:32
+#: templates/about.html:33
 msgid ""
 "Pleaseshare is licenced under the AGPL v3, with some GPL bits coming from"
 " the deluge client.\n"
@@ -190,23 +188,23 @@ msgstr ""
 "href=\"https://gitorious.org/pleaseshare\" title=\"pleaseshare "
 "source\">sur gitorious</a>."
 
-#: templates/base.html:18 templates/my_uploads.html:8
+#: templates/base.html:19 templates/my_uploads.html:9
 msgid "Your uploads"
 msgstr "Vos fichiers"
 
-#: templates/base.html:19
+#: templates/base.html:20
 msgid "Need help?"
 msgstr "Aide"
 
-#: templates/base.html:21 templates/tos.html:4 templates/tos.html:8
+#: templates/base.html:22 templates/tos.html:4 templates/tos.html:9
 msgid "Terms of Service"
 msgstr "Conditions d’utilisation"
 
-#: templates/base.html:21
+#: templates/base.html:22
 msgid "ToS"
 msgstr "Conditions"
 
-#: templates/base.html:22 templates/contact.html:4 templates/contact.html:8
+#: templates/base.html:23 templates/contact.html:4 templates/contact.html:9
 msgid "Contact"
 msgstr "Contact"
 
@@ -381,35 +379,39 @@ msgstr "Les trackers ajoutés automatiquement sont :"
 msgid "Upload"
 msgstr "Upload"
 
-#: templates/home.html:9
-msgid "Select a file to upload"
-msgstr "Choisissez un fichier à envoyer"
+#: templates/home.html:14
+msgid "Options"
+msgstr "Options"
+
+#: templates/home.html:15
+msgid "Send file"
+msgstr "Envoyer"
 
 #: templates/home.html:18
 #, python-format
 msgid "Note: the filesize limit is currently set at %(maxsize)s MiB."
 msgstr "Note: Taille max: %(maxsize)s Mio."
 
-#: templates/home.html:37
+#: templates/home.html:43
 msgid ""
 "You can choose to make the torrent private. This is usually\n"
-"        when you upload private documents that you do not want to share "
-"with everyone."
+"                when you upload private documents that you do not want to"
+" share with everyone."
 msgstr ""
 
-#: templates/home.html:46
+#: templates/home.html:52
 msgid "About PleaseShare"
 msgstr "Qu’est-ce que pleaseshare ?"
 
-#: templates/home.html:48
+#: templates/home.html:54
 msgid "Using PleaseShare is easy:"
 msgstr "Utiliser PleaseShare est facile :"
 
-#: templates/home.html:50
+#: templates/home.html:56
 msgid "You upload a file (or an archive, see the options below);"
 msgstr "Vous envoyez un fichier (ou une archive, selon les options activées) ;"
 
-#: templates/home.html:51
+#: templates/home.html:57
 msgid ""
 "You get a <strong>.torrent</strong> and a <strong>magnet link</strong> to"
 " share with your friends;"
@@ -417,7 +419,7 @@ msgstr ""
 "Vous obtenez un fichier <strong>.torrent</strong> et un <strong>lien "
 "magnet</strong> à partager avec vos amis;"
 
-#: templates/home.html:52
+#: templates/home.html:58
 msgid ""
 "Subsequent downloads are at least <strong>as fast as</strong> a direct "
 "HTTP download: this server acts as a <strong>webseed</strong> for the "
@@ -427,7 +429,7 @@ msgstr ""
 "qu’un téléchargement HTTP direct, puisque ce serveur sert de "
 "<strong>source web</strong> pour le torrent."
 
-#: templates/home.html:55
+#: templates/home.html:61
 #, python-format
 msgid ""
 "PleaseShare is <a href=\"http://www.gnu.org/philosophy/free-"
@@ -442,7 +444,7 @@ msgstr ""
 "d’informations sur PleaseShare <a href=\"%(url_about)s\">ici</a>. Besoin "
 "d’<a href=\"%(url_help)s\">aide</a> ?"
 
-#: templates/home.html:81
+#: templates/home.html:87
 msgid "You must specify trackers if you wand to create a private torrent!"
 msgstr "Vous devez fournir des trackers si vous voulez un torrent privé !"
 
@@ -450,46 +452,46 @@ msgstr "Vous devez fournir des trackers si vous voulez un torrent privé !"
 msgid "Uploads"
 msgstr "Fichiers"
 
-#: templates/my_uploads.html:17
+#: templates/my_uploads.html:29
 msgid "No uploads."
 msgstr "Pas de fichiers."
 
-#: templates/view.html:8
+#: templates/view.html:10
 msgid "Your torrent"
 msgstr "Votre torrent"
 
-#: templates/view.html:11
+#: templates/view.html:14
 msgid "Name"
 msgstr "Nom"
 
-#: templates/view.html:12
+#: templates/view.html:15
 msgid "Size"
 msgstr "Taille"
 
-#: templates/view.html:14
+#: templates/view.html:17
 msgid "Uploader"
 msgstr "Créateur"
 
-#: templates/view.html:17
+#: templates/view.html:20
 msgid "Description"
 msgstr "Description"
 
-#: templates/view.html:22
-msgid "Files…"
-msgstr "Fichiers…"
-
-#: templates/view.html:29
+#: templates/view.html:27
 msgid "Download .torrent"
 msgstr "Télécharger le .torrent"
 
-#: templates/view.html:32
+#: templates/view.html:33
 msgid "Download file"
 msgstr "Télécharger le fichier"
 
-#: templates/view.html:36
+#: templates/view.html:40
 msgid "Magnet link"
 msgstr "Lien magnet"
 
-#: templates/view.html:45
+#: templates/view.html:49
 msgid "Delete"
 msgstr "Supprimer"
+
+#: templates/view.html:56
+msgid "Files…"
+msgstr "Fichiers…"

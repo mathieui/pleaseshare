@@ -11,8 +11,8 @@ PleaseShare - {{ _('Upload') }}
             {{ form.csrf_token() }}
             <div class="center">
                 {{ form.file }}
-                <a href="#options" class="button" id="optionsa">Options</a>
-                <input class="button button-primary" type="submit" id="send" value="Send file">
+                <a href="#options" class="button" id="optionsa">{{ _('Options') }}</a>
+                <input class="button button-primary" type="submit" id="send" value="{{ _('Send file') }}"/>
             </div>
             {% with maxsize = (config.MAX_CONTENT_LENGTH / (1024**2)) %}
             <p>{{ _('Note: the filesize limit is currently set at %(maxsize)s MiB.', maxsize=maxsize) }}</p>

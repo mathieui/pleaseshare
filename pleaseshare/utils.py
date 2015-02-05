@@ -6,6 +6,8 @@ PostParams = namedtuple('PostParams',
                         'extract trackers webseeds private '
                         'uploader password description')
 
+import flask
+
 
 def remove_empty_str(list_: list) -> list:
     """remove empty strings from a list"""
@@ -60,4 +62,26 @@ def parse_form(form, config) -> PostParams:
 
     return PostParams(extract_, trackers, webseeds, private,
                       uploader, password, description)
+
+def can_delete(uuid: str) -> bool:
+    """
+    Check if the user has the uuid in his session.
+    If he has, return true to enable passwordless deletion.
+    """
+    if not 'uploads' in flask.session:
+        return False
+    for stored_upload in flask.session['uploads']:
+        if stored_upload[1] == uuid:
+            return True
+    return False
+
+def remove_uuid_from_session(uuid: str):
+    """
+    Remove a stored file from the session, after it has been deleted in
+    the database and on disk.
+    """
+    for idx, stored_upload in enumerate(flask.session['uploads'][:]):
+        if stored_upload[1] == uuid:
+            del flask.session['uploads'][idx]
+            break
 

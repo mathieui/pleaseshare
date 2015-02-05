@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}
+{{ _('Uploads') }}
+{% endblock %}
+
+{% block body %}
+<h2>{{ _('Your uploads') }}</h2>
+<div>
+    {% if session['uploads'] %}
+    <dl>
+        {% for datetime, uid, name in session['uploads'] %}
+        <dt>{{ datetime.strftime('%Y-%m-%d %H:%M') }}</dt><dd><a href="{{ url_for('dynamic.view', filename=uid) }}" title="{{name}}">{{name}}</a></dd>
+        {% endfor %}
+    </dl>
+    {% else %}
+    {{ _('No uploads.') }}
+    {% endif %}
+</div>
+{% endblock %}

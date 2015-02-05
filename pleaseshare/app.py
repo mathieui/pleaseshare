@@ -6,6 +6,7 @@ therefore couldn’t be split up in another module.
 """
 import flask
 import logging
+import datetime
 import werkzeug
 import subprocess
 
@@ -24,7 +25,7 @@ from urllib.parse import quote
 from os.path import basename, getsize, exists, join as joinpath, realpath, abspath
 
 from pleaseshare.tasks import Archive, create_torrent
-from pleaseshare.utils import parse_form
+from pleaseshare.utils import parse_form, can_delete, remove_uuid_from_session
 from pleaseshare.forms import UploadForm, DeleteForm
 from pleaseshare.static_routes import static_pages
 
@@ -51,7 +52,8 @@ def view(filename):
         flash(_('Upload not found'), 'error')
         return flask.redirect(flask.url_for("dynamic.home"))
     form = DeleteForm()
-    return flask.render_template("view.html", object=upload_obj, form=form)
+    return flask.render_template("view.html", object=upload_obj,
+                                 can_delete=can_delete(filename), form=form)
 
 @dynamic_pages.route('/delete', methods=['POST'])
 def delete():
@@ -62,25 +64,40 @@ def delete():
     if not form.validate_on_submit():
         flash(_('Missing field in deletion form.'), 'error')
         return flask.redirect(flask.url_for("dynamic.home"))
-    upload_obj = db.session.query(Upload).get(form.object_id.data)
+
+    uuid = form.object_id.data
+
+    upload_obj = db.session.query(Upload).get(uuid)
 
     if not upload_obj:
-        flash(_('Uploaded file %s not found.') % form.object_id.data, 'error')
+        flash(_('Uploaded file {} not found.').format(uuid), 'error')
         return flask.redirect(flask.url_for("dynamic.home"))
-    if not upload_obj.password:
-        flash(_('Uploaded file %s cannot be deleted (no deletion password exists).') % form.object_id.data, 'error')
-        return flask.redirect(flask.url_for("dynamic.view", filename=form.object_id.data))
 
-    passwd = sha256(form.deletion_password.data.encode('utf-8', errors='ignore')).hexdigest()
+    name = upload_obj.name
 
-    if passwd == upload_obj.password:
+    passwordless_deletion = can_delete(uuid)
+
+    if not passwordless_deletion and not upload_obj.password:
+        flash(_('Uploaded file {} cannot be deleted '
+                '(no deletion password exists).').format(name),
+              'error')
+        return flask.redirect(flask.url_for("dynamic.view", filename=uuid))
+    elif not passwordless_deletion:
+        passwd = form.deletion_password.data
+        passwd = sha256(passwd.encode('utf-8', errors='ignore')).hexdigest()
+    else:
+        passwd = ''
+
+    if passwordless_deletion or passwd == upload_obj.password:
         db.session.delete(upload_obj)
         db.session.commit()
-        rmtree(joinpath(app.config['UPLOAD_FOLDER'], upload_obj.uuid))
-        flash(_('Upload deleted successfully.'), 'success')
+        rmtree(joinpath(app.config['UPLOAD_FOLDER'], uuid))
+        if passwordless_deletion:
+            remove_uuid_from_session(uuid)
+        flash(_('Upload {} deleted successfully.').format(name), 'success')
     else:
         flash(_('Wrong password'), 'error')
-        return flask.redirect(flask.url_for("dynamic.view", filename=upload_obj.uuid))
+        return flask.redirect(flask.url_for("dynamic.view", filename=uuid))
 
     return flask.redirect(flask.url_for("dynamic.home"))
 
@@ -106,6 +123,10 @@ def upload():
         log.error('Unspecified error', exc_info=True)
         flash(_('Server error'), 'error')
         return flask.redirect(flask.url_for("dynamic.home"))
+    else:
+        if not 'uploads' in flask.session:
+            flask.session['uploads'] = []
+        flask.session['uploads'].append((datetime.datetime.now(), upload.uuid, upload.name))
     return flask.redirect(flask.url_for("dynamic.view", filename=upload.uuid))
 
 def handle_uploaded_file(file_storage, params):
@@ -219,7 +240,6 @@ class Upload(db.Model):
             with open(filelist, 'w') as fdes:
                 fdes.write(files)
             return files
-
 
 @babel.localeselector
 def get_locale():

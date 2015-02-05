@@ -15,7 +15,8 @@
             </section>
             <section class="right">
             <nav>
-                <a href="{{ url_for("static.help") }}" title="{{ _('Need help?') }}">{{ _('Need help?') }}</a> |
+                {% if session['uploads'] %}<a title="{{ _('Your uploads') }}" href="{{ url_for("static.my_uploads") }}">{{ _('Your uploads') }}</a> |{% endif%}
+                <a title="{{ _('Need help?') }}" href="{{ url_for("static.help") }}">{{ _('Need help?') }}</a> |
                 <a title="{{ _('About') }}" href="{{ url_for("static.about") }}">{{ _('About') }}</a> |
                 <a title="{{ _('Terms of Service') }}" href="{{ url_for("static.tos") }}">{{ _('ToS') }}</a> |
                 <a title="{{ _('Contact') }}" href="{{ url_for("static.contact") }}">{{ _('Contact') }}</a>

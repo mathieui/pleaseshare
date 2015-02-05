@@ -27,6 +27,8 @@ def help():
     """Help"""
     return flask.render_template("help.html")
 
-
-
+@static_pages.route("/my_uploads")
+def my_uploads():
+    """Session uploads"""
+    return flask.render_template("my_uploads.html")
 

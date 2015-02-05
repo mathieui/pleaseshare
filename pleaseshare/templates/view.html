@@ -38,11 +38,11 @@ PleaseShare - {{object.name}}
 {% endif %}
 </dl>
 <br/>
-{% if object.password %}
+{% if object.password or can_delete %}
 <form method="POST" id="delete" action="/delete" id="deletion">
     {{ form.csrf_token }}
     <input type="hidden" name="object_id" value="{{object.uuid}}"/>
-    {{ form.deletion_password.label }}{{ form.deletion_password }}<input type="submit"/>
+    {% if not can_delete %}{{ form.deletion_password.label }}{{ form.deletion_password }}{% endif %}<input type="submit" value="{{_('Delete')}}"/>
 </form>
 {% endif %}
 </section>

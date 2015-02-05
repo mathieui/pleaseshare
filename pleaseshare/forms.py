@@ -28,4 +28,4 @@ class DeleteForm(Form):
     Form use to delete a previously uploaded file
     """
     deletion_password = PasswordField(_('Password for deletion:'))
-    object_id = HiddenField()
+    object_id = HiddenField(validators=[DataRequired()])

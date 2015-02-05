@@ -7,7 +7,6 @@ PleaseShare - {{ _('Upload') }}
 {% block body %}
 <header class="top-head">
     <div class="container">
-        <p>{{ _('Select a file to upload') }}</p>
         <form method="post" action="{{ url_for("dynamic.upload") }}" enctype="multipart/form-data" id="sendform" name="sendform">
             {{ form.csrf_token() }}
             <div class="center">

@@ -1,12 +1,13 @@
 # French translations for PleaseShare
-# This file is distributed under the same license as the PleaseShare project.
+# This file is distributed under the same license as the PleaseShare
+# project.
 # Mathieu Pasquet <mathieui@mathieui.net>, 2015.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: VERSION\n"
+"Project-Id-Version:  VERSION\n"
 "Report-Msgid-Bugs-To: mathieui@mathieui.net\n"
-"POT-Creation-Date: 2015-02-04 23:58+0100\n"
+"POT-Creation-Date: 2015-02-05 20:01+0100\n"
 "PO-Revision-Date: 2015-02-04 10:18+0100\n"
 "Last-Translator: Mathieu Pasquet <mathieui@mathieui.net>\n"
 "Language-Team: fr <LL@li.org>\n"
@@ -16,47 +17,49 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 1.3\n"
 
-#: app.py:48
+#: app.py:52
 msgid "Upload not found"
 msgstr "Fichier non trouvé"
 
-#: app.py:60
+#: app.py:65
 msgid "Missing field in deletion form."
 msgstr "Champ non rempli dans le formulaire de suppression."
 
-#: app.py:65
+#: app.py:73
 #, python-format
-msgid "Uploaded file %s not found."
-msgstr "Fichier %s non trouvé."
+msgid "Uploaded file {} not found."
+msgstr "Fichier {} non trouvé."
 
-#: app.py:68
+#: app.py:81
 #, python-format
-msgid "Uploaded file %s cannot be deleted (no deletion password exists)."
+msgid "Uploaded file {} cannot be deleted (no deletion password exists)."
 msgstr ""
-"Le fichier %s ne peut pas être supprimé (pas de mot de passe de "
+"Le fichier {} ne peut pas être supprimé (pas de mot de passe de "
 "suppression)."
 
-#: app.py:77
-msgid "Upload deleted successfully."
-msgstr "Fichier supprimé."
+#: app.py:97
+msgid "Upload {} deleted successfully."
+msgstr "Fichier {} supprimé."
 
-#: app.py:79
+#: app.py:99
 msgid "Wrong password"
 msgstr "Mauvais mot de passe"
 
-#: app.py:95
+#: app.py:115
 msgid "File required."
 msgstr "Fichier requis."
 
-#: app.py:104
+#: app.py:124
 msgid "Server error"
 msgstr "Erreur interne"
 
-#: app.py:135
+#: app.py:159
 msgid "Extracted archive too big, fallback to single-file upload."
-msgstr "Archive trop volumineuse pour être extraite, retour au mode fichier unique."
+msgstr ""
+"Archive trop volumineuse pour être extraite, retour au mode fichier "
+"unique."
 
-#: app.py:137
+#: app.py:161
 msgid "Invalid archive, fallback to single-file upload."
 msgstr "Archive invalide, retour au mode fichier unique."
 
@@ -100,7 +103,7 @@ msgstr "Description"
 msgid "Password for deletion:"
 msgstr "Mot de passe de suppression :"
 
-#: templates/about.html:4 templates/base.html:19
+#: templates/about.html:4 templates/base.html:20
 msgid "About"
 msgstr "À propos"
 
@@ -128,10 +131,10 @@ msgid ""
 "increasing the download speed for\n"
 "    people on the other end."
 msgstr ""
-"Cela veut dire que PleaseShare ne va pas fournir de lien direct vers votre"
-" fichier une fois que vous l’aurez envoyé. À la place, PleaseShare va "
-"générer un torrent, qui contient une source web. En utilisant ce torrent,"
-" les gens qui téléchargent le fichier auront une vitesse de "
+"Cela veut dire que PleaseShare ne va pas fournir de lien direct vers "
+"votre fichier une fois que vous l’aurez envoyé. À la place, PleaseShare "
+"va générer un torrent, qui contient une source web. En utilisant ce "
+"torrent, les gens qui téléchargent le fichier auront une vitesse de "
 "téléchargement optimale (ce sera <strong>au pire</strong> la même vitesse"
 " qu’en téléchargement http direct). Cela veut dire également que la "
 "personne qui envoie le fichier peut directement partager le fichier qui "
@@ -187,19 +190,23 @@ msgstr ""
 "href=\"https://gitorious.org/pleaseshare\" title=\"pleaseshare "
 "source\">sur gitorious</a>."
 
-#: templates/base.html:18
+#: templates/base.html:18 templates/my_uploads.html:8
+msgid "Your uploads"
+msgstr "Vos fichiers"
+
+#: templates/base.html:19
 msgid "Need help?"
 msgstr "Aide"
 
-#: templates/base.html:20 templates/tos.html:4 templates/tos.html:8
+#: templates/base.html:21 templates/tos.html:4 templates/tos.html:8
 msgid "Terms of Service"
 msgstr "Conditions d’utilisation"
 
-#: templates/base.html:20
+#: templates/base.html:21
 msgid "ToS"
 msgstr "Conditions"
 
-#: templates/base.html:21 templates/contact.html:4 templates/contact.html:8
+#: templates/base.html:22 templates/contact.html:4 templates/contact.html:8
 msgid "Contact"
 msgstr "Contact"
 
@@ -416,9 +423,9 @@ msgid ""
 "HTTP download: this server acts as a <strong>webseed</strong> for the "
 "created torrent."
 msgstr ""
-"Les téléchargements sont ensuite <strong>au moins aussi rapides"
-"</strong> qu’un téléchargement HTTP direct, puisque ce serveur sert "
-"de <strong>source web</strong> pour le torrent."
+"Les téléchargements sont ensuite <strong>au moins aussi rapides</strong> "
+"qu’un téléchargement HTTP direct, puisque ce serveur sert de "
+"<strong>source web</strong> pour le torrent."
 
 #: templates/home.html:55
 #, python-format
@@ -439,39 +446,50 @@ msgstr ""
 msgid "You must specify trackers if you wand to create a private torrent!"
 msgstr "Vous devez fournir des trackers si vous voulez un torrent privé !"
 
-#: templates/view.html:3
+#: templates/my_uploads.html:4
+msgid "Uploads"
+msgstr "Fichiers"
+
+#: templates/my_uploads.html:17
+msgid "No uploads."
+msgstr "Pas de fichiers."
+
+#: templates/view.html:8
 msgid "Your torrent"
 msgstr "Votre torrent"
 
-#: templates/view.html:6
+#: templates/view.html:11
 msgid "Name"
 msgstr "Nom"
 
-#: templates/view.html:7
+#: templates/view.html:12
 msgid "Size"
 msgstr "Taille"
 
-#: templates/view.html:9
+#: templates/view.html:14
 msgid "Uploader"
 msgstr "Créateur"
 
-#: templates/view.html:12
+#: templates/view.html:17
 msgid "Description"
 msgstr "Description"
 
-#: templates/view.html:17
+#: templates/view.html:22
 msgid "Files…"
 msgstr "Fichiers…"
 
-#: templates/view.html:24
+#: templates/view.html:29
 msgid "Download .torrent"
 msgstr "Télécharger le .torrent"
 
-#: templates/view.html:27
+#: templates/view.html:32
 msgid "Download file"
 msgstr "Télécharger le fichier"
 
-#: templates/view.html:31
+#: templates/view.html:36
 msgid "Magnet link"
 msgstr "Lien magnet"
 
+#: templates/view.html:45
+msgid "Delete"
+msgstr "Supprimer"

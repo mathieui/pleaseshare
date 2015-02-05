@@ -416,8 +416,8 @@ msgid ""
 "HTTP download: this server acts as a <strong>webseed</strong> for the "
 "created torrent."
 msgstr ""
-"Les téléchargements sont ensuite <strong>au moins aussi "
-"rapides</strong>qu’un téléchargement HTP direct, puisque ce serveur sert "
+"Les téléchargements sont ensuite <strong>au moins aussi rapides"
+"</strong> qu’un téléchargement HTTP direct, puisque ce serveur sert "
 "de <strong>source web</strong> pour le torrent."
 
 #: templates/home.html:55

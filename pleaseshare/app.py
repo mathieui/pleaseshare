@@ -150,6 +150,8 @@ def handle_uploaded_file(file_storage, params):
     uploaded.magnet = torrent.save(joinpath(folder, "%s.torrent" % filename))
     uploaded.description = params.description
 
+    if params.uploader:
+        uploaded.uploader = params.uploader
     if params.password:
         uploaded.password = sha256(params.password.encode('utf-8', errors='ignore')).hexdigest()
     db.session.add(uploaded)

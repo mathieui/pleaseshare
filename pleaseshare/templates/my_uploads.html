@@ -5,16 +5,28 @@
 {% endblock %}
 
 {% block body %}
-<h2>{{ _('Your uploads') }}</h2>
-<div>
+<div class="container main">
+    <h4>{{ _('Your uploads') }}</h4>
+
     {% if session['uploads'] %}
-    <dl>
-        {% for datetime, uid, name in session['uploads'] %}
-        <dt>{{ datetime.strftime('%Y-%m-%d %H:%M') }}</dt><dd><a href="{{ url_for('dynamic.view', filename=uid) }}" title="{{name}}">{{name}}</a></dd>
-        {% endfor %}
-    </dl>
+    <table class="u-full-width">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Upload</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for datetime, uid, name in session['uploads'] %}
+            <tr>
+                <td>{{ datetime.strftime('%Y-%m-%d %H:%M') }}</td>
+                <td><a href="{{ url_for('dynamic.view', filename=uid) }}" title="{{name}}">{{name}}</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
     {% else %}
-    {{ _('No uploads.') }}
+    <p>{{ _('No uploads.') }}</p>
     {% endif %}
 </div>
 {% endblock %}

@@ -4,8 +4,8 @@ Pleaseshare - {{ _('Help') }}
 {% endblock %}
 
 {% block body %}
-<div id="infos">
-    <h2>{{ _('I can only upload one file?') }}</h2>
+<div class="container main">
+    <h4>{{ _('I can only upload one file?') }}</h4>
     <p>{{ _('Yes, at the moment, due to the limitations of html, it is impossible to upload
     folders directly.') }}
     {% if config.ALLOW_MULTIFILE %}
@@ -19,14 +19,14 @@ Pleaseshare - {{ _('Help') }}
     this archive, under a subdirectory named after the archive (minus the .extension part).') }}
     {% endif %}
     </p>
-    <h2>{{ _('I uploaded a file, what now?') }}</h2>
+    <h4>{{ _('I uploaded a file, what now?') }}</h4>
     <p>{{ _('You can share it with your friends, of anyone, if you give them a link
     to this page, to the torrent, or the magnet link.
     You should also start the torrent into your favorite torrent client, this way,
     you will be able to share it. If you don’t do that, the download speed for the
     people who want download the file will be smaller.')}}
     </p>
-    <h2>{{ _('How do I delete a file if I don’t want to keep sharing it?') }}</h2>
+    <h4>{{ _('How do I delete a file if I don’t want to keep sharing it?') }}</h4>
     <p>{{ _('You have to go to the page for the file and enter the deletion password into
     the box at the bottom of the page. If you don’t have the password, we have no way
     of knowing if you are the initial uploader (because this service is entirely anonymous)
@@ -37,7 +37,7 @@ Pleaseshare - {{ _('Help') }}
     from the website, it can still be shared and accessible via a saved torrent file or magnet
     link.') }}
     </p>
-    <h2>{{ _('I see "magnet link", what’s this?') }}</h2>
+    <h4>{{ _('I see "magnet link", what’s this?') }}</h4>
     <p>{{ _('Magnet links are created from the torrent file, in order to have 
     something easy to share between people, via text messaging or whatever.
     Technically, your torrent client will search people who have the torrent 
@@ -46,32 +46,32 @@ Pleaseshare - {{ _('Help') }}
     Note that using magnet links does not give you the webseeds, so you are
     missing one of the advantages of this website (a minimal guaranteed bandwith).') }}
     </p>
-    <h2>{{ _('What can I do here?') }}</h2>
+    <h4>{{ _('What can I do here?') }}</h4>
     {% if config.ALLOW_MULTIFILE %}
-    <p class="info-ok">{{ _('Multifile torrents are enabled') }}</p>
+    <p class="alert alert-ok">{{ _('Multifile torrents are enabled') }}</p>
     {% else %}
-    <p class="info-important">{{ _('Multifile torrents are disabled') }}</p>
+    <p class="alert alert-important">{{ _('Multifile torrents are disabled') }}</p>
     {% endif %}
     {% if config.ALLOW_WEBSEEDS %}
-    <p class="info-ok">{{ _('Adding webseeds to the torrent is enabled') }}</p>
+    <p class="alert alert-ok">{{ _('Adding webseeds to the torrent is enabled') }}</p>
     {% else %}
-    <p class="info-important">{{ _('Adding webseeds to the torrent is forbidden') }}</p>
+    <p class="alert alert-important">{{ _('Adding webseeds to the torrent is forbidden') }}</p>
     {% endif %}
     {% if config.ALLOW_TRACKERS %}
-    <p class="info-ok">{{ _('Adding trackers to the torrent is enabled') }}</p>
+    <p class="alert alert-ok">{{ _('Adding trackers to the torrent is enabled') }}</p>
     {% else %}
-    <p class="info-important">{{ _('Adding trackers to the torrent is disabled') }}</p>
+    <p class="alert alert-important">{{ _('Adding trackers to the torrent is disabled') }}</p>
     {% endif %}
     {% if config.ALLOW_PRIVATE %}
-    <p class="info-ok">{{ _('Creation of private torrents is allowed') }}</p>
+    <p class="alert alert-ok">{{ _('Creation of private torrents is allowed') }}</p>
     {% else %}
-    <p class="info-important">{{ _('Creation of private torrents is forbidden') }}</p>
+    <p class="alert alert-important">{{ _('Creation of private torrents is forbidden') }}</p>
     {% endif %}
     {% with maxsize = config.MAX_CONTENT_LENGTH / (1024 ** 2) %}
-    <p class="info">{{ _('The max file size is %(maxsize)s MiB', maxsize=maxsize) }}</p>
+    <p class="alert">{{ _('The max file size is %(maxsize)s MiB', maxsize=maxsize) }}</p>
     {% endwith %}
     {% if config.DEFAULT_TRACKERS %}
-    <div class="info">{{ _('The default trackers are:') }}
+    <div class="alert">{{ _('The default trackers are:') }}
         <ul>
             {% for tracker in config.DEFAULT_TRACKERS %}
             <li><a href="{{tracker}}">{{tracker}}</a></li>
@@ -80,7 +80,7 @@ Pleaseshare - {{ _('Help') }}
     </div>
     {% endif %}
     {% if config.MANDATORY_TRACKERS %}
-    <div class="info">{{ _('The forced trackers are:') }}
+    <div class="alert">{{ _('The forced trackers are:') }}
         <ul>
             {% for tracker in config.MANDATORY_TRACKERS %}
             <li><a href="{{tracker}}">{{tracker}}</a></li>
@@ -88,6 +88,5 @@ Pleaseshare - {{ _('Help') }}
         </ul>
     </div>
     {% endif %}
-</div>
 </div>
 {% endblock %}

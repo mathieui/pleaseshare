@@ -5,8 +5,8 @@ PleaseShare - {{ _('About') }}
 {% endblock %}
 
 {% block body %}
-<div id="infos">
-    <h2>{{ _('What is pleaseshare?') }}</h2>
+<div class="container main">
+    <h4>{{ _('What is pleaseshare?') }}</h4>
     <p>
     {{ _('Pleaseshare is a file-sharing website, with "sharing" as its core value.') }}
     </p>
@@ -18,16 +18,17 @@ PleaseShare - {{ _('About') }}
     torrent to seed the file that is already on his computer, thus increasing the download speed for
     people on the other end.') }}
     </p>
-    <h2>{{ _('Things to know') }}</h2>
+    <h4>{{ _('Things to know') }}</h4>
     <p>
     {{ _('Please note that pleaseshare relies on the Bittorent DHT, which means that no trackers
     are needed to get peers.') }}
     {% if config.ALLOW_TRACKERS %} {{ _('You can provide trackers if you want, but you don’t have to.') }} {% endif %}
     {% if config.MANDATORY_TRACKERS %} {{ _('Trackers will be added by the server even if you don’t add them.') }} {% endif %}
+    </p>
     <p>
     {{ _('You must also understand that, even if pleaseshare allows you to delete the files that you upload on this server, the torrent can still stay active without a webseed.') }}
     </p>
-    <h2>{{ _('Licence') }}</h2>
+    <h4>{{ _('Licence') }}</h4>
     <p>
     {{ _('Pleaseshare is licenced under the AGPL v3, with some GPL bits coming from the deluge client.
     And the source is <a href="https://gitorious.org/pleaseshare" title="pleaseshare source">on gitorious</a>.') }}

@@ -5,45 +5,58 @@ PleaseShare - {{object.name}}
 {% endblock %}
 
 {% block body %}
-<h2>{{ _('Your torrent') }}</h2>
-<div id="description">
-<dl>
-    <dt>{{ _('Name') }}</dt><dd>{{object.name}}</dd>
-    <dt>{{ _('Size') }}</dt><dd>{{object.size}} MiB</dd>
-{% if object.uploader %}
-<dt>{{ _('Uploader') }}</dt><dd>{{object.uploader}}</dd>
-{% endif %}
-{% if object.description %}
-<dt>{{ _('Description') }}</dt><dd>{{object.description}}</dd>
-{% endif %}
-</dl>
+<div class="container main">
+
+<h4>{{ _('Your torrent') }}</h4>
+
+<div class="row contrasted">
+    <dl>
+        <dt>{{ _('Name') }}</dt><dd>{{object.name}}</dd>
+        <dt>{{ _('Size') }}</dt><dd>{{object.size}} MiB</dd>
+    {% if object.uploader %}
+    <dt>{{ _('Uploader') }}</dt><dd>{{object.uploader}}</dd>
+    {% endif %}
+    {% if object.description %}
+    <dt>{{ _('Description') }}</dt><dd>{{object.description}}</dd>
+    {% endif %}
+    </dl>
 </div>
-{% if object.multifile %}
-<h2>{{ _('Files…') }}</h2>
-<section>
-<pre id="files">{{object.get_files(config)}}</pre>
-</section>
-{% endif %}
+
 <section id="buttons">
-<dl>
-    <dt class="link"><a class="button" href="{{object.get_direct_torrent_file(config)}}">{{ _('Download .torrent') }}</a></dt>
-    <dd><input type="text" class="link" readonly value="{{object.get_direct_torrent_file(config)}}"/></dd>
-{% if config.SHOW_DDL_LINK and not object.multifile %}
-<dt class="link"><a class="button down" href="{{object.get_direct_file(config)}}">{{ _('Download file') }}</a></dt>
-    <dd><input type="text" class="link" readonly value="{{object.get_direct_file(config)}}"/></dd>
-{% endif %}
-{% if not object.private %}
-    <dt class="link"><a class="button down" href="{{object.magnet}}">{{ _('Magnet link') }}</a></dt>
-    <dd><input class="link" type="text" readonly value="{{object.magnet}}"/></dd>
-{% endif %}
-</dl>
-<br/>
-{% if object.password or can_delete %}
-<form method="POST" id="delete" action="/delete" id="deletion">
-    {{ form.csrf_token }}
-    <input type="hidden" name="object_id" value="{{object.uuid}}"/>
-    {% if not can_delete %}{{ form.deletion_password.label }}{{ form.deletion_password }}{% endif %}<input type="submit" value="{{_('Delete')}}"/>
-</form>
-{% endif %}
+    <div class="row">
+        <a class="button" href="{{object.get_direct_torrent_file(config)}}">{{ _('Download .torrent') }}</a>
+        <input type="text" readonly value="{{object.get_direct_torrent_file(config)}}"/>
+    </div>
+
+    {% if config.SHOW_DDL_LINK and not object.multifile %}
+    <div class="row">
+        <a class="button down" href="{{object.get_direct_file(config)}}">{{ _('Download file') }}</a>
+        <input type="text" readonly value="{{object.get_direct_file(config)}}"/>
+    </div>
+    {% endif %}
+
+    {% if not object.private %}
+    <div class="row">
+        <a class="button down" href="{{object.magnet}}">{{ _('Magnet link') }}</a>
+        <input class="link" type="text" readonly value="{{object.magnet}}"/>
+    </div>
+    {% endif %}
+
+    {% if object.password or can_delete %}
+    <form method="POST" id="delete" action="/delete" id="deletion">
+        {{ form.csrf_token }}
+        <input type="hidden" name="object_id" value="{{object.uuid}}"/>
+        {% if not can_delete %}{{ form.deletion_password.label }}{{ form.deletion_password }}{% endif %}<input class="button button-danger" type="submit" value="{{_('Delete')}}"/>
+    </form>
+    {% endif %}
 </section>
+
+{% if object.multifile %}
+<div class="row">
+    <h4 class="small-header">{{ _('Files…') }}</h4>
+    <pre id="files">{{object.get_files(config)}}</pre>
+</div>
+{% endif %}
+
+</div>
 {% endblock %}

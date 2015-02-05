@@ -79,7 +79,7 @@ def extract(archivefile, name, rep):
 def _extract_tar(archivefile: tarfile.TarFile, name: str, rep: str) -> bool:
     """Extract a tar archive """
     mkdir(rep, mode=0o711)
-    if not check_archive(archivefile):
+    if not check_archive(archivefile, rep):
         raise BadArchive("malicious archive")
     try:
         for member in archivefile:
@@ -125,7 +125,6 @@ def _extract_zip(archivefile: zipfile.ZipFile, name: str, rep: str) -> bool:
         log.info('Successfully extracted zipfile %s into %s', name, rep)
         return True
 
-
 @singledispatch
 def size(archivefile):
     """To override"""
@@ -160,19 +159,17 @@ def badlink(info: tarfile.TarInfo, base: str) -> bool:
     tip = resolved(joinpath(base, dirname(info.name)))
     return badpath(info.linkname, base=tip)
 
-def check_archive(tar_archive: tarfile.TarFile) -> bool:
+def check_archive(tar_archive: tarfile.TarFile, basedir: str) -> bool:
     """Check a tar archive to make sure it is not malicious"""
-    base = dirname(tar_archive)
-
     for file_info in tar_archive:
-        if badpath(file_info.name, base):
-            log.error('illegal path for file %s', file_info.name)
+        if badpath(file_info.name, basedir):
+            log.error('Illegal path for file %s', file_info.name)
             return False
-        elif file_info.issym() and badlink(file_info, base):
+        elif file_info.issym() and badlink(file_info, basedir):
             log.error('File %s is a hard link to %s', file_info.name,
                       file_info.linkname)
             return False
-        elif file_info.islnk() and badlink(file_info, base):
+        elif file_info.islnk() and badlink(file_info, basedir):
             log.error('File %s is a symlink to %s', file_info.name,
                       file_info.linkname)
             return False

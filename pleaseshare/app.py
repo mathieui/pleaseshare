@@ -23,7 +23,8 @@ from hashlib import sha256
 from urllib.parse import quote
 from os.path import basename, getsize, exists, join as joinpath, realpath, abspath
 
-from pleaseshare.tasks import Archive, create_torrent, parse_form
+from pleaseshare.tasks import Archive, create_torrent
+from pleaseshare.utils import parse_form
 from pleaseshare.forms import UploadForm, DeleteForm
 from pleaseshare.static_routes import static_pages
 

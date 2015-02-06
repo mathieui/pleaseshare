@@ -70,10 +70,10 @@ Pleaseshare - {{ _('Help') }}
     <p class="alert alert-important">{{ _('Creation of private torrents is forbidden') }}</p>
     {% endif %}
     {% with maxsize = config.MAX_CONTENT_LENGTH / (1024 ** 2) %}
-    <p class="alert">{{ _('The max file size is %(maxsize)s MiB', maxsize=maxsize) }}</p>
+    <p class="alert alert-normal">{{ _('The max file size is %(maxsize)s MiB', maxsize=maxsize) }}</p>
     {% endwith %}
     {% if config.DEFAULT_TRACKERS %}
-    <div class="alert">{{ _('The default trackers are:') }}
+    <div class="alert alert-normal">{{ _('The default trackers are:') }}
         <ul>
             {% for tracker in config.DEFAULT_TRACKERS %}
             <li><a href="{{tracker}}">{{tracker}}</a></li>
@@ -82,7 +82,7 @@ Pleaseshare - {{ _('Help') }}
     </div>
     {% endif %}
     {% if config.MANDATORY_TRACKERS %}
-    <div class="alert">{{ _('The forced trackers are:') }}
+    <div class="alert alert-normal">{{ _('The forced trackers are:') }}
         <ul>
             {% for tracker in config.MANDATORY_TRACKERS %}
             <li><a href="{{tracker}}">{{tracker}}</a></li>

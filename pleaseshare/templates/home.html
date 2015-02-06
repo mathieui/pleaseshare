@@ -54,7 +54,7 @@ PleaseShare - {{ _('Upload') }}
     <p>{{ _('Using PleaseShare is easy:') }}</p>
     <ol>
         <li>{{ _('You upload a file (or an archive, see the options below);') }}</li>
-        <li>{{ _('You get a <strong>.torrent</strong> and a <strong>magnet link</strong> to share with your friends;') }}</li>
+        <li>{{ _('You get a <strong>.torrent</strong> file') }} {% if config.SHOW_MAGNET_LINK %}{{ _('and a <strong>magnet link</strong>') }}{% endif %} {{ _('to share with your friends;') }}</li>
         <li>{{ _('Subsequent downloads are at least <strong>as fast as</strong> a direct HTTP download: this server acts as a <strong>webseed</strong> for the created torrent.') }}</li>
     </ol>
 

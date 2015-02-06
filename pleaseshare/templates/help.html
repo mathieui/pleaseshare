@@ -21,8 +21,8 @@ Pleaseshare - {{ _('Help') }}
     </p>
     <h4>{{ _('I uploaded a file, what now?') }}</h4>
     <p>{{ _('You can share it with your friends, of anyone, if you give them a link
-    to this page, to the torrent, or the magnet link.
-    You should also start the torrent into your favorite torrent client, this way,
+    to this page, to the torrent') }}{% if config.SHOW_MAGNET_LINK %}{{ _(', or the magnet link') }}{% endif %}.
+    {{ _('You should also start the torrent into your favorite torrent client, this way,
     you will be able to share it. If you don’t do that, the download speed for the
     people who want download the file will be smaller.')}}
     </p>
@@ -34,9 +34,10 @@ Pleaseshare - {{ _('Help') }}
     <br/>
     You should also understand that because of the way the torrent network was built, the file
     cannot be remotely deleted on the computers of the file-sharers. So while the file is gone
-    from the website, it can still be shared and accessible via a saved torrent file or magnet
+    from the website, it might still be shared and accessible via a saved torrent file or magnet
     link.') }}
     </p>
+    {% if config.SHOW_MAGNET_LINK %}
     <h4>{{ _('I see "magnet link", what’s this?') }}</h4>
     <p>{{ _('Magnet links are created from the torrent file, in order to have 
     something easy to share between people, via text messaging or whatever.
@@ -46,6 +47,7 @@ Pleaseshare - {{ _('Help') }}
     Note that using magnet links does not give you the webseeds, so you are
     missing one of the advantages of this website (a minimal guaranteed bandwith).') }}
     </p>
+    {% endif %}
     <h4>{{ _('What can I do here?') }}</h4>
     {% if config.ALLOW_MULTIFILE %}
     <p class="alert alert-ok">{{ _('Multifile torrents are enabled') }}</p>

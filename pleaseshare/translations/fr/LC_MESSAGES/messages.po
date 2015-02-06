@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  VERSION\n"
 "Report-Msgid-Bugs-To: mathieui@mathieui.net\n"
-"POT-Creation-Date: 2015-02-05 23:27+0100\n"
+"POT-Creation-Date: 2015-02-06 02:00+0100\n"
 "PO-Revision-Date: 2015-02-04 10:18+0100\n"
 "Last-Translator: Mathieu Pasquet <mathieui@mathieui.net>\n"
 "Language-Team: fr <LL@li.org>\n"
@@ -255,16 +255,22 @@ msgstr "Qu’est-ce que je fais ensuite ?"
 #: templates/help.html:23
 msgid ""
 "You can share it with your friends, of anyone, if you give them a link\n"
-"    to this page, to the torrent, or the magnet link.\n"
-"    You should also start the torrent into your favorite torrent client, "
-"this way,\n"
+"    to this page, to the torrent"
+msgstr ""
+
+#: templates/help.html:24
+msgid ", or the magnet link"
+msgstr ", ou le lien magnet"
+
+#: templates/help.html:25
+msgid ""
+"You should also start the torrent into your favorite torrent client, this"
+" way,\n"
 "    you will be able to share it. If you don’t do that, the download "
 "speed for the\n"
 "    people who want download the file will be smaller."
 msgstr ""
-"Vous pouvez partager le fichier avec vos amis ou qui vous voulez, en leur"
-" fournissant un lien vers la page du fichier, le torrent, ou le lien "
-"magnet. Vous devriez aussi lancer le torrent dans votre client bittorent "
+"Vous devriez également lancer le torrent dans votre client bittorent "
 "favori, cela vous permettra de le partager, et donc d’améliorer la "
 "vitesse de téléchargement du fichier pour les gens à qui vous fournirer "
 "le lien."
@@ -287,8 +293,8 @@ msgid ""
 "network was built, the file\n"
 "    cannot be remotely deleted on the computers of the file-sharers. So "
 "while the file is gone\n"
-"    from the website, it can still be shared and accessible via a saved "
-"torrent file or magnet\n"
+"    from the website, it might still be shared and accessible via a saved"
+" torrent file or magnet\n"
 "    link."
 msgstr ""
 "Vous devez aller sur la page correspondant à votre fichier et entrer le "
@@ -299,11 +305,11 @@ msgstr ""
 "bittorent, supprimer le fichier sur le site ne permet pas  d’empêcher les"
 " gens de partager les torrents/magnet déjà publics."
 
-#: templates/help.html:40
+#: templates/help.html:41
 msgid "I see \"magnet link\", what’s this?"
 msgstr "Qu’est-ce qu’un « lien magnet » ?"
 
-#: templates/help.html:41
+#: templates/help.html:42
 msgid ""
 "Magnet links are created from the torrent file, in order to have \n"
 "    something easy to share between people, via text messaging or "
@@ -326,52 +332,52 @@ msgstr ""
 "Utiliser les liens magnet ne permet pas de profiter des avantages offerts"
 " par pleaseshare (vitesse minimale garantie)."
 
-#: templates/help.html:49
+#: templates/help.html:51
 msgid "What can I do here?"
 msgstr "Options disponibles"
 
-#: templates/help.html:51
+#: templates/help.html:53
 msgid "Multifile torrents are enabled"
 msgstr "Les torrents à fichiers multiples sont activés"
 
-#: templates/help.html:53
+#: templates/help.html:55
 msgid "Multifile torrents are disabled"
 msgstr "Les torrents à fichiers multiples sont désactivés"
 
-#: templates/help.html:56
+#: templates/help.html:58
 msgid "Adding webseeds to the torrent is enabled"
 msgstr "Ajouter des sources web dans le torrent est possible"
 
-#: templates/help.html:58
+#: templates/help.html:60
 msgid "Adding webseeds to the torrent is forbidden"
 msgstr "Ajouter des sources web dans le torrent est interdit"
 
-#: templates/help.html:61
+#: templates/help.html:63
 msgid "Adding trackers to the torrent is enabled"
 msgstr "Ajouter des trackers dans le torrent est possible"
 
-#: templates/help.html:63
+#: templates/help.html:65
 msgid "Adding trackers to the torrent is disabled"
 msgstr "Ajouter des trackers dans le torrent est interdit"
 
-#: templates/help.html:66
+#: templates/help.html:68
 msgid "Creation of private torrents is allowed"
 msgstr "Il est possible de créer des torrents privés"
 
-#: templates/help.html:68
+#: templates/help.html:70
 msgid "Creation of private torrents is forbidden"
 msgstr "Il est impossible de créer des torrents privés"
 
-#: templates/help.html:71
+#: templates/help.html:73
 #, python-format
 msgid "The max file size is %(maxsize)s MiB"
 msgstr "La taille maximum des fichiers est de %(maxsize)s Mio"
 
-#: templates/help.html:74
+#: templates/help.html:76
 msgid "The default trackers are:"
 msgstr "Les trackers par défaut sont :"
 
-#: templates/help.html:83
+#: templates/help.html:85
 msgid "The forced trackers are:"
 msgstr "Les trackers ajoutés automatiquement sont :"
 
@@ -412,12 +418,16 @@ msgid "You upload a file (or an archive, see the options below);"
 msgstr "Vous envoyez un fichier (ou une archive, selon les options activées) ;"
 
 #: templates/home.html:57
-msgid ""
-"You get a <strong>.torrent</strong> and a <strong>magnet link</strong> to"
-" share with your friends;"
-msgstr ""
-"Vous obtenez un fichier <strong>.torrent</strong> et un <strong>lien "
-"magnet</strong> à partager avec vos amis;"
+msgid "You get a <strong>.torrent</strong> file"
+msgstr "Vous obtenez un fichier <strong>.torrent</strong>"
+
+#: templates/home.html:57
+msgid "and a <strong>magnet link</strong>"
+msgstr "et un <strong>lien magnet</strong>"
+
+#: templates/home.html:57
+msgid "to share with your friends;"
+msgstr "à partager avec vos amis;"
 
 #: templates/home.html:58
 msgid ""

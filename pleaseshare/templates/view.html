@@ -51,7 +51,7 @@ PleaseShare - {{object.name}}
     {% endif %}
 </section>
 
-{% if object.multifile %}
+{% if object.multifile and object.get_files(config) %}
 <div class="row">
     <h4 class="small-header">{{ _('Files…') }}</h4>
     <pre id="files">{{object.get_files(config)}}</pre>

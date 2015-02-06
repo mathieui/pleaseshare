@@ -18,7 +18,7 @@ from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.babel import Babel, gettext as _
 
 from uuid import uuid4
-from os import makedirs
+from os import makedirs, environ
 from shutil import rmtree
 from hashlib import sha256
 from urllib.parse import quote
@@ -224,20 +224,25 @@ class Upload(db.Model):
         filelist = joinpath(config['UPLOAD_FOLDER'], self.uuid, 'file_list')
         folder = joinpath(config['UPLOAD_FOLDER'], self.uuid, self.name)
         if exists(filelist):
-            with open(filelist, 'r') as fd:
-                return fd.read()
+            with open(filelist, 'r', encoding='utf-8') as fdes:
+                return fdes.read()
         else:
             try:
-                proc = subprocess.Popen(['tree', '--noreport', '-ah', folder], stdout=subprocess.PIPE)
-                res = proc.communicate()[0]
-            except OSError:
-                res = b''
-                log.error('Call to `tree` failed.')
-            output = res.decode('utf-8').split('\n')
-            output[0] = str(self.name)
-            files = '\n'.join(output)
-            with open(filelist, 'w') as fdes:
-                fdes.write(files)
+                env = {'LC_ALL': 'en_US.UTF-8', 'PATH': environ.get('PATH', '')}
+                proc = subprocess.Popen(['tree', '--noreport', '-ah', folder],
+                                        stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+                                        env=env)
+                stdout, stderr = proc.communicate()
+            except Exception:
+                log.error('Call to `tree` failed.', exc_info=True)
+                files = ''
+            else:
+                output = stdout.decode('utf-8').split('\n')
+                output[0] = str(self.name)
+                files = '\n'.join(output)
+            finally:
+                with open(filelist, 'w', encoding='utf-8') as fdes:
+                    fdes.write(files)
             return files
 
 @babel.localeselector

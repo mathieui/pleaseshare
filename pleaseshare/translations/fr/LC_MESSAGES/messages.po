@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  VERSION\n"
 "Report-Msgid-Bugs-To: mathieui@mathieui.net\n"
-"POT-Creation-Date: 2015-02-06 02:00+0100\n"
+"POT-Creation-Date: 2015-02-06 12:05+0100\n"
 "PO-Revision-Date: 2015-02-04 10:18+0100\n"
 "Last-Translator: Mathieu Pasquet <mathieui@mathieui.net>\n"
 "Language-Team: fr <LL@li.org>\n"
@@ -17,47 +17,47 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 1.3\n"
 
-#: app.py:51
+#: app.py:52
 msgid "Upload not found"
 msgstr "Fichier non trouvé"
 
-#: app.py:64
+#: app.py:65
 msgid "Missing field in deletion form."
 msgstr "Champ non rempli dans le formulaire de suppression."
 
-#: app.py:72
+#: app.py:73
 msgid "Uploaded file {} not found."
 msgstr "Fichier {} non trouvé."
 
-#: app.py:80
+#: app.py:81
 msgid "Uploaded file {} cannot be deleted (no deletion password exists)."
 msgstr ""
 "Le fichier {} ne peut pas être supprimé (pas de mot de passe de "
 "suppression)."
 
-#: app.py:96
+#: app.py:97
 msgid "Upload {} deleted successfully."
 msgstr "Fichier {} supprimé."
 
-#: app.py:98
+#: app.py:99
 msgid "Wrong password"
 msgstr "Mauvais mot de passe"
 
-#: app.py:114
+#: app.py:115
 msgid "File required."
 msgstr "Fichier requis."
 
-#: app.py:123
+#: app.py:124
 msgid "Server error"
 msgstr "Erreur interne"
 
-#: app.py:158
+#: app.py:159
 msgid "Extracted archive too big, fallback to single-file upload."
 msgstr ""
 "Archive trop volumineuse pour être extraite, retour au mode fichier "
 "unique."
 
-#: app.py:160
+#: app.py:161
 msgid "Invalid archive, fallback to single-file upload."
 msgstr "Archive invalide, retour au mode fichier unique."
 
@@ -486,22 +486,27 @@ msgstr "Créateur"
 msgid "Description"
 msgstr "Description"
 
-#: templates/view.html:27
+#: templates/view.html:22
+msgid "Upload date"
+msgstr "Envoyé le"
+
+#: templates/view.html:28
 msgid "Download .torrent"
 msgstr "Télécharger le .torrent"
 
-#: templates/view.html:33
+#: templates/view.html:34
 msgid "Download file"
 msgstr "Télécharger le fichier"
 
-#: templates/view.html:40
+#: templates/view.html:41
 msgid "Magnet link"
 msgstr "Lien magnet"
 
-#: templates/view.html:49
+#: templates/view.html:50
 msgid "Delete"
 msgstr "Supprimer"
 
-#: templates/view.html:56
+#: templates/view.html:57
 msgid "Files…"
 msgstr "Fichiers…"
+

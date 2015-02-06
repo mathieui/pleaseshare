@@ -31,10 +31,11 @@ Install
 
 (do the Get started thing before that)
 
-First, edit the variables in ``pleaseshare/settings.cfg`` to fit your needs,
-everything is properly documented inside the file. If a ``local_settings.cfg``
-is available in the same directory, it will be used to override those defaults.
-You MUST consider changing the following:
+First, copy the ``pleaseshare/default_settings.py`` file to ``pleaseshare/local_settings.cfg``
+and edit it to fit your needs. Alternatively, you can set the ``$PLEASESHARE_CONFIG``
+environment variable to the absolute path of your config file (if a ``local_settings.cfg`` file
+is present, it will still override it, though). Every option is commented and has a purpose,
+and you MUST consider changing the following:
 
 - ``SECRET_KEY`` and ``WTF_CSRF_SECRET_KEY``, both set to the value of a local ``key`` variable
 - ``SQLALCHEMY_DATABASE_URI`` for database connection settings

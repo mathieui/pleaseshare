@@ -31,7 +31,8 @@ from pleaseshare.static_routes import static_pages
 
 
 app = flask.Flask(__name__)
-app.config.from_pyfile('settings.cfg')
+app.config.from_object('pleaseshare.default_settings')
+app.config.from_envvar('PLEASESHARE_CONFIG', silent=True)
 app.config.from_pyfile('local_settings.cfg', silent=True)
 app.jinja_env.add_extension('jinja2.ext.i18n')
 

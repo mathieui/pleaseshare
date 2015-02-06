@@ -35,7 +35,7 @@ PleaseShare - {{object.name}}
     </div>
     {% endif %}
 
-    {% if not object.private %}
+    {% if not object.private and config.SHOW_MAGNET_LINK %}
     <div class="row">
         <a class="button down" href="{{object.magnet}}">{{ _('Magnet link') }}</a>
         <input class="link" type="text" readonly value="{{object.magnet}}"/>

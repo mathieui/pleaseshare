@@ -1,0 +1,3 @@
+recursive-include pleaseshare/translations *.po *.mo
+recursive-include pleaseshare/static *
+recursive-include pleaseshare/templates *

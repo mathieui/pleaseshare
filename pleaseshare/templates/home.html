@@ -30,7 +30,7 @@ PleaseShare - {{ _('Upload') }}
                 </div>
                 {% if config.ALLOW_TRACKERS%}
                     <div class="row">
-                        <p class="six columns">{{ form.trackers.label }} {{ form.trackers(class='u-full-width') }}</p>
+                        <p>{{ form.trackers.label }} <textarea name="trackers" class="u-full-width">{% for tracker in config.DEFAULT_TRACKERS %}{{tracker}}{{"\n"}}{% endfor %}</textarea></p>
                     </div>
                     {% if config.ALLOW_PRIVATE%}
                         <p>{{ form.private }} {{ form.private.label(class='u-inline') }} </p>

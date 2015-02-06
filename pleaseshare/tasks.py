@@ -110,7 +110,6 @@ def _extract_zip(archivefile: zipfile.ZipFile, name: str, rep: str) -> bool:
                 chmod(member_location, 0o644)
     except: # extraction failed, remove leftover files
         import traceback
-        traceback.print_exc()
         log.info('Extraction of %s failed, falling back to single-file upload',
                  name, exc_info=True)
         rmtree(rep)

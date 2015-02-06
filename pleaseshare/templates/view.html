@@ -19,6 +19,7 @@ PleaseShare - {{object.name}}
     {% if object.description %}
     <dt>{{ _('Description') }}</dt><dd>{{object.description}}</dd>
     {% endif %}
+    {% if object.date %}<dt>{{ _('Upload date') }}</dt><dd>{{object.date.strftime('%Y-%m-%d')}}</dd>{% endif %}
     </dl>
 </div>
 

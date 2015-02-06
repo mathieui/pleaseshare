@@ -162,8 +162,9 @@ def handle_uploaded_file(file_storage, params):
             log.error('Invalid archive', exc_info=True)
 
     size = round(size / (1024.0**2), 2)
-    uploaded = Upload(uuid=uuid, name=filename, size=size, private=params.private)
-    uploaded.multifile = multifile
+    uploaded = Upload(uuid=uuid, name=filename, size=size, private=params.private,
+                      multifile=multifile, description=params.description,
+                      date=datetime.datetime.now())
     relative_url = quote(uploaded.get_file())
     webseeds = [webseed + relative_url for webseed in  app.config['OTHER_WEBSEEDS']]
     webseeds.append(app.config['UPLOADED_FILES_URL'] + relative_url)
@@ -172,7 +173,6 @@ def handle_uploaded_file(file_storage, params):
     torrent = create_torrent(data_path, "Created with pleaseshare", webseeds,
                              params.trackers, params.private)
     uploaded.magnet = torrent.save(joinpath(folder, "%s.torrent" % filename))
-    uploaded.description = params.description
 
     if params.uploader:
         uploaded.uploader = params.uploader

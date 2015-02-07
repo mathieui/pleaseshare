@@ -166,8 +166,8 @@ def handle_uploaded_file(file_storage, params):
                       multifile=multifile, description=params.description,
                       date=datetime.datetime.now())
     relative_url = quote(uploaded.get_file())
-    webseeds = [webseed + relative_url for webseed in  app.config['OTHER_WEBSEEDS']]
-    webseeds.append(app.config['UPLOADED_FILES_URL'] + relative_url)
+    webseeds = [app.config['UPLOADED_FILES_URL'] + relative_url]
+    webseeds.extend([webseed + relative_url for webseed in  app.config['OTHER_WEBSEEDS']])
     webseeds.extend(params.webseeds)
 
     torrent = create_torrent(data_path, "Created with pleaseshare", webseeds,

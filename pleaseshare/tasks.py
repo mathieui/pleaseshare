@@ -3,12 +3,12 @@ Tasks module:
 archive extraction, introspection, POST parameters parsing,
 torrent creation.
 """
-from os import mkdir, remove, chmod
-from os.path import abspath, basename, dirname, isdir, join as joinpath, realpath
-from shutil import rmtree
 import tarfile
 import zipfile
 import logging
+from shutil import rmtree
+from os import chmod, mkdir, remove
+from os.path import abspath, basename, dirname, isdir, join as joinpath, realpath
 from functools import singledispatch
 
 log = logging.getLogger(__name__)
@@ -73,10 +73,10 @@ def extract(archivefile, name, rep):
 @extract.register(tarfile.TarFile)
 def _extract_tar(archivefile: tarfile.TarFile, name: str, rep: str) -> bool:
     """Extract a tar archive """
-    mkdir(rep, mode=0o711)
     if not check_archive(archivefile, rep):
         raise BadArchive("malicious archive")
     try:
+        mkdir(rep, mode=0o711)
         for member in archivefile:
             archivefile.extract(member, rep, set_attrs=False)
             member_location = joinpath(rep, member.name)
